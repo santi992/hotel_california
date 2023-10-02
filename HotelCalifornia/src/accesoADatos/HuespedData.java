@@ -1,14 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package accesoADatos;
 
-/**
- *
- * @author SANTIAGONB
- */
+
+import entidades.Huesped;
+import java.awt.List;
+import java.sql.Connection;
+
 public class HuespedData {
-    
+
+    private Connection con;
+
+    public void agregarHuesped(Huesped huesped) {
+    }
+
+    public void modificarHuesped(Huesped huesped) {
+    }
+
+    public void eliminarHuesped(Huesped huesped) {
+    }
+
+    public List listarHuespedes() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Huesped obtenerHuesped(int idHuesped) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Huesped obtenerHuespedXDni(int dni) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

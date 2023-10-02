@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidades;
 
-/**
- *
- * @author SANTIAGONB
- */
+
+import java.time.LocalDate;
+
 public class Reserva {
-    
+
+    private int idReserva;
+
+    private int idHuesped;
+
+    private int idHabitacion;
+
+    private LocalDate fechaCheckIn;
+
+    private LocalDate fechaCheckOut;
+
+    private double precioTotal;
 }

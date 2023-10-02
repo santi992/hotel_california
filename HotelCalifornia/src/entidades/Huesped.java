@@ -1,14 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidades;
 
-/**
- *
- * @author SANTIAGONB
- */
 public class Huesped {
-    
+
+    private int idHuesped;
+
+    private String nombre;
+
+    private String apellido;
+
+    private int dni;
+
+    private String direccion;
+
+    private String provincia;
+
+    private String localidad;
+
+    private int celular;
+
+    private String correo;
 }
