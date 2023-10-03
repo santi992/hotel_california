@@ -4,7 +4,7 @@ public class Habitacion {
 
     private int idHabitacion;
 
-    private TipoHabitacion tipoHabitacion;
+    private int tipoHabitacion;
 
     private int piso;
 
@@ -15,7 +15,7 @@ public class Habitacion {
     public Habitacion() {
     }
 
-    public Habitacion(int idHabitacion, TipoHabitacion tipoHabitacion, int piso, boolean reserva, boolean estado) {
+    public Habitacion(int idHabitacion, int tipoHabitacion, int piso, boolean reserva, boolean estado) {
         this.idHabitacion = idHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.piso = piso;
@@ -31,11 +31,11 @@ public class Habitacion {
         this.idHabitacion = idHabitacion;
     }
 
-    public TipoHabitacion getTipoHabitacion() {
+    public int getTipoHabitacion() {
         return tipoHabitacion;
     }
 
-    public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
+    public void setTipoHabitacion(int tipoHabitacion) {
         this.tipoHabitacion = tipoHabitacion;
     }
 
@@ -66,5 +66,9 @@ public class Habitacion {
     @Override
     public String toString() {
         return "Habitacion{" + "idHabitacion=" + idHabitacion + ", tipoHabitacion=" + tipoHabitacion + ", piso=" + piso + '}';
+    }
+
+    public int getIdTipoHab() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
