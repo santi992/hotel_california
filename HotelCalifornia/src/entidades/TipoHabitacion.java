@@ -23,13 +23,6 @@ public class TipoHabitacion {
         this.precioxNoche = precioxNoche;
     }
 
-    public TipoHabitacion(String nombre, int cantPersonas, int cantCamas, double precioxNoche) {
-        this.nombre = nombre;
-        this.cantPersonas = cantPersonas;
-        this.cantCamas = cantCamas;
-        this.precioxNoche = precioxNoche;
-    }
-
     public int getIdTipoHab() {
         return idTipoHab;
     }
