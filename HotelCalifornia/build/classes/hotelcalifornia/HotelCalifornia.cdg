@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="HotelCalifornia">
+  <ClassDiagramComponents>
+    <Class name="Huesped" package="" visibility="public" xPosition="199.0" yPosition="32.0">
+      <Fields>
+        <Field name="idHuesped" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="apellido" type="String" visibility="private"/>
+        <Field name="dni" type="int" visibility="private"/>
+        <Field name="direccion" type="String" visibility="private"/>
+        <Field name="provincia" type="String" visibility="private"/>
+        <Field name="localidad" type="String" visibility="private"/>
+        <Field name="celular" type="int" visibility="private"/>
+        <Field name="correo" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Habitacion" package="" visibility="public" xPosition="778.0" yPosition="32.0">
+      <Fields>
+        <Field name="idHabitacion" type="int" visibility="private"/>
+        <Field name="tipoHabitacion" type="TipoHabitacion" visibility="private"/>
+        <Field name="piso" type="int" visibility="private"/>
+        <Field name="reserva" type="boolean" visibility="private"/>
+        <Field name="estado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="TipoHabitacion" package="" visibility="public" xPosition="1117.0" yPosition="32.0">
+      <Fields>
+        <Field name="idTipoHab" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="cantPersonas" type="int" visibility="private"/>
+        <Field name="cantCamas" type="int" visibility="private"/>
+        <Field name="precioxNoche" type="double" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Reserva" package="" visibility="public" xPosition="467.0" yPosition="32.0">
+      <Fields>
+        <Field name="idReserva" type="int" visibility="private"/>
+        <Field name="huesped" type="Huesped" visibility="private"/>
+        <Field name="habitacion" type="Habitacion" visibility="private"/>
+        <Field name="fechaCheckIn" type="LocalDate" visibility="private"/>
+        <Field name="fechaCheckOut" type="LocalDate" visibility="private"/>
+        <Field name="precioTotal" type="double" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="HuespedData" package="" visibility="public" xPosition="8.0" yPosition="339.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="agregarHuesped" returnType="void" visibility="public">
+          <Argument type="Huesped" name="huesped"/>
+        </Method>
+        <Method name="modificarHuesped" returnType="void" visibility="public">
+          <Argument type="Huesped" name="huesped"/>
+        </Method>
+        <Method name="eliminarHuesped" returnType="void" visibility="public">
+          <Argument type="Huesped" name="huesped"/>
+        </Method>
+        <Method name="listarHuespedes" returnType="List" visibility="public"/>
+        <Method name="obtenerHuesped" returnType="Huesped" visibility="public">
+          <Argument type="int" name="idHuesped"/>
+        </Method>
+        <Method name="obtenerHuespedXDni" returnType="Huesped" visibility="public">
+          <Argument type="int" name="dni"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="HabitacionData" package="" visibility="public" xPosition="979.0" yPosition="339.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="private"/>
+        <Field name="tipoData" type="TipoHabData" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="agregarHabitacion" returnType="void" visibility="public">
+          <Argument type="Habitacion" name="Habitacion"/>
+        </Method>
+        <Method name="modificarHabitacion" returnType="void" visibility="public">
+          <Argument type="Habitacion" name="habitacion"/>
+        </Method>
+        <Method name="eliminarHabitacion" returnType="void" visibility="public">
+          <Argument type="Habitacion" name="habitacion"/>
+        </Method>
+        <Method name="listarHabitacoinesDisponibles" returnType="List" visibility="public"/>
+        <Method name="listarHabitacoinesNoDisponibles" returnType="List" visibility="public"/>
+        <Method name="listarHabitacionesTodas" returnType="List" visibility="public"/>
+        <Method name="listarHabitacionesXPiso" returnType="List" visibility="public">
+          <Argument type="int" name="piso"/>
+        </Method>
+        <Method name="activarHabitacion" returnType="void" visibility="public">
+          <Argument type="int" name="idHabitacion"/>
+        </Method>
+        <Method name="desactivarHabitacion" returnType="void" visibility="public">
+          <Argument type="int" name="idHabitacion"/>
+        </Method>
+        <Method name="obtenerHabitacion" returnType="Habitacion" visibility="public">
+          <Argument type="int" name="idHAbitacion"/>
+        </Method>
+        <Method name="cambiarTipo" returnType="void" visibility="public">
+          <Argument type="Habitacion" name="habitacion"/>
+          <Argument type="TipoHabitacion" name="tipo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TipoHabData" package="" visibility="public" xPosition="1409.0" yPosition="339.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="private"/>
+        <Field name="habData" type="HabitacionData" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="agregarTipo" returnType="void" visibility="public">
+          <Argument type="TipoHabitacion" name="tipo"/>
+        </Method>
+        <Method name="modificarTipo" returnType="void" visibility="public">
+          <Argument type="TipoHabitacion" name="tipo"/>
+        </Method>
+        <Method name="eliminarTipo" returnType="void" visibility="public">
+          <Argument type="TipoHabitacion" name="tipo"/>
+        </Method>
+        <Method name="listarTipos" returnType="List" visibility="public"/>
+        <Method name="cambiarPrecio" returnType="double" visibility="public">
+          <Argument type="TipoHabitacion" name="tipo"/>
+          <Argument type="double" name="precio"/>
+        </Method>
+        <Method name="obtenerTipo" returnType="TipoHabitacion" visibility="public">
+          <Argument type="int" name="idTipoHab"/>
+        </Method>
+        <Method name="obtenerTipoXNombre" returnType="TipoHabitacion" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="obtenerTipoXHabitacion" returnType="TipoHabitacion" visibility="public">
+          <Argument type="Habitacion" name="habitacion"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ReservaData" package="" visibility="public" xPosition="341.0" yPosition="339.0">
+      <Fields>
+        <Field name="con" type="Connection" visibility="private"/>
+        <Field name="habData" type="HabitacionData" visibility="private"/>
+        <Field name="huData" type="HuespedData" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="agregarReserva" returnType="void" visibility="public">
+          <Argument type="Reserva" name="reserva"/>
+        </Method>
+        <Method name="modificarReserva" returnType="void" visibility="public">
+          <Argument type="Reserva" name="reserva"/>
+        </Method>
+        <Method name="eliminarReserva" returnType="void" visibility="public">
+          <Argument type="Reserva" name="reserva"/>
+        </Method>
+        <Method name="extenderReserva" returnType="void" visibility="public">
+          <Argument type="Reserva" name="reserva"/>
+          <Argument type="LocalDate" name="fecha"/>
+        </Method>
+        <Method name="listarReservas" returnType="List" visibility="public"/>
+        <Method name="listarReservasXHuesped" returnType="List" visibility="public">
+          <Argument type="Huesped" name="huesped"/>
+        </Method>
+        <Method name="listarReservasXHabitacion" returnType="List" visibility="public">
+          <Argument type="Habitacion" name="habitacion"/>
+        </Method>
+        <Method name="listarReservasXPiso" returnType="List" visibility="public">
+          <Argument type="int" name="piso"/>
+        </Method>
+        <Method name="listarReservasXHuesped" returnType="List" visibility="public">
+          <Argument type="Huesped" name="huesped"/>
+          <Argument type="LocalDate" name="fechaInicio"/>
+          <Argument type="LocalDate" name="fechaFin"/>
+        </Method>
+        <Method name="listarReservasXHabitacion" returnType="List" visibility="public">
+          <Argument type="Habitacion" name="habitacion"/>
+          <Argument type="LocalDate" name="fechaInicio"/>
+          <Argument type="LocalDate" name="fechaFin"/>
+        </Method>
+        <Method name="listarReservasXPiso" returnType="List" visibility="public">
+          <Argument type="int" name="piso"/>
+          <Argument type="LocalDate" name="fechaInicio"/>
+          <Argument type="LocalDate" name="fechaFin"/>
+        </Method>
+        <Method name="listarReservasXDni" returnType="List" visibility="public">
+          <Argument type="int" name="dni"/>
+        </Method>
+        <Method name="listarReservasXDni" returnType="List" visibility="public">
+          <Argument type="int" name="dni"/>
+          <Argument type="LocalDate" name="fechaInicio"/>
+          <Argument type="LocalDate" name="fechaFin"/>
+        </Method>
+        <Method name="listarReservas" returnType="List" visibility="public">
+          <Argument type="LocalDate" name="fechaInicio"/>
+          <Argument type="LocalDate" name="fechaFin"/>
+        </Method>
+        <Method name="obtenerReserva" returnType="Reserva" visibility="public">
+          <Argument type="int" name="idReserva"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Conexion" package="" visibility="public" xPosition="571.0" yPosition="853.0">
+      <Fields>
+        <Field name="url" type="String" visibility="private"/>
+        <Field name="db" type="String" visibility="private"/>
+        <Field name="user" type="String" visibility="private"/>
+        <Field name="pass" type="String" visibility="private"/>
+        <Field name="con" type="Conexion" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="conectar" returnType="Connection" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="tiene" source="HabitacionData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="TipoHabData" target="HabitacionData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="pertenece a" source="Habitacion" target="TipoHabitacion" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="tiene" source="ReservaData" target="HabitacionData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="HabitacionData" target="TipoHabData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="utiliza" source="TipoHabData" target="TipoHabitacion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="Reserva" target="Huesped" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="tiene" source="ReservaData" target="HuespedData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="utiliza" source="ReservaData" target="Reserva" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="HuespedData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="ReservaData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="TipoHabData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="utiliza" source="HabitacionData" target="Habitacion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="utiliza" source="HuespedData" target="Huesped" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="Reserva" target="Habitacion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
