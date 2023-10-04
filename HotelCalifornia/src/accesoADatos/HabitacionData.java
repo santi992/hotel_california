@@ -120,7 +120,8 @@ public class HabitacionData {
                 Habitacion habs = new Habitacion();
 
                habs.setIdHabitacion(rs.getInt("idHabitacion"));
-               habs.setTipoHabitacion(rs.getInt("IdTipoHab"));
+               // reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
+               habs.setTipoHabitacion(tipoData.obtenerTipo( rs.getInt("IdTipoHab")));
                habs.setPiso(rs.getInt("piso"));
                habs.setReserva(rs.getBoolean("reserva"));
                habs.setEstado(rs.getBoolean("estado"));
@@ -144,7 +145,7 @@ public class HabitacionData {
                 while (rs.next()) {
                     Habitacion habitacion = new Habitacion();
                     habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
-                    habitacion.setTipoHabitacion(rs.getInt("IdTipoHab"));
+                    habitacion.setTipoHabitacion(tipoData.obtenerTipo( rs.getInt("IdTipoHab")));
                     habitacion.setPiso(rs.getInt("piso"));
                     habitacion.setReserva(rs.getBoolean("reserva"));
                     habitacion.setEstado(rs.getBoolean("estado"));
@@ -161,14 +162,15 @@ public class HabitacionData {
     
 
     public void activarHabitacion(int idHabitacion) {
-    //A que se refiere con activar habitacion???
+    //A que se refiere con activar habitacion??? - Estado: true
     }
 
     public void desactivarHabitacion(int idHabitacion) {
+        //Estado: false
     }
 
     public Habitacion obtenerHabitacion(int idHabitacion) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //Pasar un Id y que devuelva el objeto "Habitacion" - buscar hab x ID - Alumno dato
     }
     
     
