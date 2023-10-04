@@ -42,8 +42,8 @@
     <Class name="Reserva" package="" visibility="public" xPosition="467.0" yPosition="32.0">
       <Fields>
         <Field name="idReserva" type="int" visibility="private"/>
-        <Field name="idHuesped" type="int" visibility="private"/>
-        <Field name="idHabitacion" type="int" visibility="private"/>
+        <Field name="huesped" type="Huesped" visibility="private"/>
+        <Field name="habitacion" type="Habitacion" visibility="private"/>
         <Field name="fechaCheckIn" type="LocalDate" visibility="private"/>
         <Field name="fechaCheckOut" type="LocalDate" visibility="private"/>
         <Field name="precioTotal" type="double" visibility="private"/>
@@ -222,20 +222,20 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <UseRelation name="utiliza" source="ReservaData" target="Reserva" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="tiene" source="Reserva" target="Habitacion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="tiene" source="ReservaData" target="HabitacionData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation name="utiliza" source="HuespedData" target="Huesped" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="tiene" source="HuespedData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation name="utiliza" source="HabitacionData" target="Habitacion" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation name="utiliza" source="TipoHabData" target="TipoHabitacion" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="tiene" source="ReservaData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="tiene" source="ReservaData" target="HuespedData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="tiene" source="TipoHabData" target="HabitacionData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="tiene" source="HabitacionData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="tiene" source="HabitacionData" target="TipoHabData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="TipoHabData" target="HabitacionData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="pertenece a" source="Habitacion" target="TipoHabitacion" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="tiene" source="ReservaData" target="HabitacionData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="HabitacionData" target="TipoHabData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="utiliza" source="TipoHabData" target="TipoHabitacion" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="tiene" source="Reserva" target="Huesped" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="tiene" source="ReservaData" target="HuespedData" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="utiliza" source="ReservaData" target="Reserva" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="HuespedData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="ReservaData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="tiene" source="TipoHabData" target="Conexion" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="utiliza" source="HabitacionData" target="Habitacion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="utiliza" source="HuespedData" target="Huesped" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tiene" source="Reserva" target="Habitacion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
   </ClassDiagramRelations>
 </ClassDiagram>

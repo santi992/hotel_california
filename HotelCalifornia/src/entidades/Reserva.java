@@ -7,34 +7,42 @@ public class Reserva {
 
     private int idReserva;
 
-    private int idHuesped;
+    private Huesped huesped;
 
-    private int idHabitacion;
+    private Habitacion habitacion;
 
     private LocalDate fechaCheckIn;
 
     private LocalDate fechaCheckOut;
+    
+    private int cantPersonas;
 
     private double precioTotal;
+    
+    private boolean estado;
 
     public Reserva() {
     }
 
-    public Reserva(int idReserva, int idHuesped, int idHabitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut, double precioTotal) {
+    public Reserva(int idReserva, Huesped huesped, Habitacion habitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut, int cantPersonas, double precioTotal, boolean estado) {
         this.idReserva = idReserva;
-        this.idHuesped = idHuesped;
-        this.idHabitacion = idHabitacion;
+        this.huesped = huesped;
+        this.habitacion = habitacion;
         this.fechaCheckIn = fechaCheckIn;
         this.fechaCheckOut = fechaCheckOut;
+        this.cantPersonas = cantPersonas;
         this.precioTotal = precioTotal;
+        this.estado = estado;
     }
 
-    public Reserva(int idHuesped, int idHabitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut, double precioTotal) {
-        this.idHuesped = idHuesped;
-        this.idHabitacion = idHabitacion;
+    public Reserva(Huesped huesped, Habitacion habitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut, int cantPersonas, double precioTotal, boolean estado) {
+        this.huesped = huesped;
+        this.habitacion = habitacion;
         this.fechaCheckIn = fechaCheckIn;
         this.fechaCheckOut = fechaCheckOut;
+        this.cantPersonas = cantPersonas;
         this.precioTotal = precioTotal;
+        this.estado = estado;
     }
 
     public int getIdReserva() {
@@ -45,20 +53,20 @@ public class Reserva {
         this.idReserva = idReserva;
     }
 
-    public int getIdHuesped() {
-        return idHuesped;
+    public Huesped getHuesped() {
+        return huesped;
     }
 
-    public void setIdHuesped(int idHuesped) {
-        this.idHuesped = idHuesped;
+    public void setHuesped(Huesped huesped) {
+        this.huesped = huesped;
     }
 
-    public int getIdHabitacion() {
-        return idHabitacion;
+    public Habitacion getHabitacion() {
+        return habitacion;
     }
 
-    public void setIdHabitacion(int idHabitacion) {
-        this.idHabitacion = idHabitacion;
+    public void setHabitacion(Habitacion habitacion) {
+        this.habitacion = habitacion;
     }
 
     public LocalDate getFechaCheckIn() {
@@ -77,6 +85,14 @@ public class Reserva {
         this.fechaCheckOut = fechaCheckOut;
     }
 
+    public int getCantPersonas() {
+        return cantPersonas;
+    }
+
+    public void setCantPersonas(int cantPersonas) {
+        this.cantPersonas = cantPersonas;
+    }
+
     public double getPrecioTotal() {
         return precioTotal;
     }
@@ -85,9 +101,17 @@ public class Reserva {
         this.precioTotal = precioTotal;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "Reserva{" + "idReserva=" + idReserva + ", idHuesped=" + idHuesped + ", idHabitacion=" + idHabitacion + '}';
+        return "Reserva{" + "idReserva=" + idReserva + ", huesped=" + huesped + ", habitacion=" + habitacion + ", precioTotal=" + precioTotal + '}';
     }
-    
+
 }
