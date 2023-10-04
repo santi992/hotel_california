@@ -21,7 +21,14 @@ public class ReservaData {
     private HabitacionData habData;
 
     private HuespedData huData;
-
+    
+    public ReservaData(){
+        con = Conexion.conectar();
+        habData = new HabitacionData();
+        huData = new HuespedData();
+    }
+    
+ // CHECKEADO
     public void agregarReserva(Reserva reserva) {
 
         String sql = "INSERT INTO reserva(idHuesped, idHabitacion, fechaCheckIn, fechaCheckOut, cantPersonas, precioFinal, estado) VALUES (?,?,?,?,?,?,?)";
@@ -50,7 +57,8 @@ public class ReservaData {
         }
 
     }
-
+    
+ // CHECKEADO
     public void modificarReserva(Reserva reserva) {
 
         String sql = "UPDATE reserva SET idHuesped = ?, idHabitacion = ?, fechaCheckIn = ?, fechaCheckOut = ?, cantPersonas = ?, precioFinal = ?, estado = ? WHERE idReserva = ?";
@@ -76,7 +84,8 @@ public class ReservaData {
         }
 
     }
-
+    
+ // CHECKEADO
     public void eliminarReserva(Reserva reserva) {
 
         String sql = "UPDATE reserva SET estado = ? WHERE idReserva = ?";
@@ -96,15 +105,16 @@ public class ReservaData {
         }
 
     }
+    
+ // CHECKEADO
+    public void extenderReserva(Reserva reserva, LocalDate fecha, double precioFinal) {
 
-    public void extenderReserva(Reserva reserva, LocalDate fecha, Double precioFinal) {
-
-        String sql = "UPDATE reserva SET  fechaCheckOut = ? precioFinal = ? WHERE idReserva = ?";
+        String sql = "UPDATE reserva SET  fechaCheckOut = ?, precioFinal = ? WHERE idReserva = ?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
-            ps.setDate(1, Date.valueOf(reserva.getFechaCheckOut()));
-            ps.setDouble(2, reserva.getPrecioTotal());
+            ps.setDate(1, Date.valueOf(fecha));
+            ps.setDouble(2, precioFinal);
             ps.setInt(3, reserva.getIdReserva());
             int exito = ps.executeUpdate();
             if (exito == 1) {
@@ -235,7 +245,7 @@ public class ReservaData {
         Reserva reserva;
 
         try {
-            String sql = "SELECT * FROM reserva Where estado = 1 AND idHuesped = " + huesped.getIdHuesped() + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckOut <= '" + fechaFin + "'";
+            String sql = "SELECT * FROM reserva Where estado = 1 AND idHuesped = " + huesped.getIdHuesped() + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckIn <= '" + fechaFin + "'";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -263,7 +273,7 @@ public class ReservaData {
         Reserva reserva;
 
         try {
-            String sql = "SELECT * FROM reserva WHERE estado = 1 AND idHabitacion = " + habitacion.getIdHabitacion() + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckOut <= '" + fechaFin + "'";
+            String sql = "SELECT * FROM reserva WHERE estado = 1 AND idHabitacion = " + habitacion.getIdHabitacion() + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckIn <= '" + fechaFin + "'";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -291,7 +301,7 @@ public class ReservaData {
         Reserva reserva;
 
         try {
-            String sql = "SELECT reserva.*, piso FROM reserva JOIN habitacion ON reserva.idHabitacion = habitacion.idHabitacion WHERE reserva.estado = 1 AND piso = " + piso + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckOut <= '" + fechaFin + "'";
+            String sql = "SELECT reserva.*, piso FROM reserva JOIN habitacion ON reserva.idHabitacion = habitacion.idHabitacion WHERE reserva.estado = 1 AND piso = " + piso + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckIn <= '" + fechaFin + "'";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -349,7 +359,7 @@ public class ReservaData {
         Huesped huesped = huData.obtenerHuespedXDni(dni);
 
         try {
-            String sql = "SELECT * FROM reserva Where estado = 1 AND idHuesped = " + huesped.getIdHuesped() + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckOut <= '" + fechaFin + "'";
+            String sql = "SELECT * FROM reserva Where estado = 1 AND idHuesped = " + huesped.getIdHuesped() + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckIn <= '" + fechaFin + "'";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -377,7 +387,7 @@ public class ReservaData {
         Reserva reserva;
 
         try {
-            String sql = "SELECT * FROM reserva Where estado = 1  AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckOut <= '" + fechaFin + "'";
+            String sql = "SELECT * FROM reserva Where estado = 1  AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckIn <= '" + fechaFin + "'";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
