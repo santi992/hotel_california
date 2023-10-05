@@ -119,7 +119,7 @@ public class HabitacionData {
 
                 habs.setIdHabitacion(rs.getInt("idHabitacion"));
                 // reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                habs.setTipoHabitacion(tipoData.obtenerTipo(rs.getInt("IdTipoHab")));
+                habs.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                 habs.setPiso(rs.getInt("piso"));
                 habs.setReserva(rs.getBoolean("reserva"));
                 habs.setEstado(rs.getBoolean("estado"));
@@ -143,7 +143,7 @@ public class HabitacionData {
                 while (rs.next()) {
                     Habitacion habitacion = new Habitacion();
                     habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
-                    habitacion.setTipoHabitacion(tipoData.obtenerTipo(rs.getInt("IdTipoHab")));
+                    habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                     habitacion.setPiso(rs.getInt("piso"));
                     habitacion.setReserva(rs.getBoolean("reserva"));
                     habitacion.setEstado(rs.getBoolean("estado"));
@@ -202,7 +202,7 @@ public class HabitacionData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
-                habitacion.setTipoHabitacion(tipoData.obtenerTipo(rs.getInt("IdTipoHab")));
+                habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                 habitacion.setPiso(rs.getInt("piso"));
                 habitacion.setReserva(rs.getBoolean("reserva"));
                 habitacion.setEstado(true);
