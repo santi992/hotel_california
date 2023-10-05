@@ -5,6 +5,10 @@
  */
 package vistas;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author SANTIAGONB
@@ -33,7 +37,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jEscritorio = new javax.swing.JDesktopPane();
+        ImageIcon fondoIcon = new ImageIcon(getClass().getResource("/imagenes/fondo.jpg"));
+        Image fondoImagen = fondoIcon.getImage();
+        jEscritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage(fondoImagen,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuHuespedes = new javax.swing.JMenu();
         jMenuManejoHu = new javax.swing.JMenuItem();
@@ -61,9 +71,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema de gestión para hotelería");
+        setTitle("Hotel California: Sistema de gestión para hotelería");
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/hc_logo.png")).getImage());
         setMinimumSize(new java.awt.Dimension(700, 400));
-        setPreferredSize(new java.awt.Dimension(700, 400));
 
         jEscritorio.setBackground(new java.awt.Color(153, 204, 255));
 
