@@ -62,20 +62,20 @@ public class HotelCalifornia {
 //    public Huesped obtenerHuesped(int idHuesped) {
 //    public Huesped obtenerHuespedXDni(int dni) {
       // `nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`,estado
-       Huesped prueba1 = new Huesped("Huesped", "Prueba", 2000000, "Calle X", "Misiones", "Posadas", 20202020, "correo@gmail.com",true);
-
-       huespedData.agregarHuesped(prueba1);                      
-       prueba1.setNombre("pesacardo");
-       prueba1.setApellido("pesacardo");
-       prueba1.setDni(37449525);
-       prueba1.setDireccion("av xdddd");
-       prueba1.setProvincia("Santa Fe");
-       prueba1.setLocalidad("Galvez");
-       prueba1.setCelular(456315848);
-       prueba1.setCorreo("chari230893@gmail.com");
-       huespedData.modificarHuesped(huesped);
+       //Huesped prueba1 = new Huesped("Huesped", "Prueba", 2000000, "Calle X", "Misiones", "Posadas", 20202020, "correo@gmail.com",true);
+//
+//       huespedData.agregarHuesped(prueba1);                      
+//       prueba1.setNombre("pesacardo");
+//       prueba1.setApellido("pesacardo");
+//       prueba1.setDni(37449525);
+//       prueba1.setDireccion("av xdddd");
+//       prueba1.setProvincia("Santa Fe");
+//       prueba1.setLocalidad("Galvez");
+//       prueba1.setCelular(456315848);
+//       prueba1.setCorreo("chari230893@gmail.com");
+//       huespedData.modificarHuesped(prueba1);
        
-       //huespedData.eliminarHuesped(0);
+       //huespedData.eliminarHuesped(14);
        
        List<Huesped> huespedList = new ArrayList<>();
        huespedList = huespedData.listarHuespedes();
@@ -83,10 +83,10 @@ public class HotelCalifornia {
             System.out.println(mostrar);
         }
         
-        Huesped traerxId = huespedData.obtenerHuesped(0);
-        System.out.println(traerxId);
-        Huesped traerxDni = huespedData.obtenerHuespedXDni(0);
-        System.out.println(traerxDni);
+        Huesped traerxId = huespedData.obtenerHuesped(5);
+        System.out.println(traerxId + " ejemplo obtener");
+        Huesped traerxDni = huespedData.obtenerHuespedXDni(37449525);
+        System.out.println(traerxDni + " ejemplo obtener por dni");
         
 
     }
