@@ -90,9 +90,8 @@ public class HuespedData {
 }
 
     public List listarHuespedes() {
-           List<Huesped> huespeds= new ArrayList<>();
-          
-         // `nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`     
+           List<Huesped> huespedes= new ArrayList<>();
+                     
         try {
             String sql= "SELECT * From huesped Where estado =1";
         
@@ -101,25 +100,85 @@ public class HuespedData {
             while(rs.next()){
                 Huesped huesped= new Huesped();
                 huesped.setIdHuesped(rs.getInt("idHuesped"));
-                huesped.setDni(rs.getInt("dni"));
-                huesped.setApellido(rs.getString("apellido"));
                 huesped.setNombre(rs.getString("nombre"));
-                huesped.setEstado(rs.getBoolean("estado"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getInt("dni"));
+                huesped.setDireccion(rs.getString("Domicilio"));
+                huesped.setProvincia(rs.getString("Localidad"));
+                huesped.setCorreo(rs.getString("Correo"));
+                huesped.setCelular(rs.getInt("Celular"));
+                huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
                 
-                huespeds.add(huesped);
+                huespedes.add(huesped);
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped"+ex.getMessage());
         }
-           return huespeds;
+           return huespedes;
     }
 
     public Huesped obtenerHuesped(int idHuesped) {
-        throw new UnsupportedOperationException("Not supported yet.");
+         Huesped huesped=null;
+            String sql= " SELECT `nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`  FROM huesped Where idHuesped=? AND estado=1";
+            PreparedStatement ps= null;
+        try {
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, idHuesped);
+            ResultSet rs= ps.executeQuery();
+            if (rs.next()){
+                huesped=new Huesped();
+                huesped.setIdHuesped(idHuesped);
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getInt("dni"));
+                huesped.setDireccion(rs.getString("Domicilio"));
+                huesped.setProvincia(rs.getString("Localidad"));
+                huesped.setCorreo(rs.getString("Correo"));
+                huesped.setCelular(rs.getInt("Celular"));
+                huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
+            } else {
+                JOptionPane.showMessageDialog(null, "El huesped no existe o se encuentra inactivo");
+                ps.close();
+            }
+        }
+           catch (SQLException ex) {
+               JOptionPane.showMessageDialog(null,"Error al acceder a la tabla Huesped "+ ex.getMessage());
+            
+           } return huesped;
+            
+                 
+      
+    
     }
 
     public Huesped obtenerHuespedXDni(int dni) {
-        throw new UnsupportedOperationException("Not supported yet.");
+         Huesped huesped=null;
+            String sql= " SELECT  idHuesped,`nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular` FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
+            PreparedStatement ps= null;
+        try {
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet rs= ps.executeQuery();
+            if (rs.next()){
+                huesped=new Huesped();
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getInt("dni"));
+                huesped.setDireccion(rs.getString("Domicilio"));
+                huesped.setProvincia(rs.getString("Localidad"));
+                huesped.setCorreo(rs.getString("Correo"));
+                huesped.setCelular(rs.getInt("Celular"));
+                huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el huesped o se enuentra inactivo.");
+                ps.close();
+            }
+        }
+           catch (SQLException ex) {
+               JOptionPane.showMessageDialog(null,"Error al acceder a la tabla Huesped "+ ex.getMessage());
+            
+           } return huesped;
     }
 }
