@@ -20,7 +20,7 @@ public class HuespedData {
    
         public void agregarHuesped(Huesped huesped) {
            String sql= "INSERT INTO huesped(`nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`,estado)"
-                   + " VALUES (?,?,?,?,?,?,?,?)";
+                   + " VALUES (?,?,?,?,?,?,?,?,?)";
            
            
         PreparedStatement ps;
