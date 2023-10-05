@@ -67,8 +67,42 @@ public class TipoHabData {
            
     }
     }
-    public void eliminarTipo(TipoHabitacion tipo) {//veeer no hay estado
+    public void DarDeBajaTipo(TipoHabitacion tipo) {//veeer no hay estado
+        String sql=" UPDATE tipohabitacion SET `estado`=0 WHERE idTipoHab=?";
+       PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, tipo.getIdTipoHab());
+            int ok=ps.executeUpdate();
+            if(ok==1){
+                JOptionPane.showConfirmDialog(null, "El tipo habitación con id:"+ tipo.getIdTipoHab()+ " se ha dado de baja exitosamente");
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "***ERROR*** al acceder a la tabla tipoHabitación "+ ex);
+        }
+       
+        
     }
+public void DarDeAltaTipo(TipoHabitacion tipo) {//veeer no hay estado
+        String sql=" UPDATE tipohabitacion SET `estado`=1 WHERE idTipoHab=?";
+       PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, tipo.getIdTipoHab());
+            int ok=ps.executeUpdate();
+            if(ok==1){
+                JOptionPane.showConfirmDialog(null, "El tipo habitación con id:"+ tipo.getIdTipoHab()+ " se ha dado de alta exitosamente");
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "***ERROR*** al acceder a la tabla tipoHabitación "+ ex);
+        }
+       
+        
+    }
+
+    
 
     public ArrayList<TipoHabitacion> listarTipos() {
 //        	
