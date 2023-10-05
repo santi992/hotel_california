@@ -19,7 +19,7 @@ public class HuespedData {
         }
    
         public void agregarHuesped(Huesped huesped) {
-           String sql= "INSERT INTO huesped(`nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`)"
+           String sql= "INSERT INTO huesped(`nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`,estado)"
                    + " VALUES (?,?,?,?,?,?,?,?)";
            
            
@@ -34,7 +34,7 @@ public class HuespedData {
             ps.setString(6, huesped.getLocalidad());
             ps.setString(7, huesped.getCorreo());
             ps.setInt(8, huesped.getCelular());
-
+            ps.setBoolean(9, huesped.isEstado());
             ps.executeUpdate();
             
             ResultSet rs= ps.getGeneratedKeys();

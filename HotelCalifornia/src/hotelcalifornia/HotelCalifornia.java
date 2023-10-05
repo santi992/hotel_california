@@ -46,17 +46,49 @@ public class HotelCalifornia {
         huespedData = new HuespedData();
         resData = new ReservaData();
         tipoData = new TipoHabData();
-        huesped = new Huesped(1, "Huesped", "Prueba", 2000000, "Calle X", "Misiones", "Posadas", 20202020, "correo@gmail.com");
-        tipoHabitacion = new TipoHabitacion(1, "Tipo de prueba", 10, 10, 900);
-        habitacion = new Habitacion(101, tipoHabitacion, 1, false, true);
-        reserva = new Reserva(huesped, habitacion, LocalDate.now(), LocalDate.now(), 1, 900, true);
+        //Huesped prueba1 = new Huesped(1, "Huesped", "Prueba", 2000000, "Calle X", "Misiones", "Posadas", 20202020, "correo@gmail.com",true);
+        //tipoHabitacion = new TipoHabitacion(1, "Tipo de prueba", 10, 10, 900);
+        //habitacion = new Habitacion(101, tipoHabitacion, 1, false, true);        reserva = new Reserva(huesped, habitacion, LocalDate.now(), LocalDate.now(), 1, 900, true);
 
-        probarReservaData();
-        
+        //probarReservaData();
+        probarHuespedData();
     }
     
     static void probarHuespedData(){
+//    public void agregarHuesped(Huesped huesped) {
+//    public void modificarHuesped(Huesped huesped) {
+//    public void eliminarHuesped(int id) {
+//    public List listarHuespedes() {
+//    public Huesped obtenerHuesped(int idHuesped) {
+//    public Huesped obtenerHuespedXDni(int dni) {
+      // `nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`,estado
+       Huesped prueba1 = new Huesped("Huesped", "Prueba", 2000000, "Calle X", "Misiones", "Posadas", 20202020, "correo@gmail.com",true);
+
+       huespedData.agregarHuesped(prueba1);                      
+       prueba1.setNombre("pesacardo");
+       prueba1.setApellido("pesacardo");
+       prueba1.setDni(37449525);
+       prueba1.setDireccion("av xdddd");
+       prueba1.setProvincia("Santa Fe");
+       prueba1.setLocalidad("Galvez");
+       prueba1.setCelular(456315848);
+       prueba1.setCorreo("chari230893@gmail.com");
+       huespedData.modificarHuesped(huesped);
+       
+       //huespedData.eliminarHuesped(0);
+       
+       List<Huesped> huespedList = new ArrayList<>();
+       huespedList = huespedData.listarHuespedes();
+        for (Huesped mostrar : huespedList) {
+            System.out.println(mostrar);
+        }
         
+        Huesped traerxId = huespedData.obtenerHuesped(0);
+        System.out.println(traerxId);
+        Huesped traerxDni = huespedData.obtenerHuespedXDni(0);
+        System.out.println(traerxDni);
+        
+
     }
     
     static void probarHabitacionData(){
