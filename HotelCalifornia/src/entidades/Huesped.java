@@ -20,10 +20,12 @@ public class Huesped {
 
     private String correo;
 
+    private boolean estado;
+    
     public Huesped() {
     }
 
-    public Huesped(int idHuesped, String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo) {
+    public Huesped(int idHuesped, String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo,boolean estado) {
         this.idHuesped = idHuesped;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -33,9 +35,18 @@ public class Huesped {
         this.localidad = localidad;
         this.celular = celular;
         this.correo = correo;
+        this.estado = estado;
     }
 
-    public Huesped(String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo) {
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public Huesped(String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo,boolean estado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -44,6 +55,7 @@ public class Huesped {
         this.localidad = localidad;
         this.celular = celular;
         this.correo = correo;
+        this.estado = estado;
     }
 
     public int getIdHuesped() {
