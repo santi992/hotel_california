@@ -13,14 +13,14 @@ import javax.swing.JOptionPane;
 
 public class HabitacionData {
 
-    private Connection con = null;
-
+    private Connection con;
+    private final TipoHabData tipoData;
     public HabitacionData() {
         con = Conexion.conectar();
+     tipoData = new TipoHabData(); 
     }
-
-    private TipoHabData tipoData;
-
+   
+// 
     public void agregarHabitacion(Habitacion habitacion) {
 
         String sql = "INSERT INTO habitacion (idTipoHab,piso,reserva,estado)"
@@ -110,7 +110,7 @@ public class HabitacionData {
 
     public List<Habitacion> listarHabitacionesTodas() {
         List<Habitacion> habitaciones = new ArrayList<>();
-        String sql = "SELECT * FROM habitaciones";
+        String sql = "SELECT * FROM habitacion";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -136,7 +136,7 @@ public class HabitacionData {
     public List listarHabitacionesXPiso(int piso) {
 
         List<Habitacion> habsxPiso = new ArrayList<>();
-        String sql = "SELECT * FROM habitaciones WHERE piso = ?";
+        String sql = "SELECT * FROM habitacion WHERE piso = ?";
         try ( PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, piso);
             try ( ResultSet rs = ps.executeQuery()) {
@@ -157,7 +157,7 @@ public class HabitacionData {
     }
 
     public void activarHabitacion(Habitacion habitacion) {
-        String sql = "UPDATE habitaciones SET estado = ? WHERE idHabitacion = ?";
+        String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -175,7 +175,7 @@ public class HabitacionData {
     }
 
     public void desactivarHabitacion(Habitacion habitacion) {
-        String sql = "UPDATE habitaciones SET estado = ? WHERE idHabitacion = ?";
+        String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -194,7 +194,7 @@ public class HabitacionData {
 
     public Habitacion obtenerHabitacion(int idHabitacion) {
         Habitacion habitacion = new Habitacion();
-        String sql = " SELECT  idHabitacion,idTipoHab, piso, estado, reserva FROM habitaciones WHERE idHabitacion = ? AND estado = 1";
+        String sql = " SELECT  idHabitacion,idTipoHab, piso, estado, reserva FROM habitacion WHERE idHabitacion = ? AND estado = 1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -218,7 +218,7 @@ public class HabitacionData {
     }
 
     public void cambiarTipo(Habitacion habitacion, TipoHabitacion tipo) {
-        String sql = "UPDATE habitaciones SET idTipoHab = ? WHERE idHabitacion = ?";
+        String sql = "UPDATE habitacion SET idTipoHab = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
