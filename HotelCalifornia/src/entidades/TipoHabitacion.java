@@ -13,17 +13,19 @@ public class TipoHabitacion {
     private double precioxNoche;
     
     private String tipoCamas; //agregado
+    private boolean estado;//agregado
 
     public TipoHabitacion() {
     }
 
-    public TipoHabitacion(int idTipoHab, String nombre, int cantPersonas, int cantCamas, double precioxNoche, String tipoCamas) {
+    public TipoHabitacion(int idTipoHab, String nombre, int cantPersonas, int cantCamas, double precioxNoche, String tipoCamas, boolean estado) {
         this.idTipoHab = idTipoHab;
         this.nombre = nombre;
         this.cantPersonas = cantPersonas;
         this.cantCamas = cantCamas;
         this.precioxNoche = precioxNoche;
         this.tipoCamas= tipoCamas;
+        this.estado=estado;
     }
 
     public int getIdTipoHab() {
@@ -73,11 +75,19 @@ public class TipoHabitacion {
     public void setTipoCamas(String tipoCamas) {
         this.tipoCamas = tipoCamas;
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
     
 
     @Override
     public String toString() {
-        return "TipoHabitacion{" + "idTipoHab=" + idTipoHab + ", nombre=" + nombre + ", precioxNoche=" + precioxNoche + ", tipoCamas= " + tipoCamas +" }";
+        return "TipoHabitacion{" + "idTipoHab=" + idTipoHab + ", nombre=" + nombre + ", precioxNoche=" + precioxNoche + ", tipoCamas= " + tipoCamas + " estado"+ estado+"}";
     }
     
 }
