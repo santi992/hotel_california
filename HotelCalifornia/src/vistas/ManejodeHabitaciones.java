@@ -6,6 +6,8 @@ package vistas;
 
 import accesoADatos.HabitacionData;
 import entidades.Habitacion;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -169,30 +171,27 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                 jrbReservado.setSelected(hab.isReserva());
                 jrbEstado.setSelected(hab.isEstado());
             }                                        
-
+        
         } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(null, "El código ingresado debe ser un número");
    
         }
-    
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jcbIdTipoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbIdTipoHabActionPerformed
-                                             
-        var tipodeHabitacion=(Categoria)jcbRubro.getSelectedItem();
-        borrarFilas();
-        for(Producto p:DeTodoSA.listaProductos){
-            if(cateoriaSeleccionada.equals(p.getRubro())){
-                modelo.addRow(new Object[]{
-                    p.getCodigo(),
-                    p.getDescripcion(),
-                    p.getPrecio(),
-                    p.getStock()
-                });
-            }
-       
-        }  
-             
+        armarComboBox();
+    }
+ 
+    private void armarComboBox() {
+
+        HabitacionData hd = new HabitacionData();
+        List habitaciones = hd.listarHabitacionesTodas();
+
+        for (Object h : habitaciones) {
+            Habitacion habs = (Habitacion) h;
+            jcbIdTipoHab.addItem(habs.toString1());
+        }
+
     }//GEN-LAST:event_jcbIdTipoHabActionPerformed
                                          
         
@@ -208,10 +207,11 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jbBuscar;
-    private javax.swing.JComboBox<Habitacion> jcbIdTipoHab;
+    private javax.swing.JComboBox<String> jcbIdTipoHab;
     private javax.swing.JComboBox<Habitacion> jcbPiso;
     private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JRadioButton jrbReservado;
     private javax.swing.JTextField jtIdHab;
     // End of variables declaration//GEN-END:variables
 }
+

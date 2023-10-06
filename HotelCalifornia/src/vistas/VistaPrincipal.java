@@ -5,9 +5,11 @@
  */
 package vistas;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -103,6 +105,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuHabitaciones.setText("Habitaciones");
 
         jMenuManejoHab.setText("Manejo de habitaciones");
+        jMenuManejoHab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuManejoHabMouseClicked(evt);
+            }
+        });
+        jMenuManejoHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuManejoHabActionPerformed(evt);
+            }
+        });
         jMenuHabitaciones.add(jMenuManejoHab);
 
         jMenuTiposHab.setText("Tipos de habitaciones");
@@ -213,6 +225,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuSalirMouseClicked
 
+    private void jMenuManejoHabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuManejoHabMouseClicked
+       
+    }//GEN-LAST:event_jMenuManejoHabMouseClicked
+
+    private void jMenuManejoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuManejoHabActionPerformed
+        ManejodeHabitaciones manejoH = new ManejodeHabitaciones();
+        mostrarVista(manejoH);
+           
+    }//GEN-LAST:event_jMenuManejoHabActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -271,4 +293,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuSalir;
     private javax.swing.JMenuItem jMenuTiposHab;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarVista(JInternalFrame vista){
+        jEscritorio.removeAll();
+        jEscritorio.repaint();
+        vista.setVisible(true);
+        jEscritorio.add(vista);
+        Dimension desktopSize = jEscritorio.getSize();
+        Dimension FrameSize = vista.getSize();
+        vista.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        jEscritorio.moveToFront(vista);
+    }
+    
+    
+    
 }
+
+
