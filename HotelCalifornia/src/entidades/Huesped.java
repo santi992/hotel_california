@@ -131,9 +131,13 @@ public class Huesped {
         this.estado = estado;
     }
 
+    public String toStringOriginal() {
+        return "Huesped{" + "idHuesped=" + idHuesped + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", direccion=" + direccion + ", provincia=" + provincia + ", localidad=" + localidad + ", celular=" + celular + ", correo=" + correo + ", estado=" + estado + '}';
+    }
+    
     @Override
     public String toString() {
-        return "Huesped{" + "idHuesped=" + idHuesped + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", direccion=" + direccion + ", provincia=" + provincia + ", localidad=" + localidad + ", celular=" + celular + ", correo=" + correo + ", estado=" + estado + '}';
+        return apellido+" "+nombre+", ID: "+idHuesped;
     }
 
     

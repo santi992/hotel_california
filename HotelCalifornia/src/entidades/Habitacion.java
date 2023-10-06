@@ -63,14 +63,19 @@ public class Habitacion {
         this.estado = estado;
     }
 
-    @Override
-    public String toString() {
+    public String toStringOriginal() {
         return "Habitacion{" + "idHabitacion=" + idHabitacion + ", tipoHabitacion=" + tipoHabitacion + ", piso=" + piso + '}';
+    }
+    
+    @Override
+    public String toString(){
+        return "N° "+idHabitacion;
     }
     
     public String toString1(){
         return "{" + tipoHabitacion.getIdTipoHab() + "-" + tipoHabitacion.getTipoCamas()+"}";
     }
+    
     public int getIdTipoHab() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

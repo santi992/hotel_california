@@ -84,10 +84,13 @@ public class TipoHabitacion {
         this.estado = estado;
     }
     
-
+    public String toStringOriginal() {
+        return "TipoHabitacion{" + "idTipoHab=" + idTipoHab + ", nombre=" + nombre + ", precioxNoche=" + precioxNoche + ", tipoCamas= " + tipoCamas + " estado"+ estado+"}";
+    }
+    
     @Override
     public String toString() {
-        return "TipoHabitacion{" + "idTipoHab=" + idTipoHab + ", nombre=" + nombre + ", precioxNoche=" + precioxNoche + ", tipoCamas= " + tipoCamas + " estado"+ estado+"}";
+        return nombre+" - Camas: "+cantCamas+" de tipo "+tipoCamas;
     }
     
 }
