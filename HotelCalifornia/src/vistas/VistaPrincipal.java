@@ -210,7 +210,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuReservarHabActionPerformed
 
     private void jMenuTiposHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTiposHabActionPerformed
-        // TODO add your handling code here:
+         TipoHabitaciones tipoHabVista = new TipoHabitaciones();
+         mostrarVista(tipoHabVista);
     }//GEN-LAST:event_jMenuTiposHabActionPerformed
 
     private void jMenuAbanonarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAbanonarHabActionPerformed
@@ -232,7 +233,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void jMenuManejoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuManejoHabActionPerformed
         ManejodeHabitaciones manejoH = new ManejodeHabitaciones();
         mostrarVista(manejoH);
-           
+       
     }//GEN-LAST:event_jMenuManejoHabActionPerformed
 
     /**

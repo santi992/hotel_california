@@ -3,23 +3,21 @@ package accesoADatos;
 
 import entidades.Habitacion;
 import entidades.TipoHabitacion;
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+
 public class TipoHabData {
-    private Connection con;
-    private HabitacionData habData;
-        public TipoHabData(){
-        con= Conexion.conectar();
-    habData = new HabitacionData();
+    private Connection  con =null;   // atributo
+  //  private HabitacionData habData; // la habitacion tiene un tipoHabitacion 
+   
+   public TipoHabData(){     // constructor 
+        con = Conexion.conectar();
+  //  habData = new HabitacionData(); // No va!!, la habitacion tiene un tipoHabitacion 
     
     
 }
@@ -27,7 +25,7 @@ public class TipoHabData {
     public void agregarTipo(TipoHabitacion tipo) {
         String sql= "INSERT INTO TipoHabitacion (  nombre, cantPersonas,  cantCamas,  precioxNoche)"+
                 "VALUES(?,?,?,?)";
-        PreparedStatement ps;
+       PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(2, tipo.getNombre());
@@ -165,6 +163,7 @@ public void DarDeAltaTipo(TipoHabitacion tipo) {//veeer no hay estado
 //tipoCamas	
 //precioxNoche 
         TipoHabitacion busquedaxId = null;
+        Habitacion hab= null;
         String sql = "SELECT * FROM tipohabitacion WHERE idTipoHab=?";
 
         try {
@@ -173,10 +172,13 @@ public void DarDeAltaTipo(TipoHabitacion tipo) {//veeer no hay estado
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 busquedaxId = new TipoHabitacion();
+                hab=new Habitacion();
                 busquedaxId.setIdTipoHab(rs.getInt("idTipoHab"));
                 busquedaxId.setCantPersonas(rs.getInt("cantPersonas"));
                 busquedaxId.setCantCamas(rs.getInt("cantCamas"));
+                busquedaxId.setTipoCamas(rs.getString("tipoCamas"));
                 busquedaxId.setPrecioxNoche(rs.getDouble("precioxNoche"));
+               // hab.setIdHabitacion(rs.getInt("IdHabitacion")); buscar otra forma :/
             } else {
                 JOptionPane.showMessageDialog(null, "El idTipoHabitación:" + idTipoHab + " ingresado no existe o no está activo");
             }
@@ -201,6 +203,7 @@ public void DarDeAltaTipo(TipoHabitacion tipo) {//veeer no hay estado
                 busquedaxPrecio.setIdTipoHab(rs.getInt("idTipoHab"));
                 busquedaxPrecio.setCantPersonas(rs.getInt("cantPersonas"));
                 busquedaxPrecio.setCantCamas(rs.getInt("cantCamas"));
+                busquedaxPrecio.setTipoCamas(rs.getString("cantCamas"));
                 busquedaxPrecio.setPrecioxNoche(rs.getDouble("precioxNoche"));
             } else {
                 JOptionPane.showMessageDialog(null, "El monto" + precio + " ingresado no existe");
@@ -224,6 +227,7 @@ public void DarDeAltaTipo(TipoHabitacion tipo) {//veeer no hay estado
                 busquedaxCantCamas.setIdTipoHab(rs.getInt("idTipoHab"));
                 busquedaxCantCamas.setCantPersonas(rs.getInt("cantPersonas"));
                 busquedaxCantCamas.setCantCamas(rs.getInt("cantCamas"));
+                busquedaxCantCamas.setTipoCamas(rs.getString("cantCamas"));
                 busquedaxCantCamas.setPrecioxNoche(rs.getDouble("precioxNoche"));
             } else {
                 JOptionPane.showMessageDialog(null, "La cantidad de camas " + nroCamas + " ingresado no existe");
