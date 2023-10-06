@@ -52,6 +52,12 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tipo de Habitacion: ");
 
+        jcbIdTipoHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbIdTipoHabActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Piso: ");
 
         jrbReservado.setText("Reservado");
@@ -153,27 +159,41 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         try {
+            
             HabitacionData hd = new HabitacionData();
-            Habitacion hab = hd.buscarHabitacion(Integer.parseInt(jtIdHab.getText()));
-            if (h != null) {
+            Habitacion hab = hd.obtenerHabitacion(Integer.parseInt(jtIdHab.getText()));
+            if (hab != null) {
                 jtIdHab.setText(String.valueOf(hab.getIdHabitacion()));
-                jcbIdTipoHab.setText(hab.getTipoHabitacion());
-                jcbPiso.setText(String.valueOf(hab.getPiso()));
-                jrbReservado.setEnabled(true);
-                jrbEstado.setEnabled(true);
-                
-
-    }                                        
+                jcbIdTipoHab.setSelectedItem(hab.getIdTipoHab());
+                jcbPiso.setSelectedItem(hab.getPiso());
+                jrbReservado.setSelected(hab.isReserva());
+                jrbEstado.setSelected(hab.isEstado());
+            }                                        
 
         } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(null, "El código ingresado debe ser un número");
-
+   
         }
-    }
-
-            
-         
+    
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jcbIdTipoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbIdTipoHabActionPerformed
+                                             
+        var tipodeHabitacion=(Categoria)jcbRubro.getSelectedItem();
+        borrarFilas();
+        for(Producto p:DeTodoSA.listaProductos){
+            if(cateoriaSeleccionada.equals(p.getRubro())){
+                modelo.addRow(new Object[]{
+                    p.getCodigo(),
+                    p.getDescripcion(),
+                    p.getPrecio(),
+                    p.getStock()
+                });
+            }
+       
+        }  
+             
+    }//GEN-LAST:event_jcbIdTipoHabActionPerformed
                                          
         
                   
