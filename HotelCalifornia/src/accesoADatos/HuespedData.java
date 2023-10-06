@@ -19,7 +19,7 @@ public class HuespedData {
         }
    
         public void agregarHuesped(Huesped huesped) {
-           String sql= "INSERT INTO huesped(`nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`,estado)"
+           String sql= "INSERT INTO huesped(nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, Celular,estado)"
                    + " VALUES (?,?,?,?,?,?,?,?,?)";
            
            
@@ -52,8 +52,8 @@ public class HuespedData {
         }
     
         public void modificarHuesped(Huesped huesped) {
-    String sql="UPDATE huesped SET `nombre`=?, `apellido`=?, `dni`=?, `Domicilio`=?, `Provincia`=?, `Localidad`=?, `Correo`=?, `Celular`=?"
-            + "WHERE idAlumno=?";
+    String sql="UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, Celular=?"
+            + " WHERE idHuesped=?";
     PreparedStatement ps=null;
         try {
             ps= con.prepareStatement(sql);
@@ -65,7 +65,7 @@ public class HuespedData {
             ps.setString(6, huesped.getLocalidad());
             ps.setString(7, huesped.getCorreo());
             ps.setInt(8, huesped.getCelular());
-            ps.setInt(6, huesped.getIdHuesped());
+            ps.setInt(9, huesped.getIdHuesped());
             int exito= ps.executeUpdate();
             if (exito==1){
                 JOptionPane.showMessageDialog(null, "Modificado exitosamente.");
@@ -122,7 +122,7 @@ public class HuespedData {
 
     public Huesped obtenerHuesped(int idHuesped) {
          Huesped huesped=null;
-            String sql= " SELECT `nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`  FROM huesped Where idHuesped=? AND estado=1";
+            String sql= " SELECT nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, Celular,estado  FROM huesped Where idHuesped=? AND estado=1";
             PreparedStatement ps= null;
         try {
             ps=con.prepareStatement(sql);
@@ -130,12 +130,14 @@ public class HuespedData {
             ResultSet rs= ps.executeQuery();
             if (rs.next()){
                 huesped=new Huesped();
+                
                 huesped.setIdHuesped(idHuesped);
                 huesped.setNombre(rs.getString("nombre"));
                 huesped.setApellido(rs.getString("apellido"));
                 huesped.setDni(rs.getInt("dni"));
                 huesped.setDireccion(rs.getString("Domicilio"));
-                huesped.setProvincia(rs.getString("Localidad"));
+                huesped.setProvincia(rs.getString("Provincia"));
+                huesped.setLocalidad(rs.getString("Localidad"));
                 huesped.setCorreo(rs.getString("Correo"));
                 huesped.setCelular(rs.getInt("Celular"));
                 huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
@@ -156,7 +158,7 @@ public class HuespedData {
 
     public Huesped obtenerHuespedXDni(int dni) {
          Huesped huesped=null;
-            String sql= " SELECT  idHuesped,`nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular` FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
+            String sql= " SELECT  idHuesped,nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, Celular,estado FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
             PreparedStatement ps= null;
         try {
             ps=con.prepareStatement(sql);
@@ -169,7 +171,8 @@ public class HuespedData {
                 huesped.setApellido(rs.getString("apellido"));
                 huesped.setDni(rs.getInt("dni"));
                 huesped.setDireccion(rs.getString("Domicilio"));
-                huesped.setProvincia(rs.getString("Localidad"));
+                huesped.setProvincia(rs.getString("Provincia"));
+                huesped.setLocalidad(rs.getString("Localidad"));
                 huesped.setCorreo(rs.getString("Correo"));
                 huesped.setCelular(rs.getInt("Celular"));
                 huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo

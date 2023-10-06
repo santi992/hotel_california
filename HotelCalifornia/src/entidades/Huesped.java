@@ -38,13 +38,6 @@ public class Huesped {
         this.estado = estado;
     }
 
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
 
     public Huesped(String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo,boolean estado) {
         this.nombre = nombre;
@@ -130,8 +123,18 @@ public class Huesped {
         this.correo = correo;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "Huesped{" + "idHuesped=" + idHuesped + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + '}';
+        return "Huesped{" + "idHuesped=" + idHuesped + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", direccion=" + direccion + ", provincia=" + provincia + ", localidad=" + localidad + ", celular=" + celular + ", correo=" + correo + ", estado=" + estado + '}';
     }
+
+    
 }
