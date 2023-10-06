@@ -242,7 +242,10 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
        TipoHabData thd=  new TipoHabData();
        Habitacion hab=new Habitacion();
        TipoHabitacion th= thd.obtenerTipoxId(Integer.parseInt(jtfIdTipoHab.getText()));
-      
+       TipoHabitacion th2= thd.obtenerTipoxId(Integer.parseInt(jtfCantPersonas.getText()));
+       TipoHabitacion th3= thd.obtenerTipoxId(Integer.parseInt(jtfCantCamas.getText()));
+       TipoHabitacion th4= thd.obtenerTipoXCantCamas((jtfTipoCama.getText()));
+       TipoHabitacion th5=thd.obtenerTipoXPrecio(Double.parseDouble(jtfPrecioxNoche.getText()));
        if(th!=null){
            jtfIdHabitacion.setText(String.valueOf(hab.getIdHabitacion()));
            jtfCantPersonas.setText(String.valueOf(th.getCantCamas()));
@@ -256,9 +259,12 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
            jtfPrecioxNoche.setEditable(false);
            jtfIdHabitacion.setEditable(false);
            
-       }
+       } else if(th2!= null){
+                     
+                     }
          }catch(NumberFormatException ex){
              JOptionPane.showMessageDialog(null, "El id ingresado debe ser un número!");
+             
          }
            
        
