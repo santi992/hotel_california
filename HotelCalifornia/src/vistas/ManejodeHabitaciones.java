@@ -176,6 +176,15 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "El código ingresado debe ser un número");
    
         }
+<<<<<<< Updated upstream
+=======
+    
+
+
+            
+         
+
+>>>>>>> Stashed changes
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jcbIdTipoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbIdTipoHabActionPerformed
@@ -193,7 +202,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jcbIdTipoHabActionPerformed
-                                         
+                                    
         
                   
 
