@@ -64,7 +64,8 @@ public class HotelCalifornia {
       // `nombre`, `apellido`, `dni`, `Domicilio`, `Provincia`, `Localidad`, `Correo`, `Celular`,estado
        Huesped prueba1 = new Huesped("Huesped", "Prueba", 2000000, "Calle X", "Misiones", "Posadas", 20202020, "correo@gmail.com",true);
 
-       huespedData.agregarHuesped(prueba1);                      
+       huespedData.agregarHuesped(prueba1);   
+       
        prueba1.setNombre("pesacardo");
        prueba1.setApellido("pesacardo");
        prueba1.setDni(37449525);
