@@ -15,10 +15,14 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TipoHabData {
-
     private Connection con;
-
     private HabitacionData habData;
+        public TipoHabData(){
+        con= Conexion.conectar();
+    habData = new HabitacionData();
+    
+    
+}
 
     public void agregarTipo(TipoHabitacion tipo) {
         String sql= "INSERT INTO TipoHabitacion (  nombre, cantPersonas,  cantCamas,  precioxNoche)"+
