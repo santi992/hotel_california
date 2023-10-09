@@ -8,6 +8,7 @@ import accesoADatos.HabitacionData;
 import accesoADatos.TipoHabData;
 import entidades.Habitacion;
 import entidades.TipoHabitacion;
+import static hotelcalifornia.HotelCalifornia.obtenerId;
 import java.util.List;
 import java.util.TreeSet;
 import javax.swing.JOptionPane;
@@ -45,10 +46,10 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         jcbPiso = new javax.swing.JComboBox<>();
         jrbReservado = new javax.swing.JRadioButton();
         jrbEstado = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jbAgregar = new javax.swing.JButton();
+        jbModificar = new javax.swing.JButton();
+        jbEliminar = new javax.swing.JButton();
+        jbSalir = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -76,13 +77,18 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
         jrbEstado.setText("Estado");
 
-        jButton1.setText("Agregar");
+        jbAgregar.setText("Agregar");
+        jbAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAgregarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Modificar");
+        jbModificar.setText("Modificar");
 
-        jButton3.setText("Eliminar");
+        jbEliminar.setText("Eliminar");
 
-        jButton4.setText("Salir");
+        jbSalir.setText("Salir");
 
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -125,13 +131,13 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jbAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(jbModificar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(jbEliminar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(jbSalir)
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -157,10 +163,10 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                     .addComponent(jrbEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jbAgregar)
+                    .addComponent(jbModificar)
+                    .addComponent(jbEliminar)
+                    .addComponent(jbSalir))
                 .addGap(33, 33, 33))
         );
 
@@ -204,6 +210,22 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     private void jcbPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPisoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbPisoActionPerformed
+
+    private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
+    
+        HabitacionData habd = new HabitacionData();
+        String hab = (String)jcbTipoHabitacion.getSelectedItem();
+        
+        Habitacion habit = new Habitacion();
+        int id=Integer.parseInt(jtIdHab.getText());
+        habit.setIdHabitacion(id);
+        TipoHabitacion th= new TipoHabData().obtenerTipoxId(obtenerId(hab));
+        habit.setTipoHabitacion(th);
+        habit.setPiso((int)jcbPiso.getSelectedItem());
+        habd.agregarHabitacion(habit);
+        
+    }//GEN-LAST:event_jbAgregarActionPerformed
+           
     private void armarComboPiso(){
         HabitacionData habData = new HabitacionData();
         List habitaciones = habData.listarHabitacionesTodas();
@@ -220,15 +242,15 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     }  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbModificar;
+    private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Integer> jcbPiso;
     private javax.swing.JComboBox<String> jcbTipoHabitacion;
     private javax.swing.JRadioButton jrbEstado;
