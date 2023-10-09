@@ -8,6 +8,7 @@ package vistas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 
@@ -92,11 +93,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         );
 
         jMenuHuespedes.setText("Huespedes");
-        jMenuHuespedes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuHuespedesActionPerformed(evt);
-            }
-        });
 
         jMenuManejoHu.setText("Manejo de huéspedes");
         jMenuManejoHu.addActionListener(new java.awt.event.ActionListener() {
@@ -248,10 +244,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jMenuManejoHabActionPerformed
 
-    private void jMenuHuespedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHuespedesActionPerformed
-        ManejoDeHuespedes manejoH = new ManejoDeHuespedes();
-        mostrarVista(manejoH);
-    }//GEN-LAST:event_jMenuHuespedesActionPerformed
+    private void jMenuReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReservasActionPerformed
+       ManejoDeHuespedes manejoHue = new ManejoDeHuespedes();
+        mostrarVista(manejoHue);
+           }//GEN-LAST:event_jMenuReservasActionPerformed
 
     /**
      * @param args the command line arguments

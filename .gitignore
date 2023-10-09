@@ -30,4 +30,9 @@ replay_pid*
 /HotelCalifornia/build/
 /HotelCalifornia/nbproject/private/
 HotelCalifornia/nbproject/private/private.properties
+<<<<<<< Updated upstream
 /HotelCalifornia/dist/
+=======
+HotelCalifornia/nbproject/private/private.xml
+>>>>>>> Stashed changes
+HotelCalifornia/nbproject/private/private.properties
