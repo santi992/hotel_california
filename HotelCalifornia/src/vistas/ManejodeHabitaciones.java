@@ -5,7 +5,9 @@
 package vistas;
 
 import accesoADatos.HabitacionData;
+import accesoADatos.TipoHabData;
 import entidades.Habitacion;
+import entidades.TipoHabitacion;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -21,6 +23,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     public ManejodeHabitaciones() {
         initComponents();
         armarComboBox();
+        
     }
 
     /**
@@ -185,19 +188,18 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jcbIdTipoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbIdTipoHabActionPerformed
-        armarComboBox();
+        
     }
- 
-    private void armarComboBox() {
+     private void armarComboBox() {
+        
+        TipoHabData hd = new TipoHabData();
+        List tipoHabitacion = hd.listarTipos();
 
-        HabitacionData hd = new HabitacionData();
-        List habitaciones = hd.listarHabitacionesTodas();
-
-        for (Object h : habitaciones) {
-            Habitacion habs = (Habitacion) h;
+        for (Object h : tipoHabitacion) {
+            TipoHabitacion habs = (TipoHabitacion) h;
             jcbIdTipoHab.addItem(habs.toString1());
         }
-
+        jcbIdTipoHab.setSelectedIndex(-1);
     }//GEN-LAST:event_jcbIdTipoHabActionPerformed
                                     
         
