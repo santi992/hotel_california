@@ -73,7 +73,7 @@ public class Habitacion {
     }
     
     public String toString1(){
-        return "{" + tipoHabitacion.getIdTipoHab() + "-" + tipoHabitacion.getTipoCamas()+"}";
+        return tipoHabitacion.getIdTipoHab() + "-" + tipoHabitacion.getTipoCamas()+ " camas";
     }
     
     public int getIdTipoHab() {
