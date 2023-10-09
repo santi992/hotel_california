@@ -131,5 +131,21 @@ public class HotelCalifornia {
     static void probarTipoData(){
         
     }
+    
+    public static int obtenerId(String toString) {
+
+        int id = 0;
+        for (int i = 0; i < toString.length(); i++) {
+            String c = toString.charAt(i) + "";
+            System.out.println(c);
+            try {
+                int n = Integer.parseInt(c);
+                id = id * 10 + n;
+            } catch (NumberFormatException nf) {
+                return id;
+            }
+        }
+        return id;
+    }
 
 }
