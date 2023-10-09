@@ -79,6 +79,7 @@ public class ReservaData {
             } else {
                 JOptionPane.showMessageDialog(null, "La reserva no existe.");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
         }
@@ -100,6 +101,7 @@ public class ReservaData {
             } else {
                 JOptionPane.showMessageDialog(null, "La reserva no existe.");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
         }
@@ -122,6 +124,7 @@ public class ReservaData {
             } else {
                 JOptionPane.showMessageDialog(null, "La reserva no existe.");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
         }

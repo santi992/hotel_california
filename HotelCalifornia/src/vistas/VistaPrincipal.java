@@ -22,6 +22,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
      */
     public VistaPrincipal() {
         initComponents();
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         // COMENTARIO DE PRUEBA
     }
 
@@ -206,7 +207,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuDispHabActionPerformed
 
     private void jMenuReservarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReservarHabActionPerformed
-        // TODO add your handling code here:
+        ReservarHabitacion rHab = new ReservarHabitacion();
+        mostrarVista(rHab);
     }//GEN-LAST:event_jMenuReservarHabActionPerformed
 
     private void jMenuTiposHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTiposHabActionPerformed

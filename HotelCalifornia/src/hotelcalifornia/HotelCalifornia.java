@@ -40,18 +40,18 @@ public class HotelCalifornia {
     
     public static void main(String[] args) {
         
-        //new VistaPrincipal().setVisible(true); // Crea la vista principal
+        new VistaPrincipal().setVisible(true); // Crea la vista principal
         
-        habData = new HabitacionData();
-        huespedData = new HuespedData();
-        resData = new ReservaData();
-        tipoData = new TipoHabData();
+        //habData = new HabitacionData();
+        //huespedData = new HuespedData();
+        //resData = new ReservaData();
+        //tipoData = new TipoHabData();
         //Huesped prueba1 = new Huesped(1, "Huesped", "Prueba", 2000000, "Calle X", "Misiones", "Posadas", 20202020, "correo@gmail.com",true);
         //tipoHabitacion = new TipoHabitacion(1, "Tipo de prueba", 10, 10, 900);
         //habitacion = new Habitacion(101, tipoHabitacion, 1, false, true);        reserva = new Reserva(huesped, habitacion, LocalDate.now(), LocalDate.now(), 1, 900, true);
 
         //probarReservaData();
-        probarHuespedData();
+        //probarHuespedData();
     }
     
     static void probarHuespedData(){

@@ -15,11 +15,12 @@ public class HabitacionData {
 
     private Connection con;
     private final TipoHabData tipoData;
+
     public HabitacionData() {
         con = Conexion.conectar();
-     tipoData = new TipoHabData(); 
+        tipoData = new TipoHabData();
     }
-   
+
 // 
     public void agregarHabitacion(Habitacion habitacion) {
 
@@ -66,6 +67,7 @@ public class HabitacionData {
             } else {
                 JOptionPane.showMessageDialog(null, "La habitacion no existe.");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitaciones" + ex.getMessage());
         }
@@ -73,12 +75,13 @@ public class HabitacionData {
 
     public void eliminarHabitacion(int idHabitacion) {
         String sql = "UPDATE habitacion SET estado=0 WHERE idHabitacion=?";
-        try ( PreparedStatement ps = con.prepareStatement(sql)) {
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
             int fila = ps.executeUpdate();
             if (fila == 1) {
                 JOptionPane.showMessageDialog(null, "Se eliminó la habitacion");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla habitacion");
         }
@@ -137,9 +140,9 @@ public class HabitacionData {
 
         List<Habitacion> habsxPiso = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE piso = ?";
-        try ( PreparedStatement ps = con.prepareStatement(sql)) {
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, piso);
-            try ( ResultSet rs = ps.executeQuery()) {
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Habitacion habitacion = new Habitacion();
                     habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
@@ -150,10 +153,36 @@ public class HabitacionData {
                     habsxPiso.add(habitacion);
                 }
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, " Error al acceder a las Habitaciones " + ex.getMessage());
         }
         return habsxPiso;
+    }
+
+    public List listarHabitacionesXPisoYTipo(int piso, TipoHabitacion tipo) {
+
+        List<Habitacion> habsxPisoYTipo = new ArrayList<>();
+        String sql = "SELECT * FROM habitacion WHERE piso = ? AND idTipoHab = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, piso);
+            ps.setInt(2, tipo.getIdTipoHab());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Habitacion habitacion = new Habitacion();
+                    habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
+                    habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
+                    habitacion.setPiso(rs.getInt("piso"));
+                    habitacion.setReserva(rs.getBoolean("reserva"));
+                    habitacion.setEstado(rs.getBoolean("estado"));
+                    habsxPisoYTipo.add(habitacion);
+                }
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a las Habitaciones " + ex.getMessage());
+        }
+        return habsxPisoYTipo;
     }
 
     public void activarHabitacion(Habitacion habitacion) {
@@ -169,6 +198,7 @@ public class HabitacionData {
             } else {
                 JOptionPane.showMessageDialog(null, "La habitacion no existe");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
         }
@@ -187,6 +217,7 @@ public class HabitacionData {
             } else {
                 JOptionPane.showMessageDialog(null, "La habitacion no existe");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
         }
@@ -208,8 +239,8 @@ public class HabitacionData {
                 habitacion.setEstado(true);
             } else {
                 JOptionPane.showMessageDialog(null, "No existe habitacion o se enuentra inactivo.");
-                ps.close();
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla habitacion " + ex.getMessage());
 
@@ -230,6 +261,7 @@ public class HabitacionData {
             } else {
                 JOptionPane.showMessageDialog(null, "La habitacion no existe");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
         }
