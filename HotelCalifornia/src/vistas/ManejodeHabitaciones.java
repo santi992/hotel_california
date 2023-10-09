@@ -9,6 +9,7 @@ import accesoADatos.TipoHabData;
 import entidades.Habitacion;
 import entidades.TipoHabitacion;
 import java.util.List;
+import java.util.TreeSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,7 +24,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     public ManejodeHabitaciones() {
         initComponents();
         armarComboBox();
-        
+        armarComboPiso();
     }
 
     /**
@@ -39,7 +40,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jtIdHab = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jcbIdTipoHab = new javax.swing.JComboBox<>();
+        jcbTipoHabitacion = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jcbPiso = new javax.swing.JComboBox<>();
         jrbReservado = new javax.swing.JRadioButton();
@@ -57,13 +58,19 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tipo de Habitacion: ");
 
-        jcbIdTipoHab.addActionListener(new java.awt.event.ActionListener() {
+        jcbTipoHabitacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbIdTipoHabActionPerformed(evt);
+                jcbTipoHabitacionActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Piso: ");
+
+        jcbPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbPisoActionPerformed(evt);
+            }
+        });
 
         jrbReservado.setText("Reservado");
 
@@ -96,7 +103,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jcbIdTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jcbTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
@@ -139,7 +146,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jcbIdTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -167,7 +174,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
             Habitacion hab = hd.obtenerHabitacion(Integer.parseInt(jtIdHab.getText()));
             if (hab != null) {
                 jtIdHab.setText(String.valueOf(hab.getIdHabitacion()));
-                jcbIdTipoHab.setSelectedItem(hab.getIdTipoHab());
+                jcbTipoHabitacion.setSelectedItem(hab.getTipoHabitacion().toString1());
                 jcbPiso.setSelectedItem(hab.getPiso());
                 jrbReservado.setSelected(hab.isReserva());
                 jrbEstado.setSelected(hab.isEstado());
@@ -175,35 +182,42 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         
         } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(null, "El código ingresado debe ser un número");
-   
         }
-
-    
-
-
-            
-         
-
-
+   
     }//GEN-LAST:event_jbBuscarActionPerformed
 
-    private void jcbIdTipoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbIdTipoHabActionPerformed
+    private void jcbTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoHabitacionActionPerformed
         
     }
-     private void armarComboBox() {
+    private void armarComboBox() {
         
         TipoHabData hd = new TipoHabData();
         List tipoHabitacion = hd.listarTipos();
-
+        
         for (Object h : tipoHabitacion) {
             TipoHabitacion habs = (TipoHabitacion) h;
-            jcbIdTipoHab.addItem(habs.toString1());
+            jcbTipoHabitacion.addItem(habs.toString1());
         }
-        jcbIdTipoHab.setSelectedIndex(-1);
-    }//GEN-LAST:event_jcbIdTipoHabActionPerformed
-                                    
-        
-                  
+        jcbTipoHabitacion.setSelectedIndex(-1);
+    }//GEN-LAST:event_jcbTipoHabitacionActionPerformed
+
+    private void jcbPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPisoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbPisoActionPerformed
+    private void armarComboPiso(){
+        HabitacionData habData = new HabitacionData();
+        List habitaciones = habData.listarHabitacionesTodas();
+        TreeSet<Integer> pisos = new TreeSet<>();
+        for (Object hab: habitaciones){
+            Habitacion habitacion = (Habitacion) hab;
+            int piso = habitacion.getPiso();
+            pisos.add(piso);
+        }
+        for (int piso: pisos) {
+            jcbPiso.addItem(piso);
+        }
+    jcbPiso.setSelectedIndex(-1);
+    }  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -215,8 +229,8 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jbBuscar;
-    private javax.swing.JComboBox<String> jcbIdTipoHab;
-    private javax.swing.JComboBox<Habitacion> jcbPiso;
+    private javax.swing.JComboBox<Integer> jcbPiso;
+    private javax.swing.JComboBox<String> jcbTipoHabitacion;
     private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JRadioButton jrbReservado;
     private javax.swing.JTextField jtIdHab;
