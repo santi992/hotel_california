@@ -84,14 +84,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jEscritorio.setLayout(jEscritorioLayout);
         jEscritorioLayout.setHorizontalGroup(
             jEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
         );
         jEscritorioLayout.setVerticalGroup(
             jEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 377, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         jMenuHuespedes.setText("Huespedes");
+        jMenuHuespedes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuHuespedesActionPerformed(evt);
+            }
+        });
 
         jMenuManejoHu.setText("Manejo de huéspedes");
         jMenuManejoHu.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +134,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuHabitaciones);
 
         jMenuReservas.setText("Reservas");
+        jMenuReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuReservasActionPerformed(evt);
+            }
+        });
 
         jMenuReservarHab.setText("Reservar habitación");
         jMenuReservarHab.addActionListener(new java.awt.event.ActionListener() {
@@ -237,6 +247,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mostrarVista(manejoH);
        
     }//GEN-LAST:event_jMenuManejoHabActionPerformed
+
+    private void jMenuHuespedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHuespedesActionPerformed
+        ManejoDeHuespedes manejoH = new ManejoDeHuespedes();
+        mostrarVista(manejoH);
+    }//GEN-LAST:event_jMenuHuespedesActionPerformed
 
     /**
      * @param args the command line arguments

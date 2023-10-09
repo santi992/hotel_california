@@ -36,6 +36,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Huespedes"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuHuespedesActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuManejoHu">
               <Properties>
