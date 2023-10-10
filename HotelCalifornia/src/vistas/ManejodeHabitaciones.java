@@ -85,10 +85,25 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         });
 
         jbModificar.setText("Modificar");
+        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -215,16 +230,41 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     
         HabitacionData habd = new HabitacionData();
         String hab = (String)jcbTipoHabitacion.getSelectedItem();
-        
+      
         Habitacion habit = new Habitacion();
-        int id=Integer.parseInt(jtIdHab.getText());
+        int id = Integer.parseInt(jtIdHab.getText());
         habit.setIdHabitacion(id);
-        TipoHabitacion th= new TipoHabData().obtenerTipoxId(obtenerId(hab));
-        habit.setTipoHabitacion(th);
-        habit.setPiso((int)jcbPiso.getSelectedItem());
+        TipoHabitacion th = new TipoHabData().obtenerTipoxId(obtenerId(hab));
+        habit.setTipoHabitacion(th); 
+        habit.setPiso((int) jcbPiso.getSelectedItem());
+        habit.setReserva(jrbReservado.isSelected());
+        habit.setEstado(jrbEstado.isSelected());
         habd.agregarHabitacion(habit);
-        
+
     }//GEN-LAST:event_jbAgregarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        HabitacionData habd = new HabitacionData();
+                
+        Habitacion habit = new Habitacion();
+        int id = Integer.parseInt(jtIdHab.getText());
+        habit.getIdHabitacion();
+        habit.getTipoHabitacion();
+        habit.getPiso();
+        habit.isReserva();
+        habit.isEstado();
+        habd.eliminarHabitacion(id);
+     
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        
+    }//GEN-LAST:event_jbModificarActionPerformed
            
     private void armarComboPiso(){
         HabitacionData habData = new HabitacionData();
