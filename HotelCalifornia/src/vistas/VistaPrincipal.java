@@ -205,8 +205,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuManejoHuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuManejoHuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuManejoHuActionPerformed
+       ManejoDeHuespedes manejoHue = new ManejoDeHuespedes();
+        mostrarVista(manejoHue);    }//GEN-LAST:event_jMenuManejoHuActionPerformed
 
     private void jMenuDispHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDispHabActionPerformed
         // TODO add your handling code here:
@@ -245,8 +245,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuManejoHabActionPerformed
 
     private void jMenuReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReservasActionPerformed
-       ManejoDeHuespedes manejoHue = new ManejoDeHuespedes();
-        mostrarVista(manejoHue);
+
            }//GEN-LAST:event_jMenuReservasActionPerformed
 
     /**
