@@ -1,8 +1,8 @@
 package entidades;
 
-public class Huesped {
+public class Personal {
 
-    private int idHuesped;
+    private int idPersonal;
 
     private String nombre;
 
@@ -11,56 +11,55 @@ public class Huesped {
     private int dni;
 
     private String direccion;
-
-    private String provincia;
-
-    private String localidad;
-
+    
     private int celular;
 
+    private String username;
+    
     private String correo;
     
-    private String password;
+    private String password;    
+
+    private boolean admin;
 
     private boolean estado;
     
-    public Huesped() {
+    public Personal() {
     }
 
-    public Huesped(int idHuesped, String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo, String password, boolean estado) {
-        this.idHuesped = idHuesped;
+    public Personal(int idPersonal, String nombre, String apellido, int dni, String direccion, int celular, String username, String correo, String password, boolean admin, boolean estado) {
+        this.idPersonal = idPersonal;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.direccion = direccion;
-        this.provincia = provincia;
-        this.localidad = localidad;
         this.celular = celular;
+        this.username = username;
         this.correo = correo;
         this.password = password;
+        this.admin = admin;
         this.estado = estado;
     }
 
-
-    public Huesped(String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo,boolean estado) {
+    public Personal(String nombre, String apellido, int dni, String direccion, int celular, String username, String correo, String password, boolean admin, boolean estado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.direccion = direccion;
-        this.provincia = provincia;
-        this.localidad = localidad;
         this.celular = celular;
+        this.username = username;
         this.correo = correo;
         this.password = password;
+        this.admin = admin;
         this.estado = estado;
     }
 
-    public int getIdHuesped() {
-        return idHuesped;
+    public int getIdPersonal() {
+        return idPersonal;
     }
 
-    public void setIdHuesped(int idHuesped) {
-        this.idHuesped = idHuesped;
+    public void setIdPersonal(int idPersonal) {
+        this.idPersonal = idPersonal;
     }
 
     public String getNombre() {
@@ -95,28 +94,20 @@ public class Huesped {
         this.direccion = direccion;
     }
 
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    public String getLocalidad() {
-        return localidad;
-    }
-
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
-
     public int getCelular() {
         return celular;
     }
 
     public void setCelular(int celular) {
         this.celular = celular;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCorreo() {
@@ -135,6 +126,14 @@ public class Huesped {
         this.password = password;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     public boolean isEstado() {
         return estado;
     }
@@ -142,14 +141,14 @@ public class Huesped {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
-    public String toStringOriginal() {
-        return "Huesped{" + "idHuesped=" + idHuesped + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", direccion=" + direccion + ", provincia=" + provincia + ", localidad=" + localidad + ", celular=" + celular + ", correo=" + correo + ", estado=" + estado + '}';
-    }
     
     @Override
     public String toString() {
-        return apellido+", "+nombre+", DNI: "+dni+", ID: "+idHuesped;
+        String admin = "";
+        if (this.isAdmin()){
+            admin = " (Administrador/a) ";
+        }
+        return apellido+", "+nombre+admin+", ID: "+idPersonal;
     }
 
     
