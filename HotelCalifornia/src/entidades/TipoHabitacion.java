@@ -1,6 +1,6 @@
 package entidades;
 
-public class TipoHabitacion extends Habitacion {
+public class TipoHabitacion  {
 
     private int idTipoHab;
 
