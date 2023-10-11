@@ -220,7 +220,7 @@ public class HabitacionData {
 
     public Habitacion obtenerHabitacion(int idHabitacion) {
         Habitacion habitacion = new Habitacion();
-        String sql = " SELECT  idHabitacion,idTipoHab, piso, estado, reserva FROM habitacion WHERE idHabitacion = ? AND estado = 1";
+        String sql = " SELECT  idHabitacion,idTipoHab, piso, estado, reserva FROM habitacion WHERE idHabitacion = ? ";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -231,7 +231,7 @@ public class HabitacionData {
                 habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                 habitacion.setPiso(rs.getInt("piso"));
                 habitacion.setReserva(rs.getBoolean("reserva"));
-                habitacion.setEstado(true);
+                habitacion.setEstado(rs.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe habitacion o se enuentra inactivo.");
             }

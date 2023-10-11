@@ -26,6 +26,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         initComponents();
         armarComboBox();
         armarComboPiso();
+        jtDispo.setVisible(false);
     }
 
     /**
@@ -51,6 +52,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
+        jtDispo = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Manejo de Habitaciones");
@@ -112,38 +114,42 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
             }
         });
 
+        jtDispo.setText("Inactiva");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcbTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(jrbReservado)
+                        .addGap(75, 75, 75)
+                        .addComponent(jrbEstado))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jcbTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
                                 .addComponent(jtIdHab, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addComponent(jrbReservado)
-                                .addGap(75, 75, 75)
-                                .addComponent(jrbEstado))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jbBuscar)
-                            .addComponent(jLabel1))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                                .addGap(83, 83, 83)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jbBuscar)
+                                    .addComponent(jLabel1))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtDispo)))
+                .addContainerGap(45, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbAgregar)
@@ -163,7 +169,8 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtIdHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscar))
+                    .addComponent(jbBuscar)
+                    .addComponent(jtDispo))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -194,6 +201,11 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
             HabitacionData hd = new HabitacionData();
             Habitacion hab = hd.obtenerHabitacion(Integer.parseInt(jtIdHab.getText()));
             if (hab != null) {
+                if(hab.isEstado()){
+                    jtDispo.setVisible(false);
+                }else{
+                    jtDispo.setVisible(true);
+                }   
                 jtIdHab.setText(String.valueOf(hab.getIdHabitacion()));
                 jcbTipoHabitacion.setSelectedItem(hab.getTipoHabitacion().toString1());
                 jcbPiso.setSelectedItem(hab.getPiso());
@@ -311,6 +323,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jcbTipoHabitacion;
     private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JRadioButton jrbReservado;
+    private javax.swing.JLabel jtDispo;
     private javax.swing.JTextField jtIdHab;
     // End of variables declaration//GEN-END:variables
 }
