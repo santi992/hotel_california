@@ -57,7 +57,7 @@ public class HabitacionData {
             ps.setBoolean(4, habitacion.isEstado());
             ps.setInt(5, habitacion.getIdHabitacion());
             int exito = ps.executeUpdate();
-            if (exito == 2) {
+            if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado exitosamente.");
             } else {
                 JOptionPane.showMessageDialog(null, "La habitacion no existe.");

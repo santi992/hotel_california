@@ -143,11 +143,11 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jbBuscar)
                             .addComponent(jLabel1))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbAgregar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jbModificar)
                 .addGap(18, 18, 18)
                 .addComponent(jbEliminar)
@@ -263,6 +263,22 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        HabitacionData habd = new HabitacionData();
+                
+        Habitacion habit = new Habitacion();
+        int id = Integer.parseInt(jtIdHab.getText());
+        habit.setIdHabitacion(id);
+        TipoHabitacion th = new TipoHabData().obtenerTipoxId(obtenerId((String) jcbTipoHabitacion.getSelectedItem()));
+        habit.setTipoHabitacion(th);
+        habit.setPiso((int) jcbPiso.getSelectedItem());
+        habit.setReserva(jrbReservado.isSelected());
+        habit.setEstado(jrbEstado.isSelected());
+        habd.modificarHabitacion(habit);
+        
+        
+        
+        
+        
         
     }//GEN-LAST:event_jbModificarActionPerformed
            
