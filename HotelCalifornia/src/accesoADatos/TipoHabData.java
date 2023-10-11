@@ -26,7 +26,7 @@ public class TipoHabData {
                 + " VALUES(?,?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
-            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, tipo.getIdTipoHab());
             ps.setString(2, tipo.getNombre());
             ps.setInt(3, tipo.getCantPersonas());
@@ -37,7 +37,7 @@ public class TipoHabData {
 
             ps.executeUpdate();
 
-            ResultSet rs = ps.getGeneratedKeys();
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, " Tipo de habitación agregado exitosamente");
             }
@@ -175,11 +175,12 @@ public class TipoHabData {
                 busquedaxId = new TipoHabitacion();
                 hab = new Habitacion();
                 busquedaxId.setIdTipoHab(rs.getInt("idTipoHab"));
+                busquedaxId.setNombre(rs.getString("nombre"));
                 busquedaxId.setCantPersonas(rs.getInt("cantPersonas"));
                 busquedaxId.setCantCamas(rs.getInt("cantCamas"));
                 busquedaxId.setTipoCamas(rs.getString("tipoCamas"));
                 busquedaxId.setPrecioxNoche(rs.getDouble("precioxNoche"));
-                // hab.setIdHabitacion(rs.getInt("IdHabitacion")); buscar otra forma :/
+               
             } else {
                 JOptionPane.showMessageDialog(null, "El idTipoHabitación:" + idTipoHab + " ingresado no existe o no está activo");
             }

@@ -24,8 +24,13 @@ public class HabitacionData {
 // 
     public void agregarHabitacion(Habitacion habitacion) {
 
+<<<<<<< Updated upstream
         String sql = "INSERT INTO habitacion (idHabitacion,idTipoHab,piso,reserva,estado)"
                 + "VALUES(?,?,?,?,?)";
+=======
+        String sql = "INSERT INTO habitacion (idTipoHab, IdHabitacion, nombre piso,reserva,estado)"
+                + "VALUES(?,?,?,?,?,?)";
+>>>>>>> Stashed changes
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
