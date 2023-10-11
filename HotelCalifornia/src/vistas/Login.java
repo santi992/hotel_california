@@ -410,7 +410,6 @@ public class Login extends javax.swing.JInternalFrame {
         for (int i = 0; i < passOculta.length(); i++) {
             asteriscos += "*";
         }
-        jtEmail.setText(passOculta);
         return asteriscos;
     }
 
