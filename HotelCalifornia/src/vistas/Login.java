@@ -339,7 +339,7 @@ public class Login extends javax.swing.JInternalFrame {
 
     public boolean accesoHuesped() {
         String correo = jtEmail.getText();
-        String passIngresada = jtPassword.getText();
+        String passIngresada = passOculta;
 
         HuespedData huData = new HuespedData();
         Huesped huesped = huData.obtenerHuespedXCorreo(correo);
@@ -365,7 +365,7 @@ public class Login extends javax.swing.JInternalFrame {
 
     public boolean accesoPersonal() {
         String correoUsername = jtEmail.getText();
-        String passIngresada = jtPassword.getText();
+        String passIngresada = passOculta;
         PersonalData pData = new PersonalData();
         List<Personal> staff = pData.listarPersonales();
         Personal p = null;
