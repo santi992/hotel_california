@@ -13,11 +13,11 @@ import org.mariadb.jdbc.Statement;
 public class TipoHabData {
 
     private Connection con = null;   // atributo
-    //  private HabitacionData habData; // la habitacion tiene un tipoHabitacion 
+
 
     public TipoHabData() {     // constructor 
         con = Conexion.conectar();
-        //  habData = new HabitacionData(); // No va!!, la habitacion tiene un tipoHabitacion 
+        
 
     }
 
@@ -28,6 +28,7 @@ public class TipoHabData {
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, tipo.getIdTipoHab());
+           // ps.setInt(2, tipo.getHabitacion().getIdHabitacion()); agregar a la base de datos idHabitacion? para que pueda buscarlo?
             ps.setString(2, tipo.getNombre());
             ps.setInt(3, tipo.getCantPersonas());
             ps.setInt(4, tipo.getCantCamas());
@@ -35,10 +36,10 @@ public class TipoHabData {
             ps.setDouble(6, tipo.getPrecioxNoche());
             ps.setBoolean(7, tipo.isEstado());
 
-            ps.executeUpdate();
+           int filasAfectadas= ps.executeUpdate(); // si se agrega una fila(>0), se agregan los datos
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            
+            if (filasAfectadas>0) {
                 JOptionPane.showMessageDialog(null, " Tipo de habitación agregado exitosamente");
             }
             ps.close();

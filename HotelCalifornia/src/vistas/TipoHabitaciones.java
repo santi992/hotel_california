@@ -5,9 +5,11 @@
  */
 package vistas;
 
+import accesoADatos.HabitacionData;
 import accesoADatos.TipoHabData;
 import entidades.Habitacion;
 import entidades.TipoHabitacion;
+import static hotelcalifornia.HotelCalifornia.obtenerId;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -256,17 +258,18 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         
         
-//       jtfIdTipoHab.setEditable(true);
-//       jtfIdHabitacion.setEditable(true);
-//       jtfNombre.setEditable(true);
-//       jtfCantCamas.setEditable(true);
-//       jtfCantPersonas.setEditable(true);
-//       jtfPrecioxNoche.setEditable(true);
-//       jtfTipoCama.setEditable(true);
-//       jtfIdHabitacion.setEditable(true);
+       jtfIdTipoHab.setEditable(true);
+       jtfIdHabitacion.setEditable(true);
+       jtfNombre.setEditable(true);
+       jtfCantCamas.setEditable(true);
+       jtfCantPersonas.setEditable(true);
+       jtfPrecioxNoche.setEditable(true);
+       jtfTipoCama.setEditable(true);
+       jtfIdHabitacion.setEditable(true);
        try{
         TipoHabData th= new TipoHabData();
-        TipoHabitacion hb=th.modificarTipo((jtfIdTipoHab.getText()));
+//        TipoHabitacion hb=th.modificarTipo((jtfIdTipoHab.getText()));
+         TipoHabitacion hb = new TipoHabitacion();
           
           hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
           hb.setNombre(jtfNombre.getText());
@@ -302,9 +305,11 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
 //        
        try{
           TipoHabData th= new TipoHabData();
-          TipoHabitacion hb=th.agregarTipo((jtfIdTipoHab.getText()));
-          
+          TipoHabitacion hb= new TipoHabitacion();
+           
           hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
+          Habitacion hab= new HabitacionData().obtenerHabitacion(obtenerId(jtfIdHabitacion.getText()));
+          hb.setHabitacion(hab);
           hb.setNombre(jtfNombre.getText());
           hb.setCantPersonas(Integer.parseInt(jtfCantPersonas.getText()));
           hb.setCantCamas(Integer.parseInt(jtfCantCamas.getText()));
@@ -321,11 +326,47 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        if (evt.getSource() == jbModificar) {
+    try{
+        TipoHabData th= new TipoHabData();
+//        TipoHabitacion hb=th.modificarTipo((jtfIdTipoHab.getText()));
+          TipoHabitacion hb=new TipoHabitacion();
+          hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
+          hb.setNombre(jtfNombre.getText());
+          hb.setCantPersonas(Integer.parseInt(jtfCantPersonas.getText()));
+          hb.setCantCamas(Integer.parseInt(jtfCantCamas.getText()));
+          hb.setTipoCamas(jtfTipoCama.getText());
+          hb.setPrecioxNoche(Double.parseDouble(jtfPrecioxNoche.getText()));
+          th.modificarTipo(hb);
+          
+          
+        }catch(NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El Id ingresado debe ser un número");
+            
+        }
+} else if (evt.getSource() == jbNuevo){
+            try{
+          TipoHabData th= new TipoHabData();
+//          TipoHabitacion hb=th.agregarTipo((jtfIdTipoHab.getText()));
+          TipoHabitacion hb= new TipoHabitacion();
+          hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
+          hb.setNombre(jtfNombre.getText());
+          hb.setCantPersonas(Integer.parseInt(jtfCantPersonas.getText()));
+          hb.setCantCamas(Integer.parseInt(jtfCantCamas.getText()));
+          hb.setTipoCamas(jtfTipoCama.getText());
+          hb.setPrecioxNoche(Double.parseDouble(jtfPrecioxNoche.getText()));
+          th.agregarTipo(hb);
+          
+          
+        }catch(NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "El Id ingresado debe ser un número");
+            
+        } 
         
-        jbModificarActionPerformed(evt);
-        jbNuevoActionPerformed( evt);
+//        jbModificarActionPerformed(evt);
+//        jbAgregarActionPerformed( evt);
     }//GEN-LAST:event_jbGuardarActionPerformed
-
+    }
     private void jtfIdTipoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfIdTipoHabActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfIdTipoHabActionPerformed

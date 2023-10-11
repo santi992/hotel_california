@@ -1,6 +1,6 @@
 package entidades;
 
-public class TipoHabitacion {
+public class TipoHabitacion extends Habitacion {
 
     private int idTipoHab;
 
@@ -14,11 +14,12 @@ public class TipoHabitacion {
     
     private String tipoCamas; //agregado
     private boolean estado;//agregado
+    private Habitacion habitacion;
 
     public TipoHabitacion() {
     }
 
-    public TipoHabitacion(int idTipoHab, String nombre, int cantPersonas, int cantCamas, double precioxNoche, String tipoCamas, boolean estado) {
+    public TipoHabitacion(int idTipoHab, String nombre, int cantPersonas, int cantCamas, double precioxNoche, String tipoCamas, boolean estado ,Habitacion habitacion) {
         this.idTipoHab = idTipoHab;
         this.nombre = nombre;
         this.cantPersonas = cantPersonas;
@@ -26,6 +27,8 @@ public class TipoHabitacion {
         this.precioxNoche = precioxNoche;
         this.tipoCamas= tipoCamas;
         this.estado=estado;
+        this.habitacion=habitacion;
+        
     }
 
     public int getIdTipoHab() {
@@ -83,9 +86,18 @@ public class TipoHabitacion {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public Habitacion getHabitacion() {
+        return habitacion;
+    }
+
+    public void setHabitacion(Habitacion habitacion) {
+        this.habitacion = habitacion;
+    }
+    
     
     public String toStringOriginal() {
-        return "TipoHabitacion{" + "idTipoHab=" + idTipoHab + ", nombre=" + nombre + ", precioxNoche=" + precioxNoche + ", tipoCamas= " + tipoCamas + " estado"+ estado+"}";
+        return "TipoHabitacion{" + "idTipoHab=" + idTipoHab + ", nombre=" + nombre + ", precioxNoche=" + precioxNoche + ", tipoCamas= " + tipoCamas + " estado"+ estado+ " IdHabitacion"+ habitacion+ "}";
     }
      public String toString1(){
         return idTipoHab + " - " + tipoCamas +" - " + cantCamas + " camas";
