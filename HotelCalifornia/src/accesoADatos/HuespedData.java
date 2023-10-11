@@ -2,7 +2,6 @@ package accesoADatos;
 
 import entidades.Huesped;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,8 +19,8 @@ public class HuespedData {
     }
 
     public void agregarHuesped(Huesped huesped) {
-        String sql = "INSERT INTO huesped(nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, Celular,estado)"
-                + " VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO huesped(nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular, estado)"
+                + " VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps;
         try {
@@ -33,8 +32,9 @@ public class HuespedData {
             ps.setString(5, huesped.getProvincia());
             ps.setString(6, huesped.getLocalidad());
             ps.setString(7, huesped.getCorreo());
-            ps.setInt(8, huesped.getCelular());
-            ps.setBoolean(9, huesped.isEstado());
+            ps.setString(8, huesped.getPassword());
+            ps.setInt(9, huesped.getCelular());
+            ps.setBoolean(10, huesped.isEstado());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -52,7 +52,7 @@ public class HuespedData {
     }
 
     public void modificarHuesped(Huesped huesped) {
-        String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, Celular=?"
+        String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, password=?, Celular=?"
                 + " WHERE idHuesped=?";
         PreparedStatement ps = null;
         try {
@@ -64,8 +64,9 @@ public class HuespedData {
             ps.setString(5, huesped.getProvincia());
             ps.setString(6, huesped.getLocalidad());
             ps.setString(7, huesped.getCorreo());
-            ps.setInt(8, huesped.getCelular());
-            ps.setInt(9, huesped.getIdHuesped());
+            ps.setString(8, huesped.getPassword());
+            ps.setInt(9, huesped.getCelular());
+            ps.setInt(10, huesped.getIdHuesped());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado exitosamente.");
@@ -110,6 +111,7 @@ public class HuespedData {
                 huesped.setDireccion(rs.getString("Domicilio"));
                 huesped.setProvincia(rs.getString("Localidad"));
                 huesped.setCorreo(rs.getString("Correo"));
+                huesped.setPassword(rs.getString("password"));
                 huesped.setCelular(rs.getInt("Celular"));
                 huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
 
@@ -124,7 +126,7 @@ public class HuespedData {
 
     public Huesped obtenerHuesped(int idHuesped) {
         Huesped huesped = null;
-        String sql = " SELECT nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, Celular,estado  FROM huesped Where idHuesped=? AND estado=1";
+        String sql = " SELECT nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular,estado  FROM huesped Where idHuesped=? AND estado=1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -141,6 +143,7 @@ public class HuespedData {
                 huesped.setProvincia(rs.getString("Provincia"));
                 huesped.setLocalidad(rs.getString("Localidad"));
                 huesped.setCorreo(rs.getString("Correo"));
+                huesped.setPassword(rs.getString("password"));
                 huesped.setCelular(rs.getInt("Celular"));
                 huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
             } else {
@@ -157,7 +160,7 @@ public class HuespedData {
 
     public Huesped obtenerHuespedXDni(int dni) {
         Huesped huesped = null;
-        String sql = " SELECT  idHuesped,nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, Celular,estado FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
+        String sql = " SELECT  idHuesped,nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular,estado FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -173,6 +176,39 @@ public class HuespedData {
                 huesped.setProvincia(rs.getString("Provincia"));
                 huesped.setLocalidad(rs.getString("Localidad"));
                 huesped.setCorreo(rs.getString("Correo"));
+                huesped.setPassword(rs.getString("password"));
+                huesped.setCelular(rs.getInt("Celular"));
+                huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el huesped o se enuentra inactivo.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped " + ex.getMessage());
+
+        }
+        return huesped;
+    }
+
+    public Huesped obtenerHuespedXCorreo(String correo) {
+        Huesped huesped = null;
+        String sql = " SELECT  idHuesped,nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular,estado FROM huesped WHERE correo = ? AND estado = 1"; //aca estaba el cambio dni
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, correo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                huesped = new Huesped();
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getInt("dni"));
+                huesped.setDireccion(rs.getString("Domicilio"));
+                huesped.setProvincia(rs.getString("Provincia"));
+                huesped.setLocalidad(rs.getString("Localidad"));
+                huesped.setCorreo(rs.getString("Correo"));
+                huesped.setPassword(rs.getString("password"));
                 huesped.setCelular(rs.getInt("Celular"));
                 huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
             } else {

@@ -5,24 +5,21 @@
  */
 package vistas;
 
-import accesoADatos.HuespedData;
-import entidades.Huesped;
-import java.util.List;
-import java.util.TreeSet;
+import accesoADatos.PersonalData;
 
 /**
  *
  * @author chari
  */
-public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
+public class ManejoDePersonal extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ManejoDeHuespedes
      */
-    public ManejoDeHuespedes() {
+    public ManejoDePersonal() {
         initComponents();
     }
-    HuespedData huData = new HuespedData() ;
+    PersonalData persData = new PersonalData() ;
 
 
     @SuppressWarnings("unchecked")
