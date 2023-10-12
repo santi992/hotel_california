@@ -280,7 +280,6 @@ public class Login extends javax.swing.JInternalFrame {
             public void run() {
                 try {
                     Thread.sleep(10);
-                    // INSERTAR CODIGO A MOVER AQUI
 
                     int longitud = jtPassword.getText().length();
                     int longOculta = passOculta.length();
@@ -387,6 +386,9 @@ public class Login extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "¡Bienvenido/a, " + p.getNombre() + "!");
             personalActivo = p;
             huespedActivo = null;
+            System.out.println(p);
+            System.out.println(p.isAdmin());
+            
             return true;
         } else {
             JOptionPane.showMessageDialog(null, "Contraseña incorrecta");

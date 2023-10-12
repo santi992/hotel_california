@@ -1,5 +1,7 @@
 package entidades;
 
+import java.time.LocalDate;
+
 public class Personal {
 
     private int idPersonal;
@@ -19,6 +21,8 @@ public class Personal {
     private String correo;
     
     private String password;    
+    
+    private LocalDate fechaNacimiento;    
 
     private boolean admin;
 
@@ -27,7 +31,7 @@ public class Personal {
     public Personal() {
     }
 
-    public Personal(int idPersonal, String nombre, String apellido, int dni, String direccion, int celular, String username, String correo, String password, boolean admin, boolean estado) {
+    public Personal(int idPersonal, String nombre, String apellido, int dni, String direccion, int celular, String username, String correo, String password, LocalDate fechaNacimiento, boolean admin, boolean estado) {
         this.idPersonal = idPersonal;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -37,11 +41,12 @@ public class Personal {
         this.username = username;
         this.correo = correo;
         this.password = password;
+        this.fechaNacimiento = fechaNacimiento;
         this.admin = admin;
         this.estado = estado;
     }
 
-    public Personal(String nombre, String apellido, int dni, String direccion, int celular, String username, String correo, String password, boolean admin, boolean estado) {
+    public Personal(String nombre, String apellido, int dni, String direccion, int celular, String username, String correo, String password, LocalDate fechaNacimiento, boolean admin, boolean estado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -50,6 +55,7 @@ public class Personal {
         this.username = username;
         this.correo = correo;
         this.password = password;
+        this.fechaNacimiento = fechaNacimiento;
         this.admin = admin;
         this.estado = estado;
     }
@@ -124,6 +130,14 @@ public class Personal {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public boolean isAdmin() {
