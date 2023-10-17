@@ -21,14 +21,14 @@ public class ReservaData {
     private HabitacionData habData;
 
     private HuespedData huData;
-    
-    public ReservaData(){
+
+    public ReservaData() {
         con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
     }
-    
- // CHECKEADO
+
+    // CHECKEADO
     public void agregarReserva(Reserva reserva) {
 
         String sql = "INSERT INTO reserva(idHuesped, idHabitacion, fechaCheckIn, fechaCheckOut, cantPersonas, precioFinal, estado) VALUES (?,?,?,?,?,?,?)";
@@ -53,12 +53,13 @@ public class ReservaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
-
+        } catch (NullPointerException np) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione una habitación");
         }
 
     }
-    
- // CHECKEADO
+
+    // CHECKEADO
     public void modificarReserva(Reserva reserva) {
 
         String sql = "UPDATE reserva SET idHuesped = ?, idHabitacion = ?, fechaCheckIn = ?, fechaCheckOut = ?, cantPersonas = ?, precioFinal = ?, estado = ? WHERE idReserva = ?";
@@ -85,8 +86,8 @@ public class ReservaData {
         }
 
     }
-    
- // CHECKEADO
+
+    // CHECKEADO
     public void eliminarReserva(Reserva reserva) {
 
         String sql = "UPDATE reserva SET estado = ? WHERE idReserva = ?";
@@ -107,8 +108,8 @@ public class ReservaData {
         }
 
     }
-    
- // CHECKEADO
+
+    // CHECKEADO
     public void extenderReserva(Reserva reserva, LocalDate fecha, double precioFinal) {
 
         String sql = "UPDATE reserva SET  fechaCheckOut = ?, precioFinal = ? WHERE idReserva = ?";
