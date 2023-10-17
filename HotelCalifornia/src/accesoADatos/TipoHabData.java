@@ -51,25 +51,39 @@ public class TipoHabData {
     }
 
     public void modificarTipo(TipoHabitacion tipo) { //modificar los datos
-        String sql = "UPDATE tipohabitacion SET idTipoHab=?,nombre = ?, cantPersonas=?,cantCamas=?,tipoCamas=?,precioxNoche=?, estado = ? WHERE idTipoHab= ?";
+        String sql = "UPDATE tipohabitacion SET nombre = ?, cantPersonas=?,cantCamas=?,tipoCamas=?,precioxNoche=?, estado = ? WHERE idTipoHab= ?";
 
-        PreparedStatement ps;
+        PreparedStatement ps= null;
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, tipo.getIdTipoHab());
-            ps.setString(2, tipo.getNombre());// agregar tipo cama a traibutos en clase tipoHabitacion enpaquete entidades
-            ps.setInt(3, tipo.getCantPersonas());
-            ps.setInt(4, tipo.getCantCamas());
-            ps.setString(5, tipo.getTipoCamas());// agregar tipo cama a traibutos en clase tipoHabitacion enpaquete entidades
-            ps.setDouble(6, tipo.getPrecioxNoche());
-            ps.setBoolean(7, tipo.isEstado()); // dudaaa
-            ps.setInt(8, tipo.getIdTipoHab()); // dudaaa
+//          ps.setInt(1, tipo.getIdTipoHab());
+            ps.setString(1, tipo.getNombre());// agregar tipo cama a traibutos en clase tipoHabitacion enpaquete entidades
+            ps.setInt(2, tipo.getCantPersonas());
+            ps.setInt(3, tipo.getCantCamas());
+            ps.setString(4, tipo.getTipoCamas());// agregar tipo cama a traibutos en clase tipoHabitacion enpaquete entidades
+            ps.setDouble(5, tipo.getPrecioxNoche());
+            ps.setBoolean(6, tipo.isEstado()); // dudaaa
+            ps.setInt(7, tipo.getIdTipoHab()); // dudaaa
+            int filasAfectadas= ps.executeUpdate();
+            if(filasAfectadas>0){
+                JOptionPane.showMessageDialog(null, "* Tipo de habitacion modificada exitosamente! *");
+            }else{
+                JOptionPane.showMessageDialog(null, "* ERROR! No  se pudo proceder con la modificación *");
+            }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "***ERROR*** al acceder a la tabla tipoHabitacion" + ex);
 
+        }finally {
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de error al cerrar PreparedStatement
         }
+    }
     }
 
     public void darDeBajaTipo(TipoHabitacion tipo) {//veeer no hay estado
@@ -294,4 +308,6 @@ public class TipoHabData {
         return th;
 
     }
+
+   
 }

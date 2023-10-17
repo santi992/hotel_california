@@ -7,6 +7,7 @@ package vistas;
 
 import accesoADatos.HabitacionData;
 import accesoADatos.TipoHabData;
+
 import entidades.Habitacion;
 import entidades.TipoHabitacion;
 import static hotelcalifornia.HotelCalifornia.obtenerId;
@@ -53,10 +54,12 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jtfPrecioxNoche = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jbNuevo = new javax.swing.JButton();
+        jbAgregar = new javax.swing.JButton();
         jbModificar = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
         jbDarAltaBaja = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jrbEstado = new javax.swing.JRadioButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Tipo Habitación");
@@ -190,10 +193,10 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jbNuevo.setText("Nuevo");
-        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+        jbAgregar.setText("Agregar");
+        jbAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbNuevoActionPerformed(evt);
+                jbAgregarActionPerformed(evt);
             }
         });
 
@@ -213,6 +216,14 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
 
         jbDarAltaBaja.setText("Dar alta / baja");
 
+        jLabel9.setText("Estado:");
+
+        jrbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,22 +231,27 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jbNuevo)
-                                .addGap(48, 48, 48)
-                                .addComponent(jbGuardar)
-                                .addGap(66, 66, 66)
-                                .addComponent(jbModificar)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbDarAltaBaja))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(jLabel1)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                                .addComponent(jLabel9)
+                                .addGap(102, 102, 102)
+                                .addComponent(jrbEstado))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jbAgregar)
+                                    .addGap(37, 37, 37)
+                                    .addComponent(jbGuardar)
+                                    .addGap(69, 69, 69)
+                                    .addComponent(jbModificar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbDarAltaBaja))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(24, 33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,13 +259,17 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbNuevo)
+                    .addComponent(jLabel9)
+                    .addComponent(jrbEstado))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbAgregar)
                     .addComponent(jbGuardar)
                     .addComponent(jbModificar)
                     .addComponent(jbDarAltaBaja))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -265,11 +285,13 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
        jtfCantPersonas.setEditable(true);
        jtfPrecioxNoche.setEditable(true);
        jtfTipoCama.setEditable(true);
-       jtfIdHabitacion.setEditable(true);
+       jrbEstado.setEnabled(true);
        try{
         TipoHabData th= new TipoHabData();
-//        TipoHabitacion hb=th.modificarTipo((jtfIdTipoHab.getText()));
-         TipoHabitacion hb = new TipoHabitacion();
+        TipoHabitacion epepe = jtfIdTipoHab.getText();
+        TipoHabitacion hb= th.modificarTipo(epepe);
+           
+        
           
           hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
           hb.setNombre(jtfNombre.getText());
@@ -286,7 +308,7 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
-    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+    private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
 //       jtfIdTipoHab.setText("");
 //       jtfIdHabitacion.setText("");
 //       jtfNombre.setText("");
@@ -317,20 +339,27 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
           hb.setPrecioxNoche(Double.parseDouble(jtfPrecioxNoche.getText()));
           th.agregarTipo(hb);
           
+          jtfIdTipoHab.setEditable(false);
+            jtfCantPersonas.setEditable(false);
+            jtfCantCamas.setEditable(false);
+            jtfTipoCama.setEditable(false);
+            jtfPrecioxNoche.setEditable(false);
+            jtfIdHabitacion.setEditable(false);
+          
           
         }catch(NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "El Id ingresado debe ser un número");
             
         }
                                  
-    }//GEN-LAST:event_jbNuevoActionPerformed
+    }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         if (evt.getSource() == jbModificar) {
     try{
         TipoHabData th= new TipoHabData();
-//        TipoHabitacion hb=th.modificarTipo((jtfIdTipoHab.getText()));
-          TipoHabitacion hb=new TipoHabitacion();
+         TipoHabitacion hb=th.modificarTipo((jtfIdTipoHab.getText()));
+          
           hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
           hb.setNombre(jtfNombre.getText());
           hb.setCantPersonas(Integer.parseInt(jtfCantPersonas.getText()));
@@ -344,7 +373,7 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "El Id ingresado debe ser un número");
             
         }
-} else if (evt.getSource() == jbNuevo){
+} else if (evt.getSource() == jbAgregar){
             try{
           TipoHabData th= new TipoHabData();
 //          TipoHabitacion hb=th.agregarTipo((jtfIdTipoHab.getText()));
@@ -412,6 +441,10 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfNombreActionPerformed
 
+    private void jrbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrbEstadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -422,13 +455,15 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbDarAltaBaja;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbModificar;
-    private javax.swing.JButton jbNuevo;
     private javax.swing.JLabel jlTipoCama;
+    private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JTextField jtfCantCamas;
     private javax.swing.JTextField jtfCantPersonas;
     private javax.swing.JTextField jtfIdHabitacion;
