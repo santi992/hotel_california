@@ -588,12 +588,12 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtIDKeyTyped
 
     private void jbVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerActionPerformed
-        if (mostrarPass) {
-            jtPassword.setText(ocultarPass());
-        } else {
-            jtPassword.setText(passOculta);
-        }
         mostrarPass = !mostrarPass;
+        if (mostrarPass) {
+            jtPassword.setText(passOculta);
+        } else {
+            jtPassword.setText(ocultarPass());
+        }
     }//GEN-LAST:event_jbVerActionPerformed
 
     private void jtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPasswordKeyTyped
