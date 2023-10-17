@@ -27,11 +27,13 @@ public class Login extends javax.swing.JInternalFrame {
      * Creates new form Login
      */
     private boolean personal;
+    private boolean mostrarPass;
     private String passOculta;
 
     public Login(boolean personal) {
         this.personal = personal;
         passOculta = "";
+        mostrarPass = false;
         initComponents();
         if (personal) {
             jlEmail.setText("email o nombre de usuario:");
@@ -115,14 +117,6 @@ public class Login extends javax.swing.JInternalFrame {
         });
 
         jbVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojo.png"))); // NOI18N
-        jbVer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jbVerMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jbVerMouseReleased(evt);
-            }
-        });
         jbVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbVerActionPerformed(evt);
@@ -280,17 +274,21 @@ public class Login extends javax.swing.JInternalFrame {
             public void run() {
                 try {
                     Thread.sleep(10);
-
-                    int longitud = jtPassword.getText().length();
-                    int longOculta = passOculta.length();
-                    if (longitud > longOculta) {
-                        char letra = jtPassword.getText().charAt(longitud - 1);
-                        passOculta += letra;
+                    if (mostrarPass) {
+                        passOculta = jtPassword.getText();
                     } else {
-                        passOculta = passOculta.substring(0, longitud);
+
+                        int longitud = jtPassword.getText().length();
+                        int longOculta = passOculta.length();
+                        if (longitud > longOculta) {
+                            char letra = jtPassword.getText().charAt(longitud - 1);
+                            passOculta += letra;
+                        } else {
+                            passOculta = passOculta.substring(0, longitud);
+                        }
+                        jtPassword.setText(ocultarPass());
+                        jtPassword.setCaretPosition(longitud);
                     }
-                    jtPassword.setText(ocultarPass());
-                    jtPassword.setCaretPosition(longitud);
                 } catch (InterruptedException ex) {
                     JOptionPane.showMessageDialog(null, "Error de interrupcion");
                 }
@@ -309,16 +307,13 @@ public class Login extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtPasswordKeyPressed
 
     private void jbVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerActionPerformed
-        // TODO add your handling code here:
+        mostrarPass = !mostrarPass;
+        if (mostrarPass) {
+            jtPassword.setText(passOculta);
+        } else {
+            jtPassword.setText(ocultarPass());
+        }
     }//GEN-LAST:event_jbVerActionPerformed
-
-    private void jbVerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbVerMousePressed
-        jtPassword.setText(passOculta);
-    }//GEN-LAST:event_jbVerMousePressed
-
-    private void jbVerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbVerMouseReleased
-        jtPassword.setText(ocultarPass());
-    }//GEN-LAST:event_jbVerMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -388,7 +383,7 @@ public class Login extends javax.swing.JInternalFrame {
             huespedActivo = null;
             System.out.println(p);
             System.out.println(p.isAdmin());
-            
+
             return true;
         } else {
             JOptionPane.showMessageDialog(null, "Contraseña incorrecta");

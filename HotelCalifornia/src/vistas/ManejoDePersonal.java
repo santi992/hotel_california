@@ -7,6 +7,7 @@ package vistas;
 
 import accesoADatos.PersonalData;
 import entidades.Personal;
+import java.awt.Color;
 import java.sql.Date;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
@@ -20,13 +21,19 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
 
     private int dni;
     private int celular;
+    private int id;
+    private String passOculta;
+    private boolean mostrarPass;
+    private boolean emailValido;
 
     /**
      * Creates new form ManejoDeHuespedes
      */
     public ManejoDePersonal() {
         initComponents();
-        if (!personalActivo.isAdmin()){
+        mostrarPass = false;
+        jtID.setEnabled(false);
+        if (!personalActivo.isAdmin()) {
             jtID.setEditable(false);
             jtBuscar.setEditable(false);
             jbBuscar.setEnabled(false);
@@ -37,11 +44,11 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
             jrbAdminSi.setEnabled(false);
             jrbEstadoActivo.setEnabled(false);
             jrbEstadoInactivo.setEnabled(false);
-            mostrar(personalActivo);
         } else {
             jlBuscar.setText("Buscar miembro por id, nombre,  correo o username");
-            nuevo();
         }
+        mostrar(personalActivo);
+        comprobarCorreo();
     }
 
     PersonalData persData = new PersonalData();
@@ -84,6 +91,7 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
         jrbEstadoInactivo = new javax.swing.JRadioButton();
         jrbAdminNo = new javax.swing.JRadioButton();
         jbModificar = new javax.swing.JButton();
+        jbVer = new javax.swing.JButton();
 
         setTitle("Manejo de Personal");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
@@ -187,6 +195,11 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
                 jtCorreoActionPerformed(evt);
             }
         });
+        jtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtCorreoKeyTyped(evt);
+            }
+        });
 
         jtDni.setToolTipText("");
         jtDni.addActionListener(new java.awt.event.ActionListener() {
@@ -215,6 +228,11 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
         jtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtPasswordActionPerformed(evt);
+            }
+        });
+        jtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtPasswordKeyTyped(evt);
             }
         });
 
@@ -278,6 +296,13 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
             }
         });
 
+        jbVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojo.png"))); // NOI18N
+        jbVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -316,14 +341,17 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
                                 .addComponent(jrbAdminSi)
                                 .addComponent(jlAdmin)
                                 .addComponent(jlEstado)
-                                .addComponent(jtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jlUsername)
                                 .addComponent(jtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jdateFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jlFechaNac)
                                 .addComponent(jlPassword)
-                                .addComponent(jlCorreo)))
+                                .addComponent(jlCorreo)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jbVer, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
@@ -343,7 +371,7 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jlTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlID)
@@ -354,10 +382,25 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlApellido)
+                        .addComponent(jlApellido))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlCorreo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlUsername)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlPassword)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jbVer)
+                    .addComponent(jtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jlDni)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -372,18 +415,6 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
                                 .addGap(22, 22, 22)
                                 .addComponent(jtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlCorreo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlUsername)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlPassword)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlFechaNac)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jdateFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -393,7 +424,7 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jrbEstadoActivo)
                             .addComponent(jrbEstadoInactivo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jlAdmin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -411,7 +442,7 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
                     .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         pack();
@@ -556,6 +587,50 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jtIDKeyTyped
 
+    private void jbVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerActionPerformed
+        mostrarPass = !mostrarPass;
+        if (mostrarPass) {
+            jtPassword.setText(passOculta);
+        } else {
+            jtPassword.setText(ocultarPass());
+        }
+    }//GEN-LAST:event_jbVerActionPerformed
+
+    private void jtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPasswordKeyTyped
+
+        (new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10);
+                    if (mostrarPass) {
+                        passOculta = jtPassword.getText();
+                    } else {
+
+                        int longitud = jtPassword.getText().length();
+                        int longOculta = passOculta.length();
+                        if (longitud > longOculta) {
+                            char letra = jtPassword.getText().charAt(longitud - 1);
+                            passOculta += letra;
+                        } else {
+                            passOculta = passOculta.substring(0, longitud);
+                        }
+                        jtPassword.setText(ocultarPass());
+                        jtPassword.setCaretPosition(longitud);
+                    }
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                }
+
+            }
+
+        }).start();
+    }//GEN-LAST:event_jtPasswordKeyTyped
+
+    private void jtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCorreoKeyTyped
+        comprobarCorreo();
+    }//GEN-LAST:event_jtCorreoKeyTyped
+
     // ----------------------------- ATENCION ------------------------------
     //Crear funcion que rellene el mail por tipeo, busca y ordena alfaveticament 5 primmeros resultados 
 
@@ -565,6 +640,7 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JButton jbVer;
     private com.toedter.calendar.JDateChooser jdateFechaNac;
     private javax.swing.JLabel jlAdmin;
     private javax.swing.JLabel jlApellido;
@@ -599,7 +675,6 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
     private void nuevo() {
         celular = 0;
         dni = 0;
-        jtID.setEditable(false);
         jtID.setText("");
         jtNombre.setText("");
         jtApellido.setText("");
@@ -621,7 +696,7 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
         boolean dni = !jtDni.getText().isEmpty();
         boolean celular = !jtCelular.getText().isEmpty();
         boolean direccion = !jtDireccion.getText().isEmpty();
-        boolean correo = !jtCorreo.getText().isEmpty();
+        boolean correo = !jtCorreo.getText().isEmpty() && emailValido;
         boolean user = !jtUsername.getText().isEmpty();
         boolean pass = !jtPassword.getText().isEmpty();
         boolean date = jdateFechaNac.getDate() != null;
@@ -638,12 +713,14 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
             personal.setDireccion(jtDireccion.getText());
             personal.setCorreo(jtCorreo.getText());
             personal.setUsername(jtUsername.getText());
-            personal.setPassword(jtPassword.getText());
+            personal.setPassword(passOculta);
             personal.setFechaNacimiento(jdateFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             personal.setAdmin(jrbAdminSi.isSelected());
             personal.setEstado(jrbEstadoActivo.isSelected());
             persData.agregarPersonal(personal);
             nuevo();
+        } else if (!emailValido){
+            JOptionPane.showMessageDialog(null, "Ingrese un email válido");
         } else {
             JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
         }
@@ -695,7 +772,7 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
                 personal.setDireccion(jtDireccion.getText());
                 personal.setCorreo(jtCorreo.getText());
                 personal.setUsername(jtUsername.getText());
-                personal.setPassword(jtPassword.getText());
+                personal.setPassword(passOculta);
                 personal.setFechaNacimiento(jdateFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                 personal.setAdmin(jrbAdminSi.isSelected());
                 personal.setEstado(jrbEstadoActivo.isSelected());
@@ -704,27 +781,62 @@ public class ManejoDePersonal extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "El ID ingresado no corresponde\na un miembro del personal");
             }
+        } else if (!emailValido){
+            JOptionPane.showMessageDialog(null, "Ingrese un email válido");
         } else {
             JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
         }
     }
 
     private void mostrar(Personal personal) {
-            jtID.setText(personal.getIdPersonal() + "");
-            jtNombre.setText(personal.getNombre());
-            jtApellido.setText(personal.getApellido());
-            dni = personal.getDni();
-            jtDni.setText(dni + "");
-            celular = personal.getCelular();
-            jtCelular.setText(celular + "");
-            jtDireccion.setText(personal.getDireccion());
-            jtCorreo.setText(personal.getCorreo());
-            jtUsername.setText(personal.getUsername());
-            jtPassword.setText(personal.getPassword());
-            jdateFechaNac.setDate(Date.valueOf(personal.getFechaNacimiento()));
-            jrbAdminSi.setSelected(personal.isAdmin());
-            jrbAdminNo.setSelected(!personal.isAdmin());
-            jrbEstadoActivo.setSelected(personal.isEstado());
-            jrbEstadoInactivo.setSelected(!personal.isEstado());
+        id = personal.getIdPersonal();
+        jtID.setText(id + "");
+        jtNombre.setText(personal.getNombre());
+        jtApellido.setText(personal.getApellido());
+        dni = personal.getDni();
+        jtDni.setText(dni + "");
+        celular = personal.getCelular();
+        jtCelular.setText(celular + "");
+        jtDireccion.setText(personal.getDireccion());
+        jtCorreo.setText(personal.getCorreo());
+        jtUsername.setText(personal.getUsername());
+        passOculta = personal.getPassword();
+        jtPassword.setText(ocultarPass());
+        jdateFechaNac.setDate(Date.valueOf(personal.getFechaNacimiento()));
+        jrbAdminSi.setSelected(personal.isAdmin());
+        jrbAdminNo.setSelected(!personal.isAdmin());
+        jrbEstadoActivo.setSelected(personal.isEstado());
+        jrbEstadoInactivo.setSelected(!personal.isEstado());
     }
+
+    private String ocultarPass() {
+        String asteriscos = "";
+        for (int i = 0; i < passOculta.length(); i++) {
+            asteriscos += "*";
+        }
+        return asteriscos;
+    }
+
+    private void comprobarCorreo() {
+        (new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10);
+                    if (jtCorreo.getText().contains("@")) {
+                        jtCorreo.setForeground(Color.black);
+                        emailValido = true;
+                    } else {
+                        jtCorreo.setForeground(Color.red);
+                        emailValido = false;
+                    }
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                }
+
+            }
+
+        }).start();
+    }
+
 }
