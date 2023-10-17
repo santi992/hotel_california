@@ -63,7 +63,6 @@
                               <Component id="jrbAdminSi" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jlAdmin" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jlEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtPassword" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
                               <Component id="jtUsername" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
                               <Component id="jlUsername" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jtCorreo" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
@@ -71,6 +70,11 @@
                               <Component id="jlFechaNac" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jlPassword" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jlCorreo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jtPassword" min="-2" pref="193" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jbVer" min="-2" pref="38" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -100,9 +104,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Component id="jlTitulo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jlID" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jtID" min="-2" pref="30" max="-2" attributes="0"/>
@@ -112,9 +116,28 @@
                       <Component id="jtNombre" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jlApellido" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jlCorreo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jtApellido" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jtCorreo" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlUsername" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jtUsername" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlPassword" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="2" attributes="0">
+                  <Component id="jbVer" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtPassword" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jtApellido" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jlDni" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jtDni" min="-2" pref="30" max="-2" attributes="0"/>
@@ -131,19 +154,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jlCorreo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jtCorreo" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jlUsername" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jtUsername" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jlPassword" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jtPassword" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jlFechaNac" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jdateFechaNac" min="-2" pref="30" max="-2" attributes="0"/>
@@ -154,7 +165,7 @@
                           <Component id="jrbEstadoActivo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jrbEstadoInactivo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jlAdmin" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -177,7 +188,7 @@
                   <Component id="jbModificar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jbSalir" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -311,6 +322,7 @@
     <Component class="javax.swing.JTextField" name="jtCorreo">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtCorreoActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtCorreoKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtDni">
@@ -335,6 +347,7 @@
     <Component class="javax.swing.JTextField" name="jtPassword">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtPasswordActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtPasswordKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtDireccion">
@@ -395,6 +408,16 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbModificarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbVer">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/ojo.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbVerActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

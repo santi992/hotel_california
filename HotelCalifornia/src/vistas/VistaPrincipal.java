@@ -10,9 +10,11 @@ import entidades.Personal;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,7 +35,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         escritorios.add(jEscritorio);
         vistaP.add(this);
-        this.repaint();
+        repaint();
         mostrarVista(new ReservarHabitacion());
 
         // COMENTARIO DE PRUEBA
@@ -59,7 +61,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuLogin = new javax.swing.JMenu();
         jMenuLoginH = new javax.swing.JMenuItem();
         jMenuLoginP = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuCerrarSesion = new javax.swing.JMenuItem();
         jMenuHuespedes = new javax.swing.JMenu();
         jMenuManejoHu = new javax.swing.JMenuItem();
         jMenuHabitaciones = new javax.swing.JMenu();
@@ -123,13 +125,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenuLogin.add(jMenuLoginP);
 
-        jMenuItem2.setText("Cerrar sesión");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuCerrarSesion.setText("Cerrar sesión");
+        jMenuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuCerrarSesionActionPerformed(evt);
             }
         });
-        jMenuLogin.add(jMenuItem2);
+        jMenuLogin.add(jMenuCerrarSesion);
 
         jBarraMenu.add(jMenuLogin);
 
@@ -332,13 +334,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mostrarVista(new ManejoDePersonal());
     }//GEN-LAST:event_jMenuManejoPersonalActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCerrarSesionActionPerformed
         login = false;
+        personal = false;
         personalActivo = null;
         huespedActivo = null;
         this.repaint();
         mostrarVista(new ReservarHabitacion());
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuCerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,12 +386,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jEscritorio;
     private javax.swing.JMenuItem jMenuAbanonarHab;
     private javax.swing.JMenuItem jMenuAmpliarRes;
+    private javax.swing.JMenuItem jMenuCerrarSesion;
     private javax.swing.JMenu jMenuConsultas;
     private javax.swing.JMenuItem jMenuDispHab;
     private javax.swing.JMenu jMenuHabitaciones;
     private javax.swing.JMenuItem jMenuHuActuales;
     private javax.swing.JMenu jMenuHuespedes;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu jMenuLogin;
     private javax.swing.JMenuItem jMenuLoginH;
     private javax.swing.JMenuItem jMenuLoginP;
@@ -412,6 +415,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Dimension frameSize = vista.getSize();
         escritorios.get(0).moveToFront(vista);
         vista.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
+        try {
+            vista.setSelected(true);
+        } catch (PropertyVetoException ex) {
+            JOptionPane.showMessageDialog(null, "Error de ventana interna");
+        }
     }
 
     @Override
