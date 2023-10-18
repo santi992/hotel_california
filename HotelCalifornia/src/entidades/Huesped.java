@@ -1,5 +1,8 @@
 package entidades;
 
+import java.time.LocalDate;
+
+
 public class Huesped {
 
     private int idHuesped;
@@ -26,10 +29,12 @@ public class Huesped {
     
     private String pais;
     
+    private LocalDate fechaNac;
+    
     public Huesped() {
     }
 
-    public Huesped(int idHuesped, String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo, String password, boolean estado,String pais) {
+    public Huesped(int idHuesped, String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo, String password, boolean estado,String pais,LocalDate fechaNac) {
         this.idHuesped = idHuesped;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -42,10 +47,11 @@ public class Huesped {
         this.password = password;
         this.estado = estado;
         this.pais = pais;
+        this.fechaNac = fechaNac;
     }
 
 
-    public Huesped(String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo,boolean estado,String pais) {
+    public Huesped(String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo,boolean estado,String pais, LocalDate fechaNac) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -57,6 +63,15 @@ public class Huesped {
         this.password = password;
         this.estado = estado;
         this.pais = pais;
+        this.fechaNac =  fechaNac;
+    }
+
+    public LocalDate getFechaNac() {
+        return fechaNac;
+    }
+
+    public void setFechaNac(LocalDate fechaNac) {
+        this.fechaNac = fechaNac;
     }
 
     public int getIdHuesped() {
