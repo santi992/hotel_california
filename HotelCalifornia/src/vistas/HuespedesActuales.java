@@ -166,10 +166,8 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
                     res.getFechaCheckOut()
                 });
             }
-
     }//GEN-LAST:event_jcbHuespedActionPerformed
-
-    
+   
 }
 
 
@@ -191,18 +189,23 @@ private void armarCabecera(){
     jtHuespedes.setModel(modelo);
 }
 
-private void armarCombo() {
+    private void armarCombo() {
         HuespedData huespedData = new HuespedData();
         List<Huesped> todosLosHuespedes = huespedData.listarHuespedes();
-        for (Huesped huesped : todosLosHuespedes) {
-            if (huesped.isEstado()) {
-                modelo.addRow(new Object[]{
-                    res.getHabitacion().getIdHabitacion(),
-                    res.getHuesped().getApellido(),
-                    res.getHuesped().getNombre(),
-                    res.getFechaCheckOut()
-                });
+        ReservaData reservaData = new ReservaData();
+        List<Reserva> listarReservas = reservaData.listarReservas();
+        for (Reserva res : listarReservas) {
+            for (Huesped huesped : todosLosHuespedes) {
+                if (huesped.isEstado()) {
+                    modelo.addRow(new Object[]{
+                        res.getHabitacion().getIdHabitacion(),
+                        res.getHuesped().getApellido(),
+                        res.getHuesped().getNombre(),
+                        res.getFechaCheckOut(),
+                    });
+                }
             }
         }
     }
 }
+
