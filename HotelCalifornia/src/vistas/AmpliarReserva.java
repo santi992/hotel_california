@@ -121,6 +121,11 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
 
         jbConfirmar.setText("Confirmar");
         jbConfirmar.setPreferredSize(new java.awt.Dimension(100, 30));
+        jbConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConfirmarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -258,6 +263,7 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jdateFechaOutPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdateFechaOutPropertyChange
+        System.out.println("entra a evento");
         calcularPrecio();
     }//GEN-LAST:event_jdateFechaOutPropertyChange
 
@@ -284,6 +290,10 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
     private void jcbReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbReservaActionPerformed
         datosReserva();
     }//GEN-LAST:event_jcbReservaActionPerformed
+
+    private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
+        confirmar();
+    }//GEN-LAST:event_jbConfirmarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
@@ -391,9 +401,10 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
             Reserva reserva = (Reserva) jcbReserva.getSelectedItem();
 
             fechaIn = reserva.getFechaCheckIn();
-            fechaOut = reserva.getFechaCheckOut();
             jtFechaIn.setText(fechaIn + "");
-            jdateFechaOut.setDate(Date.from(fechaOut.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            LocalDate fechaOutAux = reserva.getFechaCheckOut();
+            
+            jdateFechaOut.setDate(Date.from(fechaOutAux.atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
             jlHabitacion.setText("Habitación N°: " + reserva.getHabitacion().getIdHabitacion());
             jlPersonas.setText("Cantidad de personas: " + reserva.getCantPersonas());
@@ -410,12 +421,17 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
     }
 
     private void calcularPrecio() {
+        fechaOut = jdateFechaOut.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         noches = (int) DAYS.between(fechaIn, fechaOut);
         jlNoches.setText("Noches: " + noches);
         precioFinal = noches * precio;
         jlPrecioNuevo.setText("Nuevo importe: $" + precioFinal + " USD");
         diferencia = precioFinal - precioActual;
         jlDiferencia.setText("Importe a abonar: $" + diferencia + " USD");
+    }
+
+    private void confirmar() {
+    
     }
 
 }
