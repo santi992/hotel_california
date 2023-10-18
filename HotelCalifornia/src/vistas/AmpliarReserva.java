@@ -263,7 +263,6 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jdateFechaOutPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdateFechaOutPropertyChange
-        System.out.println("entra a evento");
         calcularPrecio();
     }//GEN-LAST:event_jdateFechaOutPropertyChange
 
@@ -431,7 +430,7 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
     }
 
     private void confirmar() {
-    
+        
     }
 
 }

@@ -361,6 +361,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void jMenuAmpliarResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAmpliarResActionPerformed
         mostrarVista(new AmpliarReserva());
+        //comentario
     }//GEN-LAST:event_jMenuAmpliarResActionPerformed
 
 
