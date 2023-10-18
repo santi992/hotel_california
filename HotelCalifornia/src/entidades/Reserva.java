@@ -111,7 +111,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "idReserva=" + idReserva + ", huesped=" + huesped + ", habitacion=" + habitacion + ", precioTotal=" + precioTotal + '}';
+        return "Reserva N°: " + idReserva + " - Habitación: " + habitacion.getIdHabitacion() + " - Huesped: "+huesped.getApellido() + ", "+huesped.getNombre();
     }
 
 }

@@ -381,8 +381,6 @@ public class Login extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "¡Bienvenido/a, " + p.getNombre() + "!");
             personalActivo = p;
             huespedActivo = null;
-            System.out.println(p);
-            System.out.println(p.isAdmin());
 
             return true;
         } else {

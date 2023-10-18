@@ -34,14 +34,22 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     /**
      * Creates new form ReservarHabitacion
      */
-    HuespedData huData = new HuespedData();
-    HabitacionData habData = new HabitacionData();
-    TipoHabData tipoData = new TipoHabData();
-    ReservaData resData = new ReservaData();
-    double precioFinal = 0;
+    HuespedData huData;
+    HabitacionData habData;
+    TipoHabData tipoData;
+    ReservaData resData;
+    double precioFinal;
 
     public ReservarHabitacion() {
+        
+        huData = new HuespedData();
+        habData = new HabitacionData();
+        tipoData = new TipoHabData();
+        resData = new ReservaData();
+        precioFinal = 0;
+        
         initComponents();
+        
         fechasMinMax();
         armarComboHuesped();
         jdateFechaIn.setDate(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
@@ -69,7 +77,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         jtHuesped = new javax.swing.JTextField();
         jcbHuesped = new javax.swing.JComboBox<>();
         jbIniciar = new javax.swing.JButton();
-        jlHueped1 = new javax.swing.JLabel();
+        jlBuscar = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jlHabitación = new javax.swing.JLabel();
         jcbTipoHab = new javax.swing.JComboBox<>();
@@ -110,6 +118,11 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
 
         jlHueped.setText("Huesped");
 
+        jtHuesped.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtHuespedActionPerformed(evt);
+            }
+        });
         jtHuesped.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtHuespedKeyReleased(evt);
@@ -132,7 +145,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jlHueped1.setText("Buscar:");
+        jlBuscar.setText("Buscar huesped por dni o nombre");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -147,14 +160,14 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jcbHuesped, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 348, Short.MAX_VALUE)
+                                .addComponent(jlBuscar)
+                                .addGap(0, 262, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jbIniciar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlHueped1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtHuesped)))
+                            .addComponent(jtHuesped)
+                            .addComponent(jcbHuesped, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(24, 24, 24))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -164,13 +177,13 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 .addComponent(jlHueped)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlHueped1))
+                .addGap(11, 11, 11)
+                .addComponent(jlBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbIniciar)
-                .addGap(7, 7, 7))
+                .addGap(13, 13, 13))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -343,7 +356,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                         .addComponent(jlPrecioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbReservar)))
-                .addContainerGap())
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,7 +371,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                     .addComponent(jbReservar)
                     .addComponent(jlPrecioTxt)
                     .addComponent(jbSalir))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -413,6 +426,10 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         mostrarVista(ingresar);
     }//GEN-LAST:event_jbIniciarActionPerformed
 
+    private void jtHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtHuespedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtHuespedActionPerformed
+
     private void comboHuespedes() {
         List huespedes = huData.listarHuespedes();
         for (Object hu : huespedes) {
@@ -462,7 +479,6 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 }
             } else {
                 jcbHuesped.addItem(huespedActivo);
-                //jcbHuesped.setEditable(false);
                 jtHuesped.setEditable(false);
             }
         } else {
@@ -578,13 +594,13 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<TipoHabitacion> jcbTipoHab;
     private com.toedter.calendar.JDateChooser jdateFechaIn;
     private com.toedter.calendar.JDateChooser jdateFechaOut;
+    private javax.swing.JLabel jlBuscar;
     private javax.swing.JLabel jlCant;
     private javax.swing.JLabel jlFechaIn;
     private javax.swing.JLabel jlFechaOut;
     private javax.swing.JLabel jlHab;
     private javax.swing.JLabel jlHabitación;
     private javax.swing.JLabel jlHueped;
-    private javax.swing.JLabel jlHueped1;
     private javax.swing.JLabel jlNochesN;
     private javax.swing.JLabel jlNochesTxt;
     private javax.swing.JLabel jlPiso;
