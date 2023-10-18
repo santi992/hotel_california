@@ -146,10 +146,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
                 reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -174,10 +174,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huesped);
                 reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -202,10 +202,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
                 reserva.setHabitacion(habitacion);
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -230,10 +230,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
                 reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -258,10 +258,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huesped);
                 reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -286,10 +286,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
                 reserva.setHabitacion(habitacion);
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -314,10 +314,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
                 reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -343,10 +343,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huesped);
                 reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -372,10 +372,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huesped);
                 reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -400,10 +400,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
                 reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
                 reservas.add(reserva);
             }
@@ -427,10 +427,10 @@ public class ReservaData {
                 reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
                 reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
-                reserva.setFechaCheckIn(rs.getDate("idFechaCheckIn").toLocalDate());
-                reserva.setFechaCheckOut(rs.getDate("idFechaCheckOut").toLocalDate());
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
                 reserva.setCantPersonas(rs.getInt("cantPersonas"));
-                reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
                 reserva.setEstado(rs.getBoolean("estado"));
             }
             ps.close();

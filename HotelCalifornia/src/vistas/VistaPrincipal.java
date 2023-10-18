@@ -193,6 +193,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuReservas.add(jMenuReservarHab);
 
         jMenuAmpliarRes.setText("Ampliar reserva");
+        jMenuAmpliarRes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAmpliarResActionPerformed(evt);
+            }
+        });
         jMenuReservas.add(jMenuAmpliarRes);
 
         jMenuAbanonarHab.setText("Abandonar habitación");
@@ -208,6 +213,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuConsultas.setText("Consultas");
 
         jMenuHuActuales.setText("Huespedes actuales");
+        jMenuHuActuales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuHuActualesActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuHuActuales);
 
         jMenuDispHab.setText("Disponibilidad de habitaciones");
@@ -323,11 +333,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuReservasActionPerformed
 
     private void jMenuAbanonarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAbanonarHabActionPerformed
-        // TODO add your handling code here:
+        mostrarVista(new CancelarReserva());
     }//GEN-LAST:event_jMenuAbanonarHabActionPerformed
 
     private void jMenuReservarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReservarHabActionPerformed
-
+        mostrarVista(new ReservarHabitacion());
     }//GEN-LAST:event_jMenuReservarHabActionPerformed
 
     private void jMenuManejoPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuManejoPersonalActionPerformed
@@ -342,6 +352,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.repaint();
         mostrarVista(new ReservarHabitacion());
     }//GEN-LAST:event_jMenuCerrarSesionActionPerformed
+
+
+    private void jMenuHuActualesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHuActualesActionPerformed
+        
+    }//GEN-LAST:event_jMenuHuActualesActionPerformed
+
+    private void jMenuAmpliarResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAmpliarResActionPerformed
+        mostrarVista(new AmpliarReserva());
+    }//GEN-LAST:event_jMenuAmpliarResActionPerformed
+
 
     /**
      * @param args the command line arguments

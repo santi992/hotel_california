@@ -44,7 +44,7 @@
                       <Component id="jbReservar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -62,7 +62,7 @@
                   <Component id="jlPrecioTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbSalir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,16 +112,16 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jcbHuesped" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jlBuscar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="262" max="32767" attributes="0"/>
+                              </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="348" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="jbIniciar" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jlHueped1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jtHuesped" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jtHuesped" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jcbHuesped" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
@@ -136,14 +136,13 @@
                   <Component id="jlHueped" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jcbHuesped" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jtHuesped" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jlHueped1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <Component id="jlBuscar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jtHuesped" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jbIniciar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -156,6 +155,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jtHuesped">
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtHuespedActionPerformed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtHuespedKeyReleased"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtHuespedKeyTyped"/>
           </Events>
@@ -181,9 +181,9 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbIniciarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jlHueped1">
+        <Component class="javax.swing.JLabel" name="jlBuscar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Buscar:"/>
+            <Property name="text" type="java.lang.String" value="Buscar huesped por dni o nombre"/>
           </Properties>
         </Component>
       </SubComponents>
