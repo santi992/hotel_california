@@ -24,6 +24,8 @@ public class Huesped {
 
     private boolean estado;
     
+    
+    
     public Huesped() {
     }
 
@@ -58,6 +60,7 @@ public class Huesped {
     public int getIdHuesped() {
         return idHuesped;
     }
+
 
     public void setIdHuesped(int idHuesped) {
         this.idHuesped = idHuesped;
