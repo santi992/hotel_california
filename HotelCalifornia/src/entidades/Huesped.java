@@ -24,10 +24,12 @@ public class Huesped {
 
     private boolean estado;
     
+    private String contraseña;
+    
     public Huesped() {
     }
 
-    public Huesped(int idHuesped, String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo, String password, boolean estado) {
+    public Huesped(int idHuesped, String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo, String password, boolean estado,String contraseña) {
         this.idHuesped = idHuesped;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -42,7 +44,7 @@ public class Huesped {
     }
 
 
-    public Huesped(String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo,boolean estado) {
+    public Huesped(String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo,boolean estado,String contraseña) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -57,6 +59,14 @@ public class Huesped {
 
     public int getIdHuesped() {
         return idHuesped;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public void setIdHuesped(int idHuesped) {
