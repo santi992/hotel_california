@@ -40,6 +40,7 @@ public class HotelCalifornia {
     public static void main(String[] args) {
         
         new VistaPrincipal().setVisible(true); // Crea la vista principal
+        // comentatio de prueba
         
         //habData = new HabitacionData();
         //huespedData = new HuespedData();
