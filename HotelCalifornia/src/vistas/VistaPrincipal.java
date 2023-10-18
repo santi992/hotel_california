@@ -355,7 +355,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
 
     private void jMenuHuActualesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHuActualesActionPerformed
-        
+        HuespedesActuales hActual = new HuespedesActuales();
+        mostrarVista(hActual);
     }//GEN-LAST:event_jMenuHuActualesActionPerformed
 
     private void jMenuAmpliarResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAmpliarResActionPerformed
