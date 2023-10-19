@@ -24,6 +24,7 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         armarCombo();
+        huespedTabla();
     }
 
     /**
@@ -153,22 +154,10 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtBuscarKeyReleased
 
     private void jcbHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHuespedActionPerformed
-        modelo.setRowCount(0);
-        Huesped huespedSelec = (Huesped) jcbHuesped.getSelectedItem();
-        ReservaData reservaData = new ReservaData();
-        List<Reserva> listarReservas = reservaData.listarReservas();
-        for (Reserva res : listarReservas) {
-            if (res.getHuesped().equals(huespedSelec)) {
-                modelo.addRow(new Object[]{
-                    res.getHabitacion().getIdHabitacion(),
-                    res.getHuesped().getApellido(),
-                    res.getHuesped().getNombre(),
-                    res.getFechaCheckOut()
-                });
-            }
+        huespedTabla();
+            
     }//GEN-LAST:event_jcbHuespedActionPerformed
-   
-}
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -192,20 +181,34 @@ private void armarCabecera(){
     private void armarCombo() {
         HuespedData huespedData = new HuespedData();
         List<Huesped> todosLosHuespedes = huespedData.listarHuespedes();
-        ReservaData reservaData = new ReservaData();
-        List<Reserva> listarReservas = reservaData.listarReservas();
-        for (Reserva res : listarReservas) {
             for (Huesped huesped : todosLosHuespedes) {
                 if (huesped.isEstado()) {
-                    modelo.addRow(new Object[]{
-                        res.getHabitacion().getIdHabitacion(),
-                        res.getHuesped().getApellido(),
-                        res.getHuesped().getNombre(),
-                        res.getFechaCheckOut(),
-                    });
-                }
+                    jcbHuesped.addItem(huesped);
             }
         }
     }
+    private void limpiarTabla(){
+        for (int i = modelo.getRowCount(); i > 0 ; i--) {
+            modelo.removeRow(i-1);
+        }
+    }
+    private void huespedTabla(){
+        limpiarTabla();
+        Huesped huesped = (Huesped) jcbHuesped.getSelectedItem();
+        modelo.setRowCount(0);
+        ReservaData reservaData = new ReservaData();
+        List<Reserva> listarReservasxHuesped = reservaData.listarReservasXHuesped(huesped);
+        for (Reserva res : listarReservasxHuesped) {
+                modelo.addRow(new Object[]{
+                    res.getHabitacion().getIdHabitacion(),
+                    res.getHuesped().getApellido(),
+                    res.getHuesped().getNombre(),
+                    res.getFechaCheckOut()
+                });
+            }
+    }                                          
+   
 }
+
+
 
