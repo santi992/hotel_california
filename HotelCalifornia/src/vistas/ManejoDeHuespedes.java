@@ -670,7 +670,6 @@ public class MainFrame extends JFrame {
             jtPais.setText(huesped.getPais());
             jtProvincia.setText(huesped.getProvincia());
             jtLocalidad.setText(huesped.getLocalidad());
-            //JdFecha.setDate(Date.valueOf(huesped.getFechaNac()));
             JdFecha.setDate(Date.from(huesped.getFechaNac().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         }
         
