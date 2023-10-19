@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
+import vistas.ReservarHabitacion;
+import static vistas.VistaPrincipal.escritorios;
+import static vistas.VistaPrincipal.mostrarVista;
 
 public class ReservaData {
 
@@ -88,9 +91,9 @@ public class ReservaData {
     }
 
     // CHECKEADO
-    public void eliminarReserva(Reserva reserva) {
+    public void cancelarReserva(Reserva reserva) {
 
-        String sql = "UPDATE reserva SET estado = ? WHERE idReserva = ?";
+        String sql = "UPDATE reserva SET estado = ?, WHERE idReserva = ?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -98,7 +101,31 @@ public class ReservaData {
             ps.setInt(2, reserva.getIdReserva());
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Reserva eliminada con éxito.");
+                JOptionPane.showMessageDialog(null, "Reserva cancelada con éxito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "La reserva no existe.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        }
+
+    }
+
+    // CHECKEADO
+    public void cancelarReserva(Reserva reserva, LocalDate fecha, double precioFinal) {
+
+        String sql = "UPDATE reserva SET estado = ?, precioFinal = ?, fechaCheckOut = ? WHERE idReserva = ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setDouble(2, precioFinal);
+            ps.setDate(3, Date.valueOf(fecha));
+            ps.setInt(4, reserva.getIdReserva());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Reserva cancelada con éxito.");
             } else {
                 JOptionPane.showMessageDialog(null, "La reserva no existe.");
             }
@@ -439,4 +466,31 @@ public class ReservaData {
         }
         return reserva;
     }
+
+    public void actualizarDisponibilidad() {
+        Date hoy = Date.valueOf(LocalDate.now());
+        String sql = "UPDATE reserva SET estado = ? WHERE fechaCheckOut < ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setDate(2, hoy);
+            int exito = ps.executeUpdate();
+            if (exito != 0) {
+                JOptionPane.showMessageDialog(null, "Reservas actualizadas con éxito.");
+//                String mensaje = "Reservas actualizadas correctamente";
+//                Object[] ok = new Object[]{"Continuar"};
+//                int respuesta = JOptionPane.showOptionDialog(null, mensaje, "Actualizaciónn inicial", JOptionPane.YES_OPTION, JOptionPane.OK_OPTION, null, ok, ok[0]);
+//                if (respuesta == JOptionPane.YES_OPTION) {
+//                    mostrarVista(new ReservarHabitacion());
+//                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al actualizar, reinicie el programa.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        }
+    }
+
 }

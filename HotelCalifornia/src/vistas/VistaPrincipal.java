@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import accesoADatos.ReservaData;
 import entidades.Huesped;
 import entidades.Personal;
 import java.awt.Dimension;
@@ -30,13 +31,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public static ArrayList<javax.swing.JFrame> vistaP = new ArrayList<>();
 
     public VistaPrincipal() {
+        
         initComponents();
         //this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         escritorios.add(jEscritorio);
         vistaP.add(this);
         repaint();
+        new ReservaData().actualizarDisponibilidad();
         mostrarVista(new ReservarHabitacion());
+        
 
         // COMENTARIO DE PRUEBA
     }
@@ -364,7 +368,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         //comentario
     }//GEN-LAST:event_jMenuAmpliarResActionPerformed
 
-
     /**
      * @param args the command line arguments
      */
@@ -467,5 +470,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
             jMenuPersonal.setVisible(true);
         }
     }
+
 
 }

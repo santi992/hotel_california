@@ -103,7 +103,7 @@ public class HuespedData {
         List<Huesped> huespedes = new ArrayList<>();
 
         try {
-            String sql = "SELECT * From huesped Where estado =1";
+            String sql = "SELECT * From huesped Where estado = 1 ORDER BY apellido";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
