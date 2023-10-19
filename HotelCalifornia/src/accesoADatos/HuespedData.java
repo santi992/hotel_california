@@ -2,6 +2,7 @@ package accesoADatos;
 
 import entidades.Huesped;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +20,8 @@ public class HuespedData {
     }
 
     public void agregarHuesped(Huesped huesped) {
-        String sql = "INSERT INTO huesped(nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular, estado)"
-                + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO huesped(nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular, estado,fechaNacimiento,pais)"
+                + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps;
         try {
@@ -35,6 +36,8 @@ public class HuespedData {
             ps.setString(8, huesped.getPassword());
             ps.setInt(9, huesped.getCelular());
             ps.setBoolean(10, huesped.isEstado());
+            ps.setDate(11,  Date.valueOf(huesped.getFechaNac()));
+            ps.setString(12, huesped.getPais());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -52,7 +55,7 @@ public class HuespedData {
     }
 
     public void modificarHuesped(Huesped huesped) {
-        String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, password=?, Celular=?"
+        String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, password=?, Celular=?, pais=?, fechaNacimiento=?"
                 + " WHERE idHuesped=?";
         PreparedStatement ps = null;
         try {
@@ -67,6 +70,8 @@ public class HuespedData {
             ps.setString(8, huesped.getPassword());
             ps.setInt(9, huesped.getCelular());
             ps.setInt(10, huesped.getIdHuesped());
+            ps.setString(11, huesped.getPais());
+            ps.setDate(12,  Date.valueOf(huesped.getFechaNac()));
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado exitosamente.");
@@ -113,7 +118,9 @@ public class HuespedData {
                 huesped.setCorreo(rs.getString("Correo"));
                 huesped.setPassword(rs.getString("password"));
                 huesped.setCelular(rs.getInt("Celular"));
-                huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
+                huesped.setEstado(rs.getBoolean("estado"));  
+                huesped.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                huesped.setPais(rs.getString("pais"));
 
                 huespedes.add(huesped);
             }
@@ -126,7 +133,7 @@ public class HuespedData {
 
     public Huesped obtenerHuesped(int idHuesped) {
         Huesped huesped = null;
-        String sql = " SELECT nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular,estado  FROM huesped Where idHuesped=? AND estado=1";
+        String sql = " SELECT *  FROM huesped Where idHuesped=? AND estado=1";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -145,7 +152,9 @@ public class HuespedData {
                 huesped.setCorreo(rs.getString("Correo"));
                 huesped.setPassword(rs.getString("password"));
                 huesped.setCelular(rs.getInt("Celular"));
-                huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
+                huesped.setEstado(rs.getBoolean("estado"));  
+                huesped.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                huesped.setPais(rs.getString("pais"));
             } else {
                 JOptionPane.showMessageDialog(null, "El huesped no existe o se encuentra inactivo");
             }
@@ -160,7 +169,7 @@ public class HuespedData {
 
     public Huesped obtenerHuespedXDni(int dni) {
         Huesped huesped = null;
-        String sql = " SELECT  idHuesped,nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular,estado FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
+        String sql = " SELECT  * FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -178,7 +187,9 @@ public class HuespedData {
                 huesped.setCorreo(rs.getString("Correo"));
                 huesped.setPassword(rs.getString("password"));
                 huesped.setCelular(rs.getInt("Celular"));
-                huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
+                huesped.setEstado(rs.getBoolean("estado"));
+                huesped.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                huesped.setPais(rs.getString("pais"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el huesped o se enuentra inactivo.");
             }
@@ -192,7 +203,7 @@ public class HuespedData {
 
     public Huesped obtenerHuespedXCorreo(String correo) {
         Huesped huesped = null;
-        String sql = " SELECT  idHuesped,nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular,estado FROM huesped WHERE correo = ? AND estado = 1"; //aca estaba el cambio dni
+        String sql = " SELECT  * FROM huesped WHERE correo = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -210,7 +221,9 @@ public class HuespedData {
                 huesped.setCorreo(rs.getString("Correo"));
                 huesped.setPassword(rs.getString("password"));
                 huesped.setCelular(rs.getInt("Celular"));
-                huesped.setEstado(rs.getBoolean("estado"));  //no se que tan necesario es en este metodo
+                huesped.setEstado(rs.getBoolean("estado"));  
+                huesped.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                huesped.setPais(rs.getString("pais"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el huesped o se enuentra inactivo.");
             }

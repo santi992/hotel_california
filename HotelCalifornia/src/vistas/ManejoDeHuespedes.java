@@ -9,10 +9,15 @@ import accesoADatos.HuespedData;
 import entidades.Huesped;
 import entidades.Personal;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.TreeSet;
 import javax.swing.JOptionPane;
+import static vistas.VistaPrincipal.huespedActivo;
+import static vistas.VistaPrincipal.personalActivo;
 
 /**
  *
@@ -20,12 +25,10 @@ import javax.swing.JOptionPane;
  */
 public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ManejoDeHuespedes
-     */
+    private boolean emailValido;
+    
     public ManejoDeHuespedes() {
-        initComponents();
-        jtId.setEditable(false);
+        funcionesyVariablesDeInicio();
 
     }
     HuespedData huData = new HuespedData() ;
@@ -521,18 +524,22 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     
         private void guardar() {
         if (camposCompletos()) {
+            HuespedData huesData = new HuespedData();
             Huesped hues = new Huesped();
             hues.setNombre(jtNombre.getText());
-            hues.setApellido(jtApellido.getText());
             hues.setDni(Integer.parseInt(jtDni.getText()));
             hues.setCelular(Integer.parseInt(jtCelular.getText()));
             hues.setDireccion(jtDireccion.getText());
             hues.setCorreo(jtCorreo.getText()); // seguir compmletando
-
-            hues.setFechaNacimiento(jdateFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            hues.setAdmin(jrbAdminSi.isSelected());
-            hues.setEstado(jrbEstadoActivo.isSelected());
-            persData.agregarHuesped(hues);
+            hues.setPassword(jpContraseña.getText());
+            
+            hues.setApellido(jtApellido.getText());
+            hues.setLocalidad(jtLocalidad.getText());
+            hues.setProvincia(jtProvincia.getText());
+            hues.setPais(jtPais.getText());
+            hues.setFechaNac(JdFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            
+            huesData.agregarHuesped(hues);
             nuevo();
         } else {
             JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
@@ -633,5 +640,60 @@ public class MainFrame extends JFrame {
         jcbHuesped.removeAllItems();
         jpContraseña.setText("");
         }
+    
+        void funcionesyVariablesDeInicio() {
+        initComponents();
+        jtId.setEditable(false);
+        if (huespedActivo != null) {  ///  ENCONTRAR UNA FORMMA PARA QUE INGRESE PERSONAL ADMIN 
+            jtBuscar.setEditable(false);
+            jbBuscar.setEnabled(false);
+            jcbHuesped.setEnabled(false);
+            jrEstado.setEnabled(false);  
+        mostrar(huespedActivo);
+        comprobarCorreo();
+        }else {
+        }
+       
+    }
+    
+        private void mostrar(Huesped huesped) {
+            jtNombre.setText(huesped.getNombre());       // VER POR QUE NO ME DEJA ENTRAR  POR LO QUE IMAGINO DEBE SER POR QUE NO CARGO NADA EN EL HUESPED
+            jtDni.setText(Integer.toString(huesped.getDni()));
+            jtDireccion.setText(huesped.getDireccion());
+            jtCelular.setText(Integer.toString(huesped.getCelular()));
+            jtCorreo.setText(huesped.getCorreo());
+            jpContraseña.setText(huesped.getPassword()); // ver esto si bloquerla o que
+            
+            jtId.setText(Integer.toString(huesped.getIdHuesped()));
+            jrEstado.setSelected(huesped.isEstado());
+            jtApellido.setText(huesped.getApellido());
+            jtPais.setText(huesped.getPais());
+            jtProvincia.setText(huesped.getProvincia());
+            jtLocalidad.setText(huesped.getLocalidad());
+            //JdFecha.setDate(Date.valueOf(huesped.getFechaNac()));
+            JdFecha.setDate(Date.from(huesped.getFechaNac().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        }
+        
+            private void comprobarCorreo() {
+        (new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10);
+                    if (jtCorreo.getText().contains("@")) {
+                        jtCorreo.setForeground(Color.black);
+                        emailValido = true;
+                    } else {
+                        jtCorreo.setForeground(Color.red);
+                        emailValido = false;
+                    }
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                }
+
+            }
+
+        }).start();
+    }
 }
 
