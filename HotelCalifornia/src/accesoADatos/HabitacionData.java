@@ -269,7 +269,7 @@ public class HabitacionData {
     public ArrayList<Integer> ObtenerPiso() {
         ArrayList<Integer> numerosDePiso = new ArrayList<>();
 
-        String query = "SELECT DISTINCT piso FROM habitaciones";
+        String query = "SELECT DISTINCT piso FROM habitacion";
         try (PreparedStatement statement = con.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 

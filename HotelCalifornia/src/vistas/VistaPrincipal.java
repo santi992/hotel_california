@@ -329,7 +329,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuTiposHabActionPerformed
 
     private void jMenuDispHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDispHabActionPerformed
-        // TODO add your handling code here:
+        DispoHabitaciones dispoHabs = new DispoHabitaciones();
+        mostrarVista(dispoHabs);
     }//GEN-LAST:event_jMenuDispHabActionPerformed
 
     private void jMenuReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReservasActionPerformed
