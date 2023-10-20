@@ -34,6 +34,16 @@ public class Huesped {
     public Huesped() {
     }
 
+    public Huesped(String nombre, int dni, String direccion, int celular, String correo, String password) {
+        this.nombre = nombre;
+        this.dni = dni;
+        this.direccion = direccion;
+        this.celular = celular;
+        this.correo = correo;
+        this.password = password;
+    }
+
+   
     public Huesped(int idHuesped, String nombre, String apellido, int dni, String direccion, String provincia, String localidad, int celular, String correo, String password, boolean estado,String pais,LocalDate fechaNac) {
         this.idHuesped = idHuesped;
         this.nombre = nombre;

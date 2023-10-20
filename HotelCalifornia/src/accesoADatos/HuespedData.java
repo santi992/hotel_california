@@ -119,13 +119,16 @@ public class HuespedData {
                 huesped.setPassword(rs.getString("password"));
                 huesped.setCelular(rs.getInt("Celular"));
                 huesped.setEstado(rs.getBoolean("estado"));  
-                huesped.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                huesped.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate()); // VER QUE ONDA COMO PODER HACER PASAR EL NULL YA QUE ES UN DATO NO OBLIGATORIO
                 huesped.setPais(rs.getString("pais"));
 
                 huespedes.add(huesped);
             }
             ps.close();
-        } catch (SQLException ex) {
+        }catch(NullPointerException f){
+                    
+                    }
+         catch (SQLException  ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped" + ex.getMessage());
         }
         return huespedes;
@@ -222,13 +225,16 @@ public class HuespedData {
                 huesped.setPassword(rs.getString("password"));
                 huesped.setCelular(rs.getInt("Celular"));
                 huesped.setEstado(rs.getBoolean("estado"));  
-                huesped.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 huesped.setPais(rs.getString("pais"));
+                huesped.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el huesped o se enuentra inactivo.");
             }
             ps.close();
-        } catch (SQLException ex) {
+                }catch(NullPointerException f){
+                    
+                    }
+         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped " + ex.getMessage());
 
         }
