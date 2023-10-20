@@ -265,4 +265,23 @@ public class HabitacionData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
         }
     }
+    
+    public ArrayList<Integer> ObtenerPiso() {
+        ArrayList<Integer> numerosDePiso = new ArrayList<>();
+
+        String query = "SELECT DISTINCT piso FROM habitaciones";
+        try (PreparedStatement statement = con.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int numeroPiso = resultSet.getInt("Piso");
+                numerosDePiso.add(numeroPiso);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a los Pisos" + ex.getMessage());
+            
+        }   
+
+        return numerosDePiso;
+    }
 }
