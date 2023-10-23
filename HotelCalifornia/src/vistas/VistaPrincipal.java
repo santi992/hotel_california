@@ -233,6 +233,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuConsultas.add(jMenuDispHab);
 
         jMenuResActuales.setText("Reservas actuales");
+        jMenuResActuales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuResActualesActionPerformed(evt);
+            }
+        });
         jMenuConsultas.add(jMenuResActuales);
 
         jBarraMenu.add(jMenuConsultas);
@@ -368,6 +373,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mostrarVista(new AmpliarReserva());
         //comentario
     }//GEN-LAST:event_jMenuAmpliarResActionPerformed
+
+    private void jMenuResActualesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResActualesActionPerformed
+        ReservasActuales ra= new ReservasActuales();
+        mostrarVista(ra);
+    }//GEN-LAST:event_jMenuResActualesActionPerformed
 
     /**
      * @param args the command line arguments
