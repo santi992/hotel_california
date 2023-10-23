@@ -16,6 +16,7 @@ import entidades.TipoHabitacion;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 import vistas.VistaPrincipal;
 
@@ -146,6 +147,21 @@ public class HotelCalifornia {
             }
         }
         return id;
+    }
+    
+    public static void espera(int t){
+        (new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(t);
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                }
+
+            }
+
+        }).start();
     }
 
 }

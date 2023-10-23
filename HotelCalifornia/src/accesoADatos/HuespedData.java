@@ -136,7 +136,7 @@ public class HuespedData {
 
     public Huesped obtenerHuesped(int idHuesped) {
         Huesped huesped = null;
-        String sql = " SELECT *  FROM huesped Where idHuesped=? AND estado=1";
+        String sql = " SELECT *  FROM huesped Where idHuesped=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);

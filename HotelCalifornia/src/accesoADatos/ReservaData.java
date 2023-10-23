@@ -13,9 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
-import vistas.ReservarHabitacion;
-import static vistas.VistaPrincipal.escritorios;
-import static vistas.VistaPrincipal.mostrarVista;
 
 public class ReservaData {
 
@@ -220,9 +217,9 @@ public class ReservaData {
         Reserva reserva;
 
         try {
-            String sql = "SELECT * FROM reserva WHERE estado = 1 AND idHabitacion = " + habitacion.getIdHabitacion();
-
+            String sql = "SELECT * FROM reserva WHERE estado = 1 AND idHabitacion = ?";
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, habitacion.getIdHabitacion());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 reserva = new Reserva();
@@ -475,21 +472,10 @@ public class ReservaData {
             ps = con.prepareStatement(sql);
             ps.setBoolean(1, false);
             ps.setDate(2, hoy);
-            int exito = ps.executeUpdate();
-            if (exito != 0) {
-                JOptionPane.showMessageDialog(null, "Reservas actualizadas con éxito.");
-//                String mensaje = "Reservas actualizadas correctamente";
-//                Object[] ok = new Object[]{"Continuar"};
-//                int respuesta = JOptionPane.showOptionDialog(null, mensaje, "Actualizaciónn inicial", JOptionPane.YES_OPTION, JOptionPane.OK_OPTION, null, ok, ok[0]);
-//                if (respuesta == JOptionPane.YES_OPTION) {
-//                    mostrarVista(new ReservarHabitacion());
-//                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al actualizar, reinicie el programa.");
-            }
+            ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar, reinicie el programa." + ex.getMessage());
         }
     }
 
