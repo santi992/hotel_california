@@ -31,6 +31,11 @@ public class TipoHabitacion  {
         
     }
 
+    public TipoHabitacion(String text) {
+    }
+
+    
+
     public int getIdTipoHab() {
         return idTipoHab;
     }
