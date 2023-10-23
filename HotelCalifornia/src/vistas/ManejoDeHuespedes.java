@@ -26,13 +26,12 @@ import static vistas.VistaPrincipal.personalActivo;
 public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
     private boolean emailValido;
-    
+
     public ManejoDeHuespedes() {
         funcionesyVariablesDeInicio();
 
     }
-    HuespedData huData = new HuespedData() ;
-
+    HuespedData huData = new HuespedData();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -202,6 +201,11 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
         jbGuardar.setText("Guardar");
         jbGuardar.setPreferredSize(new java.awt.Dimension(100, 35));
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbNuevo.setText("Nuevo");
         jbNuevo.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -418,29 +422,35 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-       nuevo();
+        nuevo();
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        // TODO add your handling code here:
+       eliminarHuespedxCorreoyContraseña();// HACER UN CARTEL PARA CONFIRMA LA ELIMIMNACION DEL USUARIO
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
+        
+        mostrar((Huesped)jcbHuesped.getSelectedItem());
+        nuevo();
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyReleased
         buscarHuesped();
-        
     }//GEN-LAST:event_jtBuscarKeyReleased
 
     private void jrEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jrEstadoActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        guardar();
+        comprobarCorreo();
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
     // ----------------------------- ATENCION ------------------------------
     //Crear funcion que rellene el mail por tipeo, busca y ordena alfaveticament 5 primmeros resultados 
@@ -473,7 +483,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbHuesped;
+    private javax.swing.JComboBox<Huesped> jcbHuesped;
     private javax.swing.JLabel jlBuscar;
     private javax.swing.JLabel jlBuscarme;
     private javax.swing.JLabel jlId;
@@ -491,54 +501,54 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtPais;
     private javax.swing.JTextField jtProvincia;
     // End of variables declaration//GEN-END:variables
-    
-    private void buscarHuesped(){
+
+    private void buscarHuesped() {
         jcbHuesped.removeAllItems();
         List huespedes = huData.listarHuespedes();
         TreeSet<Huesped> mostrar = new TreeSet<>();
-        for (Object hu: huespedes){
-            
+        for (Object hu : huespedes) {
+
             Huesped huesped = (Huesped) hu;
-            
+
             String texto = jtBuscar.getText().toLowerCase();
             String nombre = huesped.getNombre().toLowerCase();
             String apellido = huesped.getApellido().toLowerCase();
-            String dni = huesped.getDni()+"";
-            String nomAp = nombre+" "+apellido;
-            String apNom = apellido+" "+nombre;
+            String dni = huesped.getDni() + "";
+            String nomAp = nombre + " " + apellido;
+            String apNom = apellido + " " + nombre;
             String correo = huesped.getCorreo().toLowerCase();
-           
+
             boolean correoMatch = correo.startsWith(texto);
             boolean nombreMatch = nombre.startsWith(texto);
             boolean apellidoMatch = apellido.startsWith(texto);
-            boolean dniMatch =  dni.startsWith(texto);
+            boolean dniMatch = dni.startsWith(texto);
             boolean nomApMatch = nomAp.startsWith(texto);
             boolean apNomMatch = apNom.startsWith(texto);
-            
-            if (nombreMatch || apellidoMatch || dniMatch || nomApMatch || apNomMatch||correoMatch) {
+
+            if (nombreMatch || apellidoMatch || dniMatch || nomApMatch || apNomMatch || correoMatch) {
                 //mostrar.add(huesped);
-                jcbHuesped.addItem(huesped.toString());
+                jcbHuesped.addItem(huesped);
             }
-            
-            if(jtBuscar.getText().isEmpty()){
+
+            if (jtBuscar.getText().isEmpty()) {
                 jcbHuesped.removeAllItems();
 
             }
         }
     }
-    
-    private boolean camposCompletos(){
+
+    private boolean camposCompletos() {
         boolean nombre = !jtNombre.getText().isEmpty();
         boolean dni = !jtDni.getText().isEmpty();
         boolean direccion = !jtDireccion.getText().isEmpty();
         boolean celular = !jtCelular.getText().isEmpty();
         boolean correo = !jtCorreo.getText().isEmpty();
         boolean contraseña = !jpContraseña.getText().isEmpty();
-        return (nombre&&dni&&direccion&&celular&&correo&&contraseña);
-    
+        return (nombre && dni && direccion && celular && correo && contraseña);
+
     }
-    
-        private void guardar() {
+
+    private void guardar() {
         if (camposCompletos()) {
             HuespedData huesData = new HuespedData();
             Huesped hues = new Huesped();
@@ -546,27 +556,34 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
             hues.setDni(Integer.parseInt(jtDni.getText()));
             hues.setCelular(Integer.parseInt(jtCelular.getText()));
             hues.setDireccion(jtDireccion.getText());
-            hues.setCorreo(jtCorreo.getText()); // seguir compmletando
+            hues.setCorreo(jtCorreo.getText());
             hues.setPassword(jpContraseña.getText());
-            
+
             hues.setApellido(jtApellido.getText());
             hues.setLocalidad(jtLocalidad.getText());
             hues.setProvincia(jtProvincia.getText());
             hues.setPais(jtPais.getText());
-            hues.setFechaNac(JdFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            
+            try {
+                hues.setFechaNac(JdFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            } catch (NullPointerException e) {
+
+                hues.setFechaNac(LocalDate.of(0, 0, 0));
+
+            }
+
             huesData.agregarHuesped(hues);
             nuevo();
+        } else if (!emailValido) {
+            JOptionPane.showMessageDialog(null, "Ingrese un email válido");
         } else {
             JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
         }
     }
-    private void cartasLayout(){
-        
-       // CardLayout
-                
-                
-         /*
+
+    private void cartasLayout() {
+
+        // CardLayout
+        /*
                 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -635,13 +652,11 @@ public class MainFrame extends JFrame {
     }
 }
 
-                */       
-                
-        
+         */
     }
-    
-        private void nuevo() {
-        jtCelular.setText(""); 
+
+    private void nuevo() {
+        jtCelular.setText("");
         jtDni.setText("");
         jtId.setText("");
         jtNombre.setText("");
@@ -655,61 +670,61 @@ public class MainFrame extends JFrame {
         JdFecha.setDate(null);
         jcbHuesped.removeAllItems();
         jpContraseña.setText("");
-        }
-    
-        void funcionesyVariablesDeInicio() {
+    }
+
+    void funcionesyVariablesDeInicio() {
         initComponents();
         jtId.setEditable(false);
-        if (huespedActivo != null) {  ///  ENCONTRAR UNA FORMMA PARA QUE INGRESE PERSONAL ADMIN 
+        if (huespedActivo != null) {
 
             jlBuscar.setVisible(false);
             jtBuscar.setVisible(false);
             jbBuscar.setVisible(false);
             jcbHuesped.setVisible(false);
             jrEstado.setVisible(false);
-        mostrar(huespedActivo);
-        comprobarCorreo();
-        }else if(VistaPrincipal.login == false){
+            mostrar(huespedActivo);
+            comprobarCorreo();
+        } else if (VistaPrincipal.login == false) {
             jlBuscar.setVisible(false);
             jtBuscar.setVisible(false);
             jbBuscar.setVisible(false);
             jcbHuesped.setVisible(false);
-            jrEstado.setVisible(false); 
+            jrEstado.setVisible(false);
             jbBuscarme.setVisible(false);
             jlBuscarme.setVisible(false);
             jlId.setVisible(false);
             jtId.setVisible(false);
-        }else{
+        } else {
             jbBuscarme.setVisible(false);
-            jlBuscarme.setVisible(false);   
+            jlBuscarme.setVisible(false);
         }
     }
-    
-        private void mostrar(Huesped huesped) {
-                
-            jtNombre.setText(huesped.getNombre());       // VER POR QUE NO ME DEJA ENTRAR  POR LO QUE IMAGINO DEBE SER POR QUE NO CARGO NADA EN EL HUESPED
-            jtDni.setText(Integer.toString(huesped.getDni()));
-            jtDireccion.setText(huesped.getDireccion());
-            jtCelular.setText(Integer.toString(huesped.getCelular()));
-            jtCorreo.setText(huesped.getCorreo());
-            jpContraseña.setText(huesped.getPassword()); // ver esto si bloquerla o que
-            
-            try {
+
+    private void mostrar(Huesped huesped) {
+
+        jtNombre.setText(huesped.getNombre());
+        jtDni.setText(Integer.toString(huesped.getDni()));
+        jtDireccion.setText(huesped.getDireccion());
+        jtCelular.setText(Integer.toString(huesped.getCelular()));
+        jtCorreo.setText(huesped.getCorreo());
+        jpContraseña.setText(huesped.getPassword());
+
+        try {
             jtId.setText(Integer.toString(huesped.getIdHuesped()));
             jrEstado.setSelected(huesped.isEstado());
             jtApellido.setText(huesped.getApellido());
             jtPais.setText(huesped.getPais());
-                System.out.println(huesped.getPais());
+            System.out.println(huesped.getPais());
             jtProvincia.setText(huesped.getProvincia());
             jtLocalidad.setText(huesped.getLocalidad());
             JdFecha.setDate(Date.from(huesped.getFechaNac().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-            
-            } catch (NullPointerException ex) {
-            }
-  
+
+        } catch (NullPointerException ex) {
         }
-        
-            private void comprobarCorreo() {
+
+    }
+
+    private void comprobarCorreo() {
         (new Thread() {
             @Override
             public void run() {
@@ -730,5 +745,11 @@ public class MainFrame extends JFrame {
 
         }).start();
     }
+    
+    
+    private void eliminarHuespedxCorreoyContraseña(){
+        Huesped hue = new Huesped();
+       hue = huData.obtenerHuespedXCorreo(jtCorreo.getText());
+        huData.eliminarHuesped(hue.getIdHuesped());
+    }
 }
-
