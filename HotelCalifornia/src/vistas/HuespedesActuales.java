@@ -46,6 +46,7 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
 
         setClosable(true);
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Huespedes Actuales");
