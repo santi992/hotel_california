@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import accesoADatos.ReservaData;
 import entidades.Huesped;
 import entidades.Personal;
 import java.awt.Dimension;
@@ -30,13 +31,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public static ArrayList<javax.swing.JFrame> vistaP = new ArrayList<>();
 
     public VistaPrincipal() {
+        
         initComponents();
         //this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         escritorios.add(jEscritorio);
         vistaP.add(this);
         repaint();
+        new ReservaData().actualizarDisponibilidad();
         mostrarVista(new ReservarHabitacion());
+        
 
         // COMENTARIO DE PRUEBA
     }
@@ -325,7 +329,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuTiposHabActionPerformed
 
     private void jMenuDispHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDispHabActionPerformed
-        // TODO add your handling code here:
+        DispoHabitaciones dispoHabs = new DispoHabitaciones();
+        mostrarVista(dispoHabs);
     }//GEN-LAST:event_jMenuDispHabActionPerformed
 
     private void jMenuReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReservasActionPerformed
@@ -355,13 +360,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
 
     private void jMenuHuActualesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHuActualesActionPerformed
-        
+        HuespedesActuales hActual = new HuespedesActuales();
+        mostrarVista(hActual);
     }//GEN-LAST:event_jMenuHuActualesActionPerformed
 
     private void jMenuAmpliarResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAmpliarResActionPerformed
         mostrarVista(new AmpliarReserva());
+        //comentario
     }//GEN-LAST:event_jMenuAmpliarResActionPerformed
-
 
     /**
      * @param args the command line arguments
@@ -465,5 +471,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
             jMenuPersonal.setVisible(true);
         }
     }
+
 
 }

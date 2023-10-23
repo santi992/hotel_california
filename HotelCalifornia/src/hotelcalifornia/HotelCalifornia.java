@@ -16,6 +16,7 @@ import entidades.TipoHabitacion;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 import vistas.VistaPrincipal;
 
@@ -40,6 +41,7 @@ public class HotelCalifornia {
     public static void main(String[] args) {
         
         new VistaPrincipal().setVisible(true); // Crea la vista principal
+        // comentatio de prueba
         
         //habData = new HabitacionData();
         //huespedData = new HuespedData();
@@ -145,6 +147,21 @@ public class HotelCalifornia {
             }
         }
         return id;
+    }
+    
+    public static void espera(int t){
+        (new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(t);
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                }
+
+            }
+
+        }).start();
     }
 
 }

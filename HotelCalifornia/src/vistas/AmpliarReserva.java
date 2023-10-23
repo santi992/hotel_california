@@ -14,6 +14,7 @@ import java.time.ZoneId;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import static vistas.VistaPrincipal.huespedActivo;
 import static vistas.VistaPrincipal.login;
 import static vistas.VistaPrincipal.personal;
@@ -24,13 +25,11 @@ import static vistas.VistaPrincipal.personal;
  */
 public class AmpliarReserva extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form AmpliarReserva
-     */
     private HuespedData huData;
     private ReservaData resData;
     private LocalDate fechaIn;
     private LocalDate fechaOut;
+    private LocalDate fechaOutAux;
     private int noches;
     private double diferencia;
     private double precio;
@@ -119,8 +118,13 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
 
         jlHabitacion.setText("Habitación N°:");
 
-        jbConfirmar.setText("Confirmar");
+        jbConfirmar.setText("Ampliar reserva");
         jbConfirmar.setPreferredSize(new java.awt.Dimension(100, 30));
+        jbConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConfirmarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.setPreferredSize(new java.awt.Dimension(100, 30));
@@ -168,9 +172,9 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(242, 242, 242)
-                        .addComponent(jbConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jbConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(176, 176, 176)
                         .addComponent(jlTitulo))
@@ -258,7 +262,10 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jdateFechaOutPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdateFechaOutPropertyChange
-        calcularPrecio();
+        try {
+            calcularPrecio();
+        } catch (NullPointerException np) {
+        }
     }//GEN-LAST:event_jdateFechaOutPropertyChange
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -284,6 +291,24 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
     private void jcbReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbReservaActionPerformed
         datosReserva();
     }//GEN-LAST:event_jcbReservaActionPerformed
+
+    private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
+        if (diferencia > 0) {
+
+            String mensaje = "¿Confirma que desea ampliar su\nreserva hasta la fecha "
+                    + fechaOut + "?\nDeberá abonar $" + diferencia + " USD";
+
+            Object[] opciones = new Object[]{"Confirmar", "Cancelar"};
+
+            int respuesta = JOptionPane.showOptionDialog(null, mensaje, "Ampliar reserva", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                confirmar();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "La nueva fecha de check out\ndebe ser posterior a " + fechaOutAux);
+        }
+    }//GEN-LAST:event_jbConfirmarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
@@ -391,9 +416,10 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
             Reserva reserva = (Reserva) jcbReserva.getSelectedItem();
 
             fechaIn = reserva.getFechaCheckIn();
-            fechaOut = reserva.getFechaCheckOut();
             jtFechaIn.setText(fechaIn + "");
-            jdateFechaOut.setDate(Date.from(fechaOut.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            fechaOutAux = reserva.getFechaCheckOut();
+
+            jdateFechaOut.setDate(Date.from(fechaOutAux.atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
             jlHabitacion.setText("Habitación N°: " + reserva.getHabitacion().getIdHabitacion());
             jlPersonas.setText("Cantidad de personas: " + reserva.getCantPersonas());
@@ -410,12 +436,24 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
     }
 
     private void calcularPrecio() {
+        fechaOut = jdateFechaOut.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         noches = (int) DAYS.between(fechaIn, fechaOut);
         jlNoches.setText("Noches: " + noches);
         precioFinal = noches * precio;
         jlPrecioNuevo.setText("Nuevo importe: $" + precioFinal + " USD");
         diferencia = precioFinal - precioActual;
         jlDiferencia.setText("Importe a abonar: $" + diferencia + " USD");
+    }
+
+    private void confirmar() {
+        Reserva reserva = (Reserva) jcbReserva.getSelectedItem();
+
+        resData.extenderReserva(reserva,fechaOut,precioFinal);
+
+        datosReserva();
+        fechasMinMax();
+        calcularPrecio();
+
     }
 
 }

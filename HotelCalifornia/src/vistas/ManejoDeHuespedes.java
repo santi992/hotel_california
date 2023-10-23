@@ -9,10 +9,15 @@ import accesoADatos.HuespedData;
 import entidades.Huesped;
 import entidades.Personal;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.TreeSet;
 import javax.swing.JOptionPane;
+import static vistas.VistaPrincipal.huespedActivo;
+import static vistas.VistaPrincipal.personalActivo;
 
 /**
  *
@@ -20,12 +25,10 @@ import javax.swing.JOptionPane;
  */
 public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ManejoDeHuespedes
-     */
+    private boolean emailValido;
+    
     public ManejoDeHuespedes() {
-        initComponents();
-        jtId.setEditable(false);
+        funcionesyVariablesDeInicio();
 
     }
     HuespedData huData = new HuespedData() ;
@@ -45,7 +48,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         JdFecha = new com.toedter.calendar.JDateChooser();
         jLabel14 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jlId = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jtId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -74,9 +77,11 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         jpContraseña = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
         jbBuscar = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
+        jlBuscar = new javax.swing.JLabel();
         jtBuscar = new javax.swing.JTextField();
         jcbHuesped = new javax.swing.JComboBox<>();
+        jbBuscarme = new javax.swing.JButton();
+        jlBuscarme = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,7 +98,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Informmacion Adicional");
 
-        jLabel5.setText("Id");
+        jlId.setText("Id");
 
         jLabel12.setText("Fecha de Nacimimento");
 
@@ -128,7 +133,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                             .addGap(12, 12, 12)
                             .addComponent(jrEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                             .addGap(44, 44, 44)
-                            .addComponent(jLabel5))
+                            .addComponent(jlId))
                         .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +155,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
+                    .addComponent(jlId)
                     .addComponent(jrEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -329,14 +334,19 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Dialog", 1, 8)); // NOI18N
-        jLabel13.setText("busca cliente por correo");
+        jlBuscar.setFont(new java.awt.Font("Dialog", 1, 8)); // NOI18N
+        jlBuscar.setText("busca cliente por correo");
 
         jtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtBuscarKeyReleased(evt);
             }
         });
+
+        jbBuscarme.setText("Buscarme");
+
+        jlBuscarme.setFont(new java.awt.Font("Dialog", 1, 8)); // NOI18N
+        jlBuscarme.setText("Busca por correo y contraseña");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -346,25 +356,32 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))))
+                        .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbBuscarme)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlBuscarme)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlBuscar)
+                .addGap(17, 17, 17))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlBuscar)
+                    .addComponent(jbBuscarme)
+                    .addComponent(jlBuscarme)
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
                 .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -437,13 +454,11 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -453,11 +468,15 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbBuscarme;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcbHuesped;
+    private javax.swing.JLabel jlBuscar;
+    private javax.swing.JLabel jlBuscarme;
+    private javax.swing.JLabel jlId;
     private javax.swing.JPasswordField jpContraseña;
     private javax.swing.JRadioButton jrEstado;
     private javax.swing.JTextField jtApellido;
@@ -521,18 +540,22 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     
         private void guardar() {
         if (camposCompletos()) {
+            HuespedData huesData = new HuespedData();
             Huesped hues = new Huesped();
             hues.setNombre(jtNombre.getText());
-            hues.setApellido(jtApellido.getText());
             hues.setDni(Integer.parseInt(jtDni.getText()));
             hues.setCelular(Integer.parseInt(jtCelular.getText()));
             hues.setDireccion(jtDireccion.getText());
             hues.setCorreo(jtCorreo.getText()); // seguir compmletando
-
-            hues.setFechaNacimiento(jdateFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            hues.setAdmin(jrbAdminSi.isSelected());
-            hues.setEstado(jrbEstadoActivo.isSelected());
-            persData.agregarHuesped(hues);
+            hues.setPassword(jpContraseña.getText());
+            
+            hues.setApellido(jtApellido.getText());
+            hues.setLocalidad(jtLocalidad.getText());
+            hues.setProvincia(jtProvincia.getText());
+            hues.setPais(jtPais.getText());
+            hues.setFechaNac(JdFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            
+            huesData.agregarHuesped(hues);
             nuevo();
         } else {
             JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
@@ -633,5 +656,79 @@ public class MainFrame extends JFrame {
         jcbHuesped.removeAllItems();
         jpContraseña.setText("");
         }
+    
+        void funcionesyVariablesDeInicio() {
+        initComponents();
+        jtId.setEditable(false);
+        if (huespedActivo != null) {  ///  ENCONTRAR UNA FORMMA PARA QUE INGRESE PERSONAL ADMIN 
+
+            jlBuscar.setVisible(false);
+            jtBuscar.setVisible(false);
+            jbBuscar.setVisible(false);
+            jcbHuesped.setVisible(false);
+            jrEstado.setVisible(false);
+        mostrar(huespedActivo);
+        comprobarCorreo();
+        }else if(VistaPrincipal.login == false){
+            jlBuscar.setVisible(false);
+            jtBuscar.setVisible(false);
+            jbBuscar.setVisible(false);
+            jcbHuesped.setVisible(false);
+            jrEstado.setVisible(false); 
+            jbBuscarme.setVisible(false);
+            jlBuscarme.setVisible(false);
+            jlId.setVisible(false);
+            jtId.setVisible(false);
+        }else{
+            jbBuscarme.setVisible(false);
+            jlBuscarme.setVisible(false);   
+        }
+    }
+    
+        private void mostrar(Huesped huesped) {
+                
+            jtNombre.setText(huesped.getNombre());       // VER POR QUE NO ME DEJA ENTRAR  POR LO QUE IMAGINO DEBE SER POR QUE NO CARGO NADA EN EL HUESPED
+            jtDni.setText(Integer.toString(huesped.getDni()));
+            jtDireccion.setText(huesped.getDireccion());
+            jtCelular.setText(Integer.toString(huesped.getCelular()));
+            jtCorreo.setText(huesped.getCorreo());
+            jpContraseña.setText(huesped.getPassword()); // ver esto si bloquerla o que
+            
+            try {
+            jtId.setText(Integer.toString(huesped.getIdHuesped()));
+            jrEstado.setSelected(huesped.isEstado());
+            jtApellido.setText(huesped.getApellido());
+            jtPais.setText(huesped.getPais());
+                System.out.println(huesped.getPais());
+            jtProvincia.setText(huesped.getProvincia());
+            jtLocalidad.setText(huesped.getLocalidad());
+            JdFecha.setDate(Date.from(huesped.getFechaNac().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            
+            } catch (NullPointerException ex) {
+            }
+  
+        }
+        
+            private void comprobarCorreo() {
+        (new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10);
+                    if (jtCorreo.getText().contains("@")) {
+                        jtCorreo.setForeground(Color.black);
+                        emailValido = true;
+                    } else {
+                        jtCorreo.setForeground(Color.red);
+                        emailValido = false;
+                    }
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                }
+
+            }
+
+        }).start();
+    }
 }
 

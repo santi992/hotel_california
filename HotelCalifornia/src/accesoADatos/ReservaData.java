@@ -88,9 +88,9 @@ public class ReservaData {
     }
 
     // CHECKEADO
-    public void eliminarReserva(Reserva reserva) {
+    public void cancelarReserva(Reserva reserva) {
 
-        String sql = "UPDATE reserva SET estado = ? WHERE idReserva = ?";
+        String sql = "UPDATE reserva SET estado = ?, WHERE idReserva = ?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -98,7 +98,31 @@ public class ReservaData {
             ps.setInt(2, reserva.getIdReserva());
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Reserva eliminada con éxito.");
+                JOptionPane.showMessageDialog(null, "Reserva cancelada con éxito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "La reserva no existe.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        }
+
+    }
+
+    // CHECKEADO
+    public void cancelarReserva(Reserva reserva, LocalDate fecha, double precioFinal) {
+
+        String sql = "UPDATE reserva SET estado = ?, precioFinal = ?, fechaCheckOut = ? WHERE idReserva = ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setDouble(2, precioFinal);
+            ps.setDate(3, Date.valueOf(fecha));
+            ps.setInt(4, reserva.getIdReserva());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Reserva cancelada con éxito.");
             } else {
                 JOptionPane.showMessageDialog(null, "La reserva no existe.");
             }
@@ -193,9 +217,9 @@ public class ReservaData {
         Reserva reserva;
 
         try {
-            String sql = "SELECT * FROM reserva WHERE estado = 1 AND idHabitacion = " + habitacion.getIdHabitacion();
-
+            String sql = "SELECT * FROM reserva WHERE estado = 1 AND idHabitacion = ?";
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, habitacion.getIdHabitacion());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 reserva = new Reserva();
@@ -439,4 +463,20 @@ public class ReservaData {
         }
         return reserva;
     }
+
+    public void actualizarDisponibilidad() {
+        Date hoy = Date.valueOf(LocalDate.now());
+        String sql = "UPDATE reserva SET estado = ? WHERE fechaCheckOut < ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setDate(2, hoy);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar, reinicie el programa." + ex.getMessage());
+        }
+    }
+
 }
