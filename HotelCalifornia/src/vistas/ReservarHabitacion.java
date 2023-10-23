@@ -503,7 +503,6 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             Huesped huesped = (Huesped) hu;
             jcbHuesped.addItem(huesped);
         }
-
     }
 
     private void buscarHuesped() {
@@ -638,6 +637,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             reserva.setPrecioTotal(precioFinal);
             reserva.setCantPersonas((int) jcbCant.getSelectedItem());
             resData.agregarReserva(reserva);
+            habData.desactivarHabitacion((Habitacion) jcbHab.getSelectedItem());
         } else {
             JOptionPane.showMessageDialog(null, "Debe iniciar sesión para reservar");
         }
