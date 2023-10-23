@@ -54,6 +54,8 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         jbBuscar = new javax.swing.JButton();
         jtDispo = new javax.swing.JLabel();
 
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Manejo de Habitaciones");
 
