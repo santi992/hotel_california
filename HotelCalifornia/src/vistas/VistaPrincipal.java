@@ -81,6 +81,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuResActuales = new javax.swing.JMenuItem();
         jMenuPersonal = new javax.swing.JMenu();
         jMenuManejoPersonal = new javax.swing.JMenuItem();
+        jGaleria = new javax.swing.JMenu();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -254,6 +255,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jBarraMenu.add(jMenuPersonal);
 
+        jGaleria.setText("Galeria");
+        jGaleria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGaleriaActionPerformed(evt);
+            }
+        });
+        jBarraMenu.add(jGaleria);
+
         jMenuSalir.setText("Salir");
         jMenuSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -379,6 +388,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mostrarVista(ra);
     }//GEN-LAST:event_jMenuResActualesActionPerformed
 
+    private void jGaleriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGaleriaActionPerformed
+        Galeria gal=new Galeria();
+        mostrarVista(gal);
+    }//GEN-LAST:event_jGaleriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -420,6 +434,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jBarraMenu;
     private javax.swing.JDesktopPane jEscritorio;
+    private javax.swing.JMenu jGaleria;
     private javax.swing.JMenuItem jMenuAbanonarHab;
     private javax.swing.JMenuItem jMenuAmpliarRes;
     private javax.swing.JMenuItem jMenuCerrarSesion;
