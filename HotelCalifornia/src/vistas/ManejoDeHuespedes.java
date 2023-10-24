@@ -434,9 +434,8 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        
         mostrar((Huesped)jcbHuesped.getSelectedItem());
-        nuevo();
+        
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyReleased
@@ -504,7 +503,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
     private void buscarHuesped() {
         jcbHuesped.removeAllItems();
-        List huespedes = huData.listarHuespedes();
+        List huespedes = huData.listarHuespedesActivosYNoActivos();
         TreeSet<Huesped> mostrar = new TreeSet<>();
         for (Object hu : huespedes) {
 
