@@ -15,7 +15,6 @@ import entidades.Reserva;
 import entidades.TipoHabitacion;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 import javax.swing.JFrame;
@@ -63,13 +62,13 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         armarComboCant();
         armarComboHabitacion();
         setLayout(null);
-        setSize(560, 580);
+        setSize(580, 580);
         jPanelCapas.setLayout(null);
-        jPanelCapas.setBounds(0, 0, 560, 560);
-        jlTitulo.setBounds(0, 0, 560, 30);
-        jPanelHuesped.setBounds(30, 30, 500, 175);
-        jPanelHabitacion.setBounds(30, 210, 500, 275);
-        jPanelFinal.setBounds(30, 490, 500, 40);
+        jPanelCapas.setBounds(0, 0, 580, 560);
+        jlTitulo.setBounds(0, 0, 580, 30);
+        jPanelHuesped.setBounds(30, 30, 520, 175);
+        jPanelHabitacion.setBounds(30, 210, 520, 275);
+        jPanelFinal.setBounds(30, 490, 520, 40);
         jbSalir.setVisible(login);
     }
 
@@ -88,8 +87,9 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         jlHueped = new javax.swing.JLabel();
         jtHuesped = new javax.swing.JTextField();
         jcbHuesped = new javax.swing.JComboBox<>();
-        jbIniciar = new javax.swing.JButton();
+        jbIniciarHuesped = new javax.swing.JButton();
         jlBuscar = new javax.swing.JLabel();
+        jbIniciarPersonal = new javax.swing.JButton();
         jPanelHabitacion = new javax.swing.JPanel();
         jlHabitación = new javax.swing.JLabel();
         jcbTipoHab = new javax.swing.JComboBox<>();
@@ -147,14 +147,21 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jbIniciar.setText("Iniciar sesión");
-        jbIniciar.addActionListener(new java.awt.event.ActionListener() {
+        jbIniciarHuesped.setText("Iniciar sesión como huesped");
+        jbIniciarHuesped.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbIniciarActionPerformed(evt);
+                jbIniciarHuespedActionPerformed(evt);
             }
         });
 
         jlBuscar.setText("Buscar huesped por dni o nombre");
+
+        jbIniciarPersonal.setText("Iniciar sesión como personal del hotel");
+        jbIniciarPersonal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbIniciarPersonalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelHuespedLayout = new javax.swing.GroupLayout(jPanelHuesped);
         jPanelHuesped.setLayout(jPanelHuespedLayout);
@@ -167,13 +174,17 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                     .addComponent(jcbHuesped, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jlBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                     .addComponent(jtHuesped, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbIniciar, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHuespedLayout.createSequentialGroup()
+                        .addComponent(jbIniciarPersonal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbIniciarHuesped)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(30, 30, 30))
         );
         jPanelHuespedLayout.setVerticalGroup(
             jPanelHuespedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelHuespedLayout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jlHueped)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,7 +193,9 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbIniciar)
+                .addGroup(jPanelHuespedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbIniciarHuesped)
+                    .addComponent(jbIniciarPersonal))
                 .addGap(7, 7, 7))
         );
 
@@ -415,7 +428,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 .addComponent(jPanelHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -468,10 +481,10 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
-    private void jbIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIniciarActionPerformed
-        Login ingresar = new Login(personal);
+    private void jbIniciarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIniciarHuespedActionPerformed
+        Login ingresar = new Login(false);
         mostrarVista(ingresar);
-    }//GEN-LAST:event_jbIniciarActionPerformed
+    }//GEN-LAST:event_jbIniciarHuespedActionPerformed
 
     private void jtHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtHuespedActionPerformed
         // TODO add your handling code here:
@@ -496,6 +509,11 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private void jlMostrarFechaOutPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jlMostrarFechaOutPropertyChange
         calcularPrecio();
     }//GEN-LAST:event_jlMostrarFechaOutPropertyChange
+
+    private void jbIniciarPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIniciarPersonalActionPerformed
+        Login ingresar = new Login(true);
+        mostrarVista(ingresar);
+    }//GEN-LAST:event_jbIniciarPersonalActionPerformed
 
     private void comboHuespedes() {
         List huespedes = huData.listarHuespedes();
@@ -594,6 +612,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 Habitacion habitacion = (Habitacion) hab;
                 jcbHab.addItem(habitacion);
             }
+            habitacionActiva = (Habitacion) jcbHab.getSelectedItem();
         } catch (NullPointerException np) {
 
         }
@@ -637,7 +656,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             reserva.setPrecioTotal(precioFinal);
             reserva.setCantPersonas((int) jcbCant.getSelectedItem());
             resData.agregarReserva(reserva);
-            habData.desactivarHabitacion((Habitacion) jcbHab.getSelectedItem());
+            resData.actualizarDisponibilidad();
         } else {
             JOptionPane.showMessageDialog(null, "Debe iniciar sesión para reservar");
         }
@@ -650,7 +669,8 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelHuesped;
     private javax.swing.JButton jbElegirIn;
     private javax.swing.JButton jbElegirOut;
-    private javax.swing.JButton jbIniciar;
+    private javax.swing.JButton jbIniciarHuesped;
+    private javax.swing.JButton jbIniciarPersonal;
     private javax.swing.JButton jbReservar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Integer> jcbCant;
@@ -677,32 +697,18 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtHuesped;
     // End of variables declaration//GEN-END:variables
 
-    public static List<LocalDate> fechasInactivas() {
-
-        List<Reserva> reservas = resData.listarReservasXHabitacion(habitacionActiva);
-        TreeSet<LocalDate> fechas = new TreeSet<>();
-        List<LocalDate> fechasFinal = new ArrayList<>();
-        for (Reserva reserva : reservas) {
-            LocalDate fechaIn = reserva.getFechaCheckIn();
-            LocalDate fechaOut = reserva.getFechaCheckOut();
-            int dias = (int) DAYS.between(fechaIn, fechaOut);
-            for (int i = 0; i <= dias; i++) {
-                LocalDate fecha = fechaIn.plusDays(i);
-                fechas.add(fecha);
-            }
-        }
-        fechasFinal.addAll(fechas);
-        return fechasFinal;
-    }
-
     private void elegir(boolean in) {
 
-        elegir = new JFrame();
-        elegir.setSize(480, 400);
-        elegir.setLocationRelativeTo(this);
-        elegir.setUndecorated(true);
-        elegir.setVisible(true);
-        elegir.add(new Calendario(in));
+        if (jcbHab.getSelectedIndex() >= 0) {
+            elegir = new JFrame();
+            elegir.setSize(480, 400);
+            elegir.setLocationRelativeTo(this);
+            elegir.setUndecorated(true);
+            elegir.setVisible(true);
+            elegir.add(new Calendario(in));
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe elegir una habitación");
+        }
 
     }
 

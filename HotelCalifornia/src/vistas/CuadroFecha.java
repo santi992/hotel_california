@@ -5,13 +5,8 @@
  */
 package vistas;
 
-import static hotelcalifornia.HotelCalifornia.espera;
 import java.awt.Color;
 import java.time.LocalDate;
-import static java.time.temporal.ChronoUnit.DAYS;
-import java.util.ArrayList;
-import static vistas.Calendario.fechaSeleccionada;
-import static vistas.Calendario.jlFecha;
 import static vistas.Calendario.seleccionarFecha;
 
 /**
@@ -20,28 +15,34 @@ import static vistas.Calendario.seleccionarFecha;
  */
 public class CuadroFecha extends javax.swing.JPanel {
 
+    private boolean elegida;
     private boolean disponible;
     private int dia;
     private int mes;
     private int anio;
-    private static LocalDate fecha;
     private Color gris;
+    private Color celeste;
     private Color azul;
+    private static LocalDate fecha;
 
     /**
      * Creates new form CuadroFecha1
      */
+//    public CuadroFecha(LocalDate f, boolean disponible, boolean elegida) {
     public CuadroFecha(LocalDate f, boolean disponible) {
         setLayout(null);
         this.fecha = f;
         this.disponible = disponible;
+//        this.elegida = elegida;
         dia = fecha.getDayOfMonth();
         mes = fecha.getMonthValue();
         anio = fecha.getYear();
+        fecha = LocalDate.of(anio, mes, dia);
         setBounds(0, 0, 60, 40);
         initComponents();
         numero.setText(dia + "");
         gris = new Color(245, 245, 245);
+        celeste = new Color(0, 180, 200);
         azul = new Color(0, 70, 250);
         validar();
     }
@@ -96,19 +97,20 @@ public class CuadroFecha extends javax.swing.JPanel {
     private void numeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numeroMouseClicked
         if (disponible) {
             LocalDate fecha = LocalDate.of(anio, mes, dia);
+            elegida = true;
             seleccionarFecha(fecha);
         }
     }//GEN-LAST:event_numeroMouseClicked
 
     private void numeroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numeroMouseEntered
-        numero.setText(dia+"");
-        if (disponible) {
-            cambiarFondo(azul);
+        numero.setText(dia + "");
+        if (disponible && !elegida) {
+            cambiarFondo(celeste);
         }
     }//GEN-LAST:event_numeroMouseEntered
 
     private void numeroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numeroMouseExited
-        if (disponible) {
+        if (disponible && !elegida) {
             cambiarFondo(gris);
         }
     }//GEN-LAST:event_numeroMouseExited
@@ -119,12 +121,36 @@ public class CuadroFecha extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private void validar() {
         if (disponible) {
+            if (elegida) {
+                cambiarFondo(azul);
+            } else {
+                cambiarFondo(gris);
+            }
             numero.setForeground(Color.black);
-            cambiarFondo(gris);
         } else {
             numero.setForeground(Color.red);
             cambiarFondo(Color.LIGHT_GRAY);
         }
+    }
+
+    public void seleccionar() {
+        if (disponible) {
+            elegida = true;
+            cambiarFondo(azul);
+            numero.setForeground(Color.black);
+        }
+    }
+
+    public void deseleccionar() {
+        if (disponible) {
+            elegida = false;
+            cambiarFondo(gris);
+            numero.setForeground(Color.black);
+        }
+    }
+
+    public LocalDate getFecha() {
+        return LocalDate.of(anio, mes, dia);
     }
 
     public boolean isDisponible() {

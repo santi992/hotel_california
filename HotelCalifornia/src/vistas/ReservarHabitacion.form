@@ -71,7 +71,7 @@
                   <Component id="jPanelHabitacion" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanelFinal" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -105,7 +105,12 @@
                           <Component id="jcbHuesped" alignment="1" max="32767" attributes="0"/>
                           <Component id="jlBuscar" alignment="1" pref="468" max="32767" attributes="0"/>
                           <Component id="jtHuesped" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jbIniciar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jbIniciarPersonal" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbIniciarHuesped" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
@@ -114,7 +119,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace pref="10" max="32767" attributes="0"/>
+                      <EmptySpace pref="19" max="32767" attributes="0"/>
                       <Component id="jlHueped" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jcbHuesped" min="-2" max="-2" attributes="0"/>
@@ -123,7 +128,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jtHuesped" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jbIniciar" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jbIniciarHuesped" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jbIniciarPersonal" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -155,18 +163,26 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Huesped&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="jbIniciar">
+            <Component class="javax.swing.JButton" name="jbIniciarHuesped">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Iniciar sesi&#xf3;n"/>
+                <Property name="text" type="java.lang.String" value="Iniciar sesi&#xf3;n como huesped"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbIniciarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbIniciarHuespedActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jlBuscar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar huesped por dni o nombre"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jbIniciarPersonal">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Iniciar sesi&#xf3;n como personal del hotel"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbIniciarPersonalActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

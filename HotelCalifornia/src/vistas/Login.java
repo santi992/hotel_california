@@ -22,14 +22,11 @@ import static vistas.VistaPrincipal.vistaP;
  * @author SANTIAGONB
  */
 public class Login extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form Login
-     */
+    
     private boolean personal;
     private boolean mostrarPass;
     private String passOculta;
-
+    
     public Login(boolean personal) {
         this.personal = personal;
         passOculta = "";

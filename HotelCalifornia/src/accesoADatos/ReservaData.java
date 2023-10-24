@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
+import java.util.TreeSet;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -481,6 +483,33 @@ public class ReservaData {
 
     public List<Reserva> listarReservas(Reserva r) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
+        List<Habitacion> habitaciones = new ArrayList<>();
+        habData = new HabitacionData();
+        boolean reservada = false;
+        for (Habitacion hab : habData.listarHabitacionesTodas()) {
+            if (hab.isEstado()) {
+                for (LocalDate fecha : hab.getFechasReservadas()) {
+                    int dias = (int) DAYS.between(fechaOut, fechaIn);
+                    for (int i = 0; i <= dias; i++) {
+                        if (fecha.equals(fechaIn.plusDays(i))) {
+                            reservada = true;
+                            break;
+                        }
+                    }
+                    if (reservada) {
+                        break;
+                    }
+                }
+                if (!reservada) {
+                    habitaciones.add(hab);
+                }
+            }
+        }
+
+        return habitaciones;
     }
 
 }

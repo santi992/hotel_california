@@ -1,5 +1,9 @@
 package entidades;
 
+import accesoADatos.HabitacionData;
+import java.time.LocalDate;
+import java.util.List;
+
 public class Habitacion {
 
     private int idHabitacion;
@@ -7,6 +11,8 @@ public class Habitacion {
     private TipoHabitacion tipoHabitacion;
 
     private int piso;
+    
+    private List<LocalDate> fechasReservadas;
 
     private boolean reserva;
 
@@ -15,10 +21,11 @@ public class Habitacion {
     public Habitacion() {
     }
 
-    public Habitacion(int idHabitacion, TipoHabitacion tipoHabitacion, int piso, boolean reserva, boolean estado) {
+    public Habitacion(int idHabitacion, TipoHabitacion tipoHabitacion, int piso, List<LocalDate> fechasReservadas, boolean reserva, boolean estado) {
         this.idHabitacion = idHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.piso = piso;
+        this.fechasReservadas = fechasReservadas;
         this.reserva = reserva;
         this.estado = estado;
     }
@@ -45,6 +52,18 @@ public class Habitacion {
 
     public void setPiso(int piso) {
         this.piso = piso;
+    }
+
+    public List<LocalDate> getFechasReservadas() {
+        return fechasReservadas;
+    }
+
+    public void setFechasReservadas(List<LocalDate> fechasReservadas) {
+        this.fechasReservadas = fechasReservadas;
+    }
+    
+    public void actualizarFechasReservadas(){
+        fechasReservadas = new HabitacionData().fechasReservadas(this);
     }
 
     public boolean isReserva() {

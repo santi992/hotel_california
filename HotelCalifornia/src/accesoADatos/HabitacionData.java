@@ -1,20 +1,25 @@
 package accesoADatos;
 
 import entidades.Habitacion;
+import entidades.Reserva;
 import entidades.TipoHabitacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 import javax.swing.JOptionPane;
 
 public class HabitacionData {
 
     private Connection con;
-    private final TipoHabData tipoData;
+    private TipoHabData tipoData;
+    private ReservaData resData;
+    
 
     public HabitacionData() {
         con = Conexion.conectar();
@@ -27,8 +32,6 @@ public class HabitacionData {
 
         String sql = "INSERT INTO habitacion (idHabitacion,idTipoHab,piso,reserva,estado)"
                 + "VALUES(?,?,?,?,?)";
-
-       
 
         PreparedStatement ps;
         try {
@@ -123,6 +126,7 @@ public class HabitacionData {
                 // reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
                 habs.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                 habs.setPiso(rs.getInt("piso"));
+                    habs.setFechasReservadas(fechasReservadas(habs));
                 habs.setReserva(rs.getBoolean("reserva"));
                 habs.setEstado(rs.getBoolean("estado"));
                 habitaciones.add(habs);
@@ -147,6 +151,7 @@ public class HabitacionData {
                     habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
                     habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                     habitacion.setPiso(rs.getInt("piso"));
+                    habitacion.setFechasReservadas(fechasReservadas(habitacion));
                     habitacion.setReserva(rs.getBoolean("reserva"));
                     habitacion.setEstado(rs.getBoolean("estado"));
                     habsxPiso.add(habitacion);
@@ -172,6 +177,7 @@ public class HabitacionData {
                     habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
                     habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                     habitacion.setPiso(rs.getInt("piso"));
+                    habitacion.setFechasReservadas(fechasReservadas(habitacion));
                     habitacion.setReserva(rs.getBoolean("reserva"));
                     habitacion.setEstado(rs.getBoolean("estado"));
                     habsxPisoYTipo.add(habitacion);
@@ -221,6 +227,42 @@ public class HabitacionData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
         }
     }
+    
+    public void reservarHabitacion(Habitacion habitacion) {
+        String sql = "UPDATE habitacion SET reserva = ? WHERE idHabitacion = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setBoolean(1, true);
+            ps.setInt(2, habitacion.getIdHabitacion());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+            } else {
+                JOptionPane.showMessageDialog(null, "La habitacion no existe");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
+        }
+    }
+
+    public void noReservarHabitacion(Habitacion habitacion) {
+        String sql = "UPDATE habitacion SET reserva = ? WHERE idHabitacion = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setInt(2, habitacion.getIdHabitacion());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+            } else {
+                JOptionPane.showMessageDialog(null, "La habitacion no existe");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
+        }
+    }
 
     public Habitacion obtenerHabitacion(int idHabitacion) {
         Habitacion habitacion = new Habitacion();
@@ -234,6 +276,7 @@ public class HabitacionData {
                 habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
                 habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                 habitacion.setPiso(rs.getInt("piso"));
+                habitacion.setFechasReservadas(fechasReservadas(habitacion));
                 habitacion.setReserva(rs.getBoolean("reserva"));
                 habitacion.setEstado(rs.getBoolean("estado"));
             } else {
@@ -283,5 +326,26 @@ public class HabitacionData {
         }   
 
         return numerosDePiso;
+    }   
+    
+    public List<LocalDate> fechasReservadas(Habitacion habitacion) {
+
+        resData = new ReservaData();
+        LocalDate hoy = LocalDate.now();
+        LocalDate hoyMasAnio = LocalDate.now().plusYears(1);
+        List<Reserva> reservas = resData.listarReservasXHabitacion(habitacion, hoy, hoyMasAnio);
+        TreeSet<LocalDate> fechas = new TreeSet<>();
+        List<LocalDate> fechasFinal = new ArrayList<>();
+        for (Reserva reserva : reservas) {
+            LocalDate fechaIn = reserva.getFechaCheckIn();
+            LocalDate fechaOut = reserva.getFechaCheckOut();
+            int dias = (int) DAYS.between(fechaIn, fechaOut);
+            for (int i = 0; i <= dias; i++) {
+                LocalDate fecha = fechaIn.plusDays(i);
+                fechas.add(fecha);
+            }
+        }
+        fechasFinal.addAll(fechas);
+        return fechasFinal;
     }
 }

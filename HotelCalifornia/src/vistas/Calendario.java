@@ -5,7 +5,9 @@
  */
 package vistas;
 
+import accesoADatos.HabitacionData;
 import accesoADatos.ReservaData;
+import java.awt.Component;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import javax.swing.JPanel;
 import static vistas.ReservarHabitacion.elegir;
 import static vistas.ReservarHabitacion.fechaIn;
 import static vistas.ReservarHabitacion.fechaOut;
-import static vistas.ReservarHabitacion.fechasInactivas;
+import static vistas.ReservarHabitacion.habitacionActiva;
 import static vistas.ReservarHabitacion.jlMostrarFechaIn;
 import static vistas.ReservarHabitacion.jlMostrarFechaOut;
 
@@ -27,13 +29,15 @@ import static vistas.ReservarHabitacion.jlMostrarFechaOut;
  */
 public class Calendario extends javax.swing.JPanel {
 
+    private ReservaData resData;
+    private HabitacionData habData;
     private static boolean in;
-    private int anio;
-    private int mes;
-    private boolean bisiesto;
-    private LocalDate fechaMin;
-    private HashMap<String, int[]> meses;
-    private List<LocalDate> fechasInactivas;
+    private static int anio;
+    private static int mes;
+    private static boolean bisiesto;
+    private static LocalDate fechaMin;
+    private static HashMap<String, int[]> meses;
+    private static List<LocalDate> fechasReservadas;
 
     public LocalDate fechaActual;
 
@@ -52,7 +56,8 @@ public class Calendario extends javax.swing.JPanel {
         fechaMin = LocalDate.of(2023, 1, 1);
         fechaActual = LocalDate.now();
         fechaSeleccionada = null;
-        fechasInactivas = fechasInactivas();
+        resData = new ReservaData();
+        fechasReservadas = habitacionActiva.getFechasReservadas();
 
         armarComboMeses();
         armarComboAnio();
@@ -140,7 +145,6 @@ public class Calendario extends javax.swing.JPanel {
         miercoles.setText("Miércoles");
         miercoles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         miercoles.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        miercoles.setPreferredSize(new java.awt.Dimension(60, 20));
 
         jueves.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jueves.setText("Jueves");
@@ -279,8 +283,8 @@ public class Calendario extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boton;
-    private javax.swing.JComboBox<Integer> comboAnio;
-    private javax.swing.JComboBox<String> comboMes;
+    private static javax.swing.JComboBox<Integer> comboAnio;
+    private static javax.swing.JComboBox<String> comboMes;
     private javax.swing.JLabel domingo;
     private javax.swing.JButton jButton1;
     public static javax.swing.JLabel jlFecha;
@@ -289,21 +293,20 @@ public class Calendario extends javax.swing.JPanel {
     private javax.swing.JLabel lunes;
     private javax.swing.JLabel martes;
     private javax.swing.JLabel miercoles;
-    private javax.swing.JPanel panelCalendario;
+    private static javax.swing.JPanel panelCalendario;
     private javax.swing.JLabel sabado;
     private javax.swing.JLabel viernes;
     // End of variables declaration//GEN-END:variables
 
-    private void inicio() {
+    private static void inicio() {
 
         try {
             armarPanel();
         } catch (NullPointerException np) {
-
         }
     }
 
-    private void armarPanel() {
+    private static void armarPanel() {
 
         panelCalendario.removeAll();
         panelCalendario.repaint();
@@ -312,7 +315,6 @@ public class Calendario extends javax.swing.JPanel {
             public void run() {
                 try {
                     Thread.sleep(10);
-
                     anio = (int) comboAnio.getSelectedItem();
                     if (anio % 4 == 0 && anio % 400 == 0 || anio % 4 == 0 && anio % 100 != 0) {
                         bisiesto = true;
@@ -341,32 +343,36 @@ public class Calendario extends javax.swing.JPanel {
                         JPanel panelDia = new JPanel();
                         panelDia.setBounds(x, y, 60, 40);
                         panelDia.setLayout(null);
-                        LocalDate fecha = fechaInicio.plusDays(i);
+                        LocalDate fechaAux = fechaInicio.plusDays(i);
 
-                        for (LocalDate fechaInactiva : fechasInactivas) {
-                            disponible = true;
+                        disponible = true;
 
-                            int difMin = (int) DAYS.between(LocalDate.now(), fecha);
-                            int max = (int) DAYS.between(LocalDate.now(), LocalDate.now().plusYears(1));
+                        if (fechaAux.isBefore(LocalDate.now()) || fechaAux.isAfter(LocalDate.now().plusYears(1))) {
+                            disponible = false;
+                        } else {
 
-                            int anioF = fecha.getYear();
-                            int mesF = fecha.getMonthValue();
-                            int diaF = fecha.getDayOfMonth();
-                            int anioIn = fechaInactiva.getYear();
-                            int mesIn = fechaInactiva.getMonthValue();
-                            int diaIn = fechaInactiva.getDayOfMonth();
-                            boolean coincidencia = (anioF == anioIn && mesF == mesIn && diaF == diaIn);
-                            if (coincidencia || difMin < 0 || difMin > max) {
-                                disponible = false;
-                                break;
+                            for (LocalDate fechaInactiva : fechasReservadas) {
+
+                                int anioF = fechaAux.getYear();
+                                int mesF = fechaAux.getMonthValue();
+                                int diaF = fechaAux.getDayOfMonth();
+                                int anioIn = fechaInactiva.getYear();
+                                int mesIn = fechaInactiva.getMonthValue();
+                                int diaIn = fechaInactiva.getDayOfMonth();
+                                boolean coincidencia = (anioF == anioIn && mesF == mesIn && diaF == diaIn);
+                                
+                                if (coincidencia) {
+                                    disponible = false;
+                                    break;
+                                }
                             }
+
                         }
 
-                        panelDia.add(new CuadroFecha(fecha, disponible));
+                        panelDia.add(new CuadroFecha(fechaAux, disponible));
                         panelCalendario.add(panelDia);
 
                     }
-
                 } catch (InterruptedException ex) {
                     JOptionPane.showMessageDialog(null, "Error de interrupcion");
                 }
@@ -430,7 +436,7 @@ public class Calendario extends javax.swing.JPanel {
         int anioMin = fechaMin.getYear();
         int anioActual = fechaActual.getYear();
 
-        for (int i = anioMin; i <= anioActual + 100; i++) {
+        for (int i = anioMin; i <= anioActual + 1; i++) {
             comboAnio.addItem(i);
         }
 
@@ -441,6 +447,22 @@ public class Calendario extends javax.swing.JPanel {
     public static void seleccionarFecha(LocalDate f) {
         fechaSeleccionada = f;
         jlFecha.setText(fechaSeleccionada + "");
+        actualizarSeleccion();
+    }
+
+    public static void actualizarSeleccion() {
+
+        Component[] paneles = panelCalendario.getComponents();
+
+        for (Component panel : paneles) {
+            CuadroFecha cuadro = (CuadroFecha) panel.getComponentAt(0, 0);
+            if (cuadro.getFecha().equals(fechaSeleccionada)) {
+                cuadro.seleccionar();
+            } else {
+                cuadro.deseleccionar();
+            }
+        }
+
     }
 
 }
