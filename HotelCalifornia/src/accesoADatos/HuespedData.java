@@ -275,4 +275,40 @@ public class HuespedData {
         }
         return huesped;
     }
+    public Huesped obtenerHuespedXCorreoEstadoCero(String correo) {
+        Huesped huesped = null;
+        String sql = " SELECT  * FROM huesped WHERE correo = ?"; //aca estaba el cambio dni
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, correo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                huesped = new Huesped();
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getInt("dni"));
+                huesped.setDireccion(rs.getString("Domicilio"));
+                huesped.setProvincia(rs.getString("Provincia"));
+                huesped.setLocalidad(rs.getString("Localidad"));
+                huesped.setCorreo(rs.getString("Correo"));
+                huesped.setPassword(rs.getString("password"));
+                huesped.setCelular(rs.getInt("Celular"));
+                huesped.setEstado(rs.getBoolean("estado"));  
+                huesped.setPais(rs.getString("pais"));
+                huesped.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el huesped ");
+            }
+            ps.close();
+                }catch(NullPointerException f){
+                    
+                    }
+         catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped " + ex.getMessage());
+
+        }
+        return huesped;
+    }
 }
