@@ -9,6 +9,8 @@ import accesoADatos.ReservaData;
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import entidades.Huesped;
 import entidades.Reserva;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +28,7 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
         initComponents();
         armarCabezera();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        llenarTabla();
     }
 
     /**
@@ -38,10 +41,8 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jcbReserva = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtReservas = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jtfBuscar = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -56,12 +57,6 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Reservas Actuales");
 
-        jcbReserva.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbReservaActionPerformed(evt);
-            }
-        });
-
         jtReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -74,8 +69,6 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(jtReservas);
-
-        jLabel2.setText("Reserva:");
 
         jtfBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,11 +119,8 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
                             .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jcbReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel1)))
+                                    .addGap(62, 62, 62)
+                                    .addComponent(jLabel1))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
@@ -161,11 +151,7 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar)
@@ -179,7 +165,7 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jbFechaSeleccionada)
                         .addComponent(jbSalir)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jtfFechaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,26 +175,30 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcbReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbReservaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbReservaActionPerformed
-
     private void jtfBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfBuscarActionPerformed
 
     private void jbFechaSeleccionadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFechaSeleccionadaActionPerformed
         jtfFechaSeleccionada.setText(jdcFecha.getDate().toString());
+//        jtfFechaSeleccionada.setText(jdcFecha.getCalendar().toString());
         jtfFechaSeleccionada.setEditable(false);
-        
+        //.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
         
         try{
                 ReservaData rd= new ReservaData();
-               Date fechaIngresada = jdcFecha.getDate();
+               LocalDate fechaIngresada = jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+               int anio= fechaIngresada.getYear();
+               int mes= fechaIngresada.getMonthValue();
+               int dia= fechaIngresada.getDayOfMonth();
                boolean fechaEncontrada = false;
                List <Reserva> listaReservas= rd.listarReservas();
                for(Reserva rs: listaReservas ){
-                   if(rs.getFechaCheckIn().equals(fechaIngresada)){
+               int aniod= rs.getFechaCheckIn().getYear();
+               int mesd= rs.getFechaCheckIn().getMonthValue();
+               int diad= rs.getFechaCheckIn().getDayOfMonth();
+              
+                   if(anio==aniod && mes==mesd && dia==diad ){
                        fechaEncontrada=true;
                        break;
                    }
@@ -237,10 +227,12 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
            try{
                 ReservaData rd= new ReservaData();
                int dni = Integer.parseInt(jtfBuscar.getText());
+//               String nombre = jtfBuscar.getText();
                boolean dniEncontrado = false;
                List <Reserva> listaReservas= rd.listarReservas();
                for(Reserva rs: listaReservas ){
                    if(rs.getHuesped().getDni()== dni){
+//                   if(rs.getHuesped().getNombre().equals(nombre)){
                        dniEncontrado=true;
                        break;
                    }
@@ -272,14 +264,12 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbFechaSeleccionada;
     private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbReserva;
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JTable jtReservas;
     private javax.swing.JTextField jtfBuscar;
