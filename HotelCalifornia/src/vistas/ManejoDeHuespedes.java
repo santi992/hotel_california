@@ -70,7 +70,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jbModificar = new javax.swing.JButton();
         jtNombre = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jpContraseña = new javax.swing.JPasswordField();
@@ -226,11 +226,16 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Correo");
 
-        jButton1.setText("Modificar");
-        jButton1.setMaximumSize(new java.awt.Dimension(32, 32));
-        jButton1.setMinimumSize(new java.awt.Dimension(100, 35));
-        jButton1.setName(""); // NOI18N
-        jButton1.setPreferredSize(new java.awt.Dimension(100, 35));
+        jbModificar.setText("Modificar");
+        jbModificar.setMaximumSize(new java.awt.Dimension(32, 32));
+        jbModificar.setMinimumSize(new java.awt.Dimension(100, 35));
+        jbModificar.setName(""); // NOI18N
+        jbModificar.setPreferredSize(new java.awt.Dimension(100, 35));
+        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarActionPerformed(evt);
+            }
+        });
 
         jLabel15.setText("Contraseña");
 
@@ -274,7 +279,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(66, 66, 66))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +329,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                         .addGap(31, 31, 31)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(37, 37, 37))
         );
 
@@ -434,9 +439,8 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        
         mostrar((Huesped)jcbHuesped.getSelectedItem());
-        nuevo();
+        
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyReleased
@@ -452,6 +456,10 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         comprobarCorreo();
     }//GEN-LAST:event_jbGuardarActionPerformed
 
+    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        modificar();
+    }//GEN-LAST:event_jbModificarActionPerformed
+
     // ----------------------------- ATENCION ------------------------------
     //Crear funcion que rellene el mail por tipeo, busca y ordena alfaveticament 5 primmeros resultados 
 
@@ -459,7 +467,6 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser JdFecha;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -481,6 +488,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbBuscarme;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Huesped> jcbHuesped;
@@ -504,7 +512,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
     private void buscarHuesped() {
         jcbHuesped.removeAllItems();
-        List huespedes = huData.listarHuespedes();
+        List huespedes = huData.listarHuespedesActivosYNoActivos();
         TreeSet<Huesped> mostrar = new TreeSet<>();
         for (Object hu : huespedes) {
 
@@ -752,4 +760,40 @@ public class MainFrame extends JFrame {
        hue = huData.obtenerHuespedXCorreo(jtCorreo.getText());
         huData.eliminarHuesped(hue.getIdHuesped());
     }
+    
+        private void modificar() {
+        if (camposCompletos()) {
+            Huesped huesped = new Huesped();
+            try {
+                huesped = huData.obtenerHuespedXCorreoEstadoCero(jtCorreo.getText());
+            } catch (NumberFormatException nf) {
+                huesped = (null);
+            }
+            if (huesped != null && huesped.getPassword() == jpContraseña.getText()) {
+            huesped.setNombre(jtNombre.getText());
+            huesped.setDni(Integer.parseInt(jtDni.getText()));
+            huesped.setCelular(Integer.parseInt(jtCelular.getText()));
+            huesped.setDireccion(jtDireccion.getText());
+            huesped.setCorreo(jtCorreo.getText());
+            huesped.setPassword(jpContraseña.getText());
+
+            huesped.setApellido(jtApellido.getText());
+            huesped.setLocalidad(jtLocalidad.getText());
+            huesped.setProvincia(jtProvincia.getText());
+            huesped.setPais(jtPais.getText());
+            huesped.setEstado(jrEstado.isSelected());
+            huData.modificarHuesped(huesped);
+            
+               
+            } else {
+                JOptionPane.showMessageDialog(null, "El Correo/Contraseña ingresado no corresponde\na un Huesped");
+            }
+        } else if (!emailValido){
+            JOptionPane.showMessageDialog(null, "Ingrese un email válido");
+        } else {
+            JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
+        }
+    }
+        
+
 }
