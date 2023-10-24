@@ -482,7 +482,8 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbIniciarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIniciarHuespedActionPerformed
-        Login ingresar = new Login(false);
+        personal = false;
+        Login ingresar = new Login(personal);
         mostrarVista(ingresar);
     }//GEN-LAST:event_jbIniciarHuespedActionPerformed
 
@@ -511,7 +512,8 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jlMostrarFechaOutPropertyChange
 
     private void jbIniciarPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbIniciarPersonalActionPerformed
-        Login ingresar = new Login(true);
+        personal = true;
+        Login ingresar = new Login(personal);
         mostrarVista(ingresar);
     }//GEN-LAST:event_jbIniciarPersonalActionPerformed
 

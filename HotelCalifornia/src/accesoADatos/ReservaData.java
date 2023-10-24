@@ -26,8 +26,6 @@ public class ReservaData {
 
     public ReservaData() {
         con = Conexion.conectar();
-        habData = new HabitacionData();
-        huData = new HuespedData();
     }
 
     // CHECKEADO
@@ -159,6 +157,8 @@ public class ReservaData {
     }
 
     public List listarReservas() {
+        habData = new HabitacionData();
+        huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
 
@@ -187,6 +187,7 @@ public class ReservaData {
     }
 
     public List listarReservasXHuesped(Huesped huesped) {
+        habData = new HabitacionData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
 
@@ -215,6 +216,7 @@ public class ReservaData {
     }
 
     public List listarReservasXHabitacion(Habitacion habitacion) {
+        huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
 
@@ -243,6 +245,8 @@ public class ReservaData {
     }
 
     public List listarReservasXPiso(int piso) {
+        habData = new HabitacionData();
+        huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
 
@@ -271,6 +275,7 @@ public class ReservaData {
     }
 
     public List listarReservasXHuesped(Huesped huesped, LocalDate fechaInicio, LocalDate fechaFin) {
+        habData = new HabitacionData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
 
@@ -299,6 +304,7 @@ public class ReservaData {
     }
 
     public List listarReservasXHabitacion(Habitacion habitacion, LocalDate fechaInicio, LocalDate fechaFin) {
+        huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
 
@@ -327,6 +333,8 @@ public class ReservaData {
     }
 
     public List listarReservasXPiso(int piso, LocalDate fechaInicio, LocalDate fechaFin) {
+        habData = new HabitacionData();
+        huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
 
@@ -355,6 +363,8 @@ public class ReservaData {
     }
 
     public List listarReservasXDni(int dni) {
+        habData = new HabitacionData();
+        huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
         Huesped huesped = huData.obtenerHuespedXDni(dni);
@@ -384,6 +394,8 @@ public class ReservaData {
     }
 
     public List listarReservasXDni(int dni, LocalDate fechaInicio, LocalDate fechaFin) {
+        habData = new HabitacionData();
+        huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
         Huesped huesped = huData.obtenerHuespedXDni(dni);
@@ -413,6 +425,8 @@ public class ReservaData {
     }
 
     public List listarReservas(LocalDate fechaInicio, LocalDate fechaFin) {
+        habData = new HabitacionData();
+        huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
 
@@ -441,6 +455,8 @@ public class ReservaData {
     }
 
     public Reserva obtenerReserva(int idReserva) {
+        habData = new HabitacionData();
+        huData = new HuespedData();
         Reserva reserva = new Reserva();
 
         try {

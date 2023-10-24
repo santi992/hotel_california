@@ -23,7 +23,6 @@ public class HabitacionData {
 
     public HabitacionData() {
         con = Conexion.conectar();
-        tipoData = new TipoHabData();
     }
 
 // 
@@ -114,6 +113,8 @@ public class HabitacionData {
     }
 
     public List<Habitacion> listarHabitacionesTodas() {
+        
+        tipoData = new TipoHabData();
         List<Habitacion> habitaciones = new ArrayList<>();
         String sql = "SELECT * FROM habitacion";
         try {
@@ -140,7 +141,8 @@ public class HabitacionData {
     }
 
     public List listarHabitacionesXPiso(int piso) {
-
+        
+        tipoData = new TipoHabData();
         List<Habitacion> habsxPiso = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE piso = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -165,7 +167,8 @@ public class HabitacionData {
     }
 
     public List listarHabitacionesXPisoYTipo(int piso, TipoHabitacion tipo) {
-
+        
+        tipoData = new TipoHabData();
         List<Habitacion> habsxPisoYTipo = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE piso = ? AND idTipoHab = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -265,6 +268,8 @@ public class HabitacionData {
     }
 
     public Habitacion obtenerHabitacion(int idHabitacion) {
+        
+        tipoData = new TipoHabData();
         Habitacion habitacion = new Habitacion();
         String sql = " SELECT  idHabitacion,idTipoHab, piso, estado, reserva FROM habitacion WHERE idHabitacion = ? ";
         PreparedStatement ps = null;
