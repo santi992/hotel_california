@@ -23,11 +23,12 @@ public class ImagenData {
     private Connection con;
 
     public ImagenData() {
-        con = Conexion.conectar();
     }
     
     public void agregarImagen(Imagen imagen) {
 
+        con = Conexion.conectar();
+        
         String sql = "INSERT INTO imagen (ruta) VALUES (?)";
         PreparedStatement ps;
         try {
@@ -48,6 +49,9 @@ public class ImagenData {
     }
     
     public Imagen obtenerImagen(int idImagen){
+        
+        con = Conexion.conectar();
+        
         Imagen imagen = new Imagen();
         String sql = " SELECT * FROM imagen WHERE idImagen = ? ";
         PreparedStatement ps = null;
