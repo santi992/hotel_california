@@ -82,6 +82,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuPersonal = new javax.swing.JMenu();
         jMenuManejoPersonal = new javax.swing.JMenuItem();
         jGaleria = new javax.swing.JMenu();
+        jGaleria1 = new javax.swing.JMenu();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -263,6 +264,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jBarraMenu.add(jGaleria);
 
+        jGaleria1.setText("Galeria2");
+        jGaleria1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jGaleria1MouseClicked(evt);
+            }
+        });
+        jGaleria1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGaleria1ActionPerformed(evt);
+            }
+        });
+        jBarraMenu.add(jGaleria1);
+
         jMenuSalir.setText("Salir");
         jMenuSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -393,6 +407,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mostrarVista(gal);
     }//GEN-LAST:event_jGaleriaActionPerformed
 
+    private void jGaleria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGaleria1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jGaleria1ActionPerformed
+
+    private void jGaleria1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGaleria1MouseClicked
+        mostrarVista(new Galeria2());
+    }//GEN-LAST:event_jGaleria1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -435,6 +457,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jBarraMenu;
     private javax.swing.JDesktopPane jEscritorio;
     private javax.swing.JMenu jGaleria;
+    private javax.swing.JMenu jGaleria1;
     private javax.swing.JMenuItem jMenuAbanonarHab;
     private javax.swing.JMenuItem jMenuAmpliarRes;
     private javax.swing.JMenuItem jMenuCerrarSesion;

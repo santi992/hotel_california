@@ -84,7 +84,7 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 8)); // NOI18N
-        jLabel3.setText("* Introduzca DNI  del huesped");
+        jLabel3.setText("* Introduzca  nombre o DNI  del huesped");
 
         jbFechaSeleccionada.setText("Seleccionar Fecha");
         jbFechaSeleccionada.addActionListener(new java.awt.event.ActionListener() {
@@ -223,11 +223,11 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
        if(jtfBuscar.getText().isEmpty()){
            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para iniciar la busqueda");
        }else{
-           
+           ReservaData rd= new ReservaData();
            try{
-                ReservaData rd= new ReservaData();
+                
                int dni = Integer.parseInt(jtfBuscar.getText());
-//               String nombre = jtfBuscar.getText();
+//               
                boolean dniEncontrado = false;
                List <Reserva> listaReservas= rd.listarReservas();
                for(Reserva rs: listaReservas ){
@@ -244,10 +244,24 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
                    JOptionPane.showMessageDialog(this, " El dni ingresado no posee una reserva ");
                }
            }catch(NumberFormatException nf){
-               JOptionPane.showMessageDialog(this, " *ERROR! el dato ingresado debe ser un número* ");
+               String nombre = jtfBuscar.getText();
+               boolean nombreEncontrado= false;
+               List <Reserva> listaReservas= rd.listarReservas();
+               for(Reserva rs: listaReservas ){
+                    if(rs.getHuesped().getNombre().equals(nombre)){
+                       nombreEncontrado=true;
+                       break;
+                   }}
+               if(nombreEncontrado){
+                   llenarTabla();
+               }else{
+                 JOptionPane.showMessageDialog(this, " El nombre ingresado no posee una reserva ");  
+               }
+//               JOptionPane.showMessageDialog(this, " *ERROR! el dato ingresado debe ser un número* ");
                
-           }
-       }
+           
+               }
+       }       
     
        
     }//GEN-LAST:event_jbBuscarActionPerformed
@@ -255,6 +269,7 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
       jtfBuscar.setText("");
       jtfFechaSeleccionada.setText("");
+      limpiarTabla();
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed

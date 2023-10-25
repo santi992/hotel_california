@@ -16,10 +16,12 @@ public class HuespedData {
     private Connection con;
 
     public HuespedData() {
-        con = Conexion.conectar();
     }
 
     public void agregarHuesped(Huesped huesped) {
+        
+        con = Conexion.conectar();
+        
         String sql = "INSERT INTO huesped(nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular, estado,fechaNacimiento,pais)"
                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -55,7 +57,10 @@ public class HuespedData {
     }
 
     public void modificarHuesped(Huesped huesped) {
-        String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, password=?, Celular=?, pais=?, fechaNacimiento=?, estado=?"
+        
+        con = Conexion.conectar();
+        
+        String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, password=?, Celular=?, pais=?, fechaNacimiento=?"
                 + " WHERE idHuesped=?";
         PreparedStatement ps = null;
         try {
@@ -69,10 +74,9 @@ public class HuespedData {
             ps.setString(7, huesped.getCorreo());
             ps.setString(8, huesped.getPassword());
             ps.setInt(9, huesped.getCelular());
-            ps.setString(10, huesped.getPais());
-            ps.setDate(11,  Date.valueOf(huesped.getFechaNac()));
-            ps.setBoolean(12, huesped.isEstado());
-            ps.setInt(13, huesped.getIdHuesped());
+            ps.setInt(10, huesped.getIdHuesped());
+            ps.setString(11, huesped.getPais());
+            ps.setDate(12,  Date.valueOf(huesped.getFechaNac()));
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado exitosamente.");
@@ -87,6 +91,8 @@ public class HuespedData {
 
     public void eliminarHuesped(int id) {
 
+        con = Conexion.conectar();
+        
         String sql = "UPDATE huesped SET estado=0 WHERE idHuesped=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -101,6 +107,9 @@ public class HuespedData {
     }
 
     public List listarHuespedes() {
+        
+        con = Conexion.conectar();
+        
         List<Huesped> huespedes = new ArrayList<>();
 
         try {
@@ -136,6 +145,9 @@ public class HuespedData {
     }
     
     public List listarHuespedesActivosYNoActivos() {
+        
+        con = Conexion.conectar();
+        
         List<Huesped> huespedes = new ArrayList<>();
 
         try {
@@ -171,6 +183,9 @@ public class HuespedData {
     }
 
     public Huesped obtenerHuesped(int idHuesped) {
+        
+        con = Conexion.conectar();
+        
         Huesped huesped = null;
         String sql = " SELECT *  FROM huesped Where idHuesped=?";
         PreparedStatement ps = null;
@@ -207,6 +222,9 @@ public class HuespedData {
     }
 
     public Huesped obtenerHuespedXDni(int dni) {
+        
+        con = Conexion.conectar();
+        
         Huesped huesped = null;
         String sql = " SELECT  * FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
@@ -241,6 +259,9 @@ public class HuespedData {
     }
 
     public Huesped obtenerHuespedXCorreo(String correo) {
+        
+        con = Conexion.conectar();
+        
         Huesped huesped = null;
         String sql = " SELECT  * FROM huesped WHERE correo = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
@@ -277,6 +298,9 @@ public class HuespedData {
         return huesped;
     }
     public Huesped obtenerHuespedXCorreoEstadoCero(String correo) {
+        
+        con = Conexion.conectar();
+        
         Huesped huesped = null;
         String sql = " SELECT  * FROM huesped WHERE correo = ?"; //aca estaba el cambio dni
         PreparedStatement ps = null;

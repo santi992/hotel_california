@@ -8,6 +8,7 @@ package vistas;
 import accesoADatos.HabitacionData;
 import entidades.Habitacion;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 
@@ -15,17 +16,17 @@ import javax.swing.ImageIcon;
  *
  * @author SANTIAGONB
  */
-public class Galeria extends javax.swing.JInternalFrame {
+public class Galeria2 extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form Galeria
+     * Creates new form Galeria2
      */
     private HashMap<Integer, ImageIcon> imagenes;
     private HashMap<Integer, Integer> nHabitaciones;
     private int imgSeleccionada;
     private HabitacionData habData;
 
-    public Galeria() {
+    public Galeria2() {
         initComponents();
         armarGaleria();
         seleccionarImagen(1);

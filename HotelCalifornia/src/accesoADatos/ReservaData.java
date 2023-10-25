@@ -10,9 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
-import java.util.TreeSet;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
@@ -25,12 +23,13 @@ public class ReservaData {
     private HuespedData huData;
 
     public ReservaData() {
-        con = Conexion.conectar();
     }
 
     // CHECKEADO
     public void agregarReserva(Reserva reserva) {
 
+        con = Conexion.conectar();
+        
         String sql = "INSERT INTO reserva(idHuesped, idHabitacion, fechaCheckIn, fechaCheckOut, cantPersonas, precioFinal, estado) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
@@ -61,7 +60,9 @@ public class ReservaData {
 
     // CHECKEADO
     public void modificarReserva(Reserva reserva) {
-
+        
+        con = Conexion.conectar();
+        
         String sql = "UPDATE reserva SET idHuesped = ?, idHabitacion = ?, fechaCheckIn = ?, fechaCheckOut = ?, cantPersonas = ?, precioFinal = ?, estado = ? WHERE idReserva = ?";
         PreparedStatement ps;
         try {
@@ -90,6 +91,8 @@ public class ReservaData {
     // CHECKEADO
     public void cancelarReserva(Reserva reserva) {
 
+        con = Conexion.conectar();
+        
         String sql = "UPDATE reserva SET estado = ?, WHERE idReserva = ?";
         PreparedStatement ps;
         try {
@@ -112,6 +115,8 @@ public class ReservaData {
     // CHECKEADO
     public void cancelarReserva(Reserva reserva, LocalDate fecha, double precioFinal) {
 
+        con = Conexion.conectar();
+        
         String sql = "UPDATE reserva SET estado = ?, precioFinal = ?, fechaCheckOut = ? WHERE idReserva = ?";
         PreparedStatement ps;
         try {
@@ -136,6 +141,8 @@ public class ReservaData {
     // CHECKEADO
     public void extenderReserva(Reserva reserva, LocalDate fecha, double precioFinal) {
 
+        con = Conexion.conectar();
+        
         String sql = "UPDATE reserva SET  fechaCheckOut = ?, precioFinal = ? WHERE idReserva = ?";
         PreparedStatement ps;
         try {
@@ -157,6 +164,9 @@ public class ReservaData {
     }
 
     public List listarReservas() {
+        
+        con = Conexion.conectar();
+        
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -187,6 +197,9 @@ public class ReservaData {
     }
 
     public List listarReservasXHuesped(Huesped huesped) {
+        
+        con = Conexion.conectar();
+        
         habData = new HabitacionData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
@@ -216,6 +229,9 @@ public class ReservaData {
     }
 
     public List listarReservasXHabitacion(Habitacion habitacion) {
+        
+        con = Conexion.conectar();
+        
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
@@ -245,6 +261,9 @@ public class ReservaData {
     }
 
     public List listarReservasXPiso(int piso) {
+        
+        con = Conexion.conectar();
+        
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -275,6 +294,9 @@ public class ReservaData {
     }
 
     public List listarReservasXHuesped(Huesped huesped, LocalDate fechaInicio, LocalDate fechaFin) {
+        
+        con = Conexion.conectar();
+        
         habData = new HabitacionData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
@@ -304,6 +326,9 @@ public class ReservaData {
     }
 
     public List listarReservasXHabitacion(Habitacion habitacion, LocalDate fechaInicio, LocalDate fechaFin) {
+        
+        con = Conexion.conectar();
+        
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
@@ -333,6 +358,9 @@ public class ReservaData {
     }
 
     public List listarReservasXPiso(int piso, LocalDate fechaInicio, LocalDate fechaFin) {
+        
+        con = Conexion.conectar();
+        
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -363,6 +391,9 @@ public class ReservaData {
     }
 
     public List listarReservasXDni(int dni) {
+        
+        con = Conexion.conectar();
+        
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -394,6 +425,9 @@ public class ReservaData {
     }
 
     public List listarReservasXDni(int dni, LocalDate fechaInicio, LocalDate fechaFin) {
+        
+        con = Conexion.conectar();
+        
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -425,6 +459,9 @@ public class ReservaData {
     }
 
     public List listarReservas(LocalDate fechaInicio, LocalDate fechaFin) {
+        
+        con = Conexion.conectar();
+        
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -455,6 +492,9 @@ public class ReservaData {
     }
 
     public Reserva obtenerReserva(int idReserva) {
+        
+        con = Conexion.conectar();
+        
         habData = new HabitacionData();
         huData = new HuespedData();
         Reserva reserva = new Reserva();
@@ -483,6 +523,9 @@ public class ReservaData {
     }
 
     public void actualizarDisponibilidad() {
+        
+        con = Conexion.conectar();
+        
         Date hoy = Date.valueOf(LocalDate.now());
         String sql = "UPDATE reserva SET estado = ? WHERE fechaCheckOut < ?";
         PreparedStatement ps;
@@ -496,36 +539,4 @@ public class ReservaData {
             JOptionPane.showMessageDialog(null, "Error al actualizar, reinicie el programa." + ex.getMessage());
         }
     }
-
-    public List<Reserva> listarReservas(Reserva r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
-        List<Habitacion> habitaciones = new ArrayList<>();
-        habData = new HabitacionData();
-        boolean reservada = false;
-        for (Habitacion hab : habData.listarHabitacionesTodas()) {
-            if (hab.isEstado()) {
-                for (LocalDate fecha : hab.getFechasReservadas()) {
-                    int dias = (int) DAYS.between(fechaOut, fechaIn);
-                    for (int i = 0; i <= dias; i++) {
-                        if (fecha.equals(fechaIn.plusDays(i))) {
-                            reservada = true;
-                            break;
-                        }
-                    }
-                    if (reservada) {
-                        break;
-                    }
-                }
-                if (!reservada) {
-                    habitaciones.add(hab);
-                }
-            }
-        }
-
-        return habitaciones;
-    }
-
 }

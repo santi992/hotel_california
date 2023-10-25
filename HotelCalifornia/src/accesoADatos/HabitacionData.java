@@ -19,7 +19,7 @@ public class HabitacionData {
     private Connection con;
     private TipoHabData tipoData;
     private ReservaData resData;
-    
+    private ImagenData imgData;
 
     public HabitacionData() {
         con = Conexion.conectar();
@@ -28,8 +28,7 @@ public class HabitacionData {
 // 
     public void agregarHabitacion(Habitacion habitacion) {
 
-
-        String sql = "INSERT INTO habitacion (idHabitacion,idTipoHab,piso,reserva,estado)"
+        String sql = "INSERT INTO habitacion (idHabitacion,idTipoHab,piso,idImagen,estado)"
                 + "VALUES(?,?,?,?,?)";
 
         PreparedStatement ps;
@@ -38,7 +37,7 @@ public class HabitacionData {
             ps.setInt(1, habitacion.getIdHabitacion());
             ps.setInt(2, habitacion.getTipoHabitacion().getIdTipoHab());
             ps.setInt(3, habitacion.getPiso());
-            ps.setBoolean(4, habitacion.isReserva());
+            ps.setInt(4, habitacion.getImagen().getIdImagen());
             ps.setBoolean(5, habitacion.isEstado());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Habitacion agregada exitosamente");
@@ -52,14 +51,14 @@ public class HabitacionData {
 
     public void modificarHabitacion(Habitacion habitacion) {
 
-        String sql = "UPDATE habitacion SET idTipoHab = ?,piso = ?,reserva = ?, estado = ? WHERE idHabitacion=?";
+        String sql = "UPDATE habitacion SET idTipoHab = ?,piso = ?,idImagen = ?, estado = ? WHERE idHabitacion=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
 
             ps.setInt(1, habitacion.getTipoHabitacion().getIdTipoHab());
             ps.setInt(2, habitacion.getPiso());
-            ps.setBoolean(3, habitacion.isReserva());
+            ps.setInt(3, habitacion.getImagen().getIdImagen());
             ps.setBoolean(4, habitacion.isEstado());
             ps.setInt(5, habitacion.getIdHabitacion());
             int exito = ps.executeUpdate();
@@ -89,31 +88,116 @@ public class HabitacionData {
 
     }
 
-    public List<Habitacion> listarHabitacionesDisponibles(boolean estado) {
-
-        List<Habitacion> habsDisponibles = new ArrayList<>();
-        List<Habitacion> todasLasHabitaciones = listarHabitacionesTodas();
-        for (Habitacion habitacion : todasLasHabitaciones) {
-            if (!habitacion.isReserva() && habitacion.isEstado()) {
-                habsDisponibles.add(habitacion);
+    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
+        List<Habitacion> habitaciones = new ArrayList<>();
+        boolean reservada;
+        for (Habitacion hab : listarHabitacionesTodas()) {
+            reservada = false;
+            if (hab.isEstado()) {
+                for (LocalDate fecha : hab.getFechasReservadas()) {
+                    int dias = (int) DAYS.between(fechaOut, fechaIn);
+                    for (int i = 0; i <= dias; i++) {
+                        if (fecha.equals(fechaIn.plusDays(i))) {
+                            reservada = true;
+                            break;
+                        }
+                    }
+                    if (reservada) {
+                        break;
+                    }
+                }
+                if (!reservada) {
+                    habitaciones.add(hab);
+                }
             }
         }
-        return habsDisponibles;
+
+        return habitaciones;
+    }
+
+    public List<Habitacion> listarHabitacionesDisponibles() {
+        
+        con = Conexion.conectar();
+        
+        List<Habitacion> habitaciones = new ArrayList<>();
+        boolean reservada;
+        for (Habitacion hab : listarHabitacionesTodas()) {
+            reservada = false;
+            if (hab.isEstado()) {
+                for (LocalDate fecha : hab.getFechasReservadas()) {
+                    if (fecha.equals(LocalDate.now())) {
+                        reservada = true;
+                        break;
+                    }
+                }
+                if (!reservada) {
+                    habitaciones.add(hab);
+                }
+            }
+        }
+
+        return habitaciones;
+    }
+
+    public List<Habitacion> listarHabitacionesNoDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
+        
+        con = Conexion.conectar();
+        
+        List<Habitacion> habitaciones = new ArrayList<>();
+        boolean reservada;
+        for (Habitacion hab : listarHabitacionesTodas()) {
+            reservada = false;
+            if (hab.isEstado()) {
+                for (LocalDate fecha : hab.getFechasReservadas()) {
+                    int dias = (int) DAYS.between(fechaOut, fechaIn);
+                    for (int i = 0; i <= dias; i++) {
+                        if (fecha.equals(fechaIn.plusDays(i))) {
+                            reservada = true;
+                            habitaciones.add(hab);
+                            break;
+                        }
+                    }
+                    if (reservada) {
+                        break;
+                    }
+                }
+
+            }
+        }
+
+        return habitaciones;
     }
 
     public List listarHabitacoinesNoDisponibles() {
-        List<Habitacion> habsNoDisponibles = new ArrayList<>();
-        List<Habitacion> todasLasHabitaciones = listarHabitacionesTodas();
-        for (Habitacion habitacion : todasLasHabitaciones) {
-            if (habitacion.isReserva() || !habitacion.isEstado()) {
-                habsNoDisponibles.add(habitacion);
+        
+        con = Conexion.conectar();
+        
+        List<Habitacion> habitaciones = new ArrayList<>();
+        boolean reservada;
+        for (Habitacion hab : listarHabitacionesTodas()) {
+            reservada = false;
+            if (hab.isEstado()) {
+                for (LocalDate fecha : hab.getFechasReservadas()) {
+                    if (fecha.equals(LocalDate.now())) {
+                        reservada = true;
+                        habitaciones.add(hab);
+                        break;
+                    }
+                }
+                if (reservada) {
+                    break;
+                }
             }
         }
-        return habsNoDisponibles;
+
+        return habitaciones;
     }
 
     public List<Habitacion> listarHabitacionesTodas() {
+
+        con = Conexion.conectar();
         
+        imgData = new ImagenData();
         tipoData = new TipoHabData();
         List<Habitacion> habitaciones = new ArrayList<>();
         String sql = "SELECT * FROM habitacion";
@@ -124,11 +208,11 @@ public class HabitacionData {
                 Habitacion habs = new Habitacion();
 
                 habs.setIdHabitacion(rs.getInt("idHabitacion"));
-                // reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
+                // idImagen.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
                 habs.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                 habs.setPiso(rs.getInt("piso"));
-                    habs.setFechasReservadas(fechasReservadas(habs));
-                habs.setReserva(rs.getBoolean("reserva"));
+                habs.setFechasReservadas(fechasReservadas(habs));
+                habs.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
                 habs.setEstado(rs.getBoolean("estado"));
                 habitaciones.add(habs);
             }
@@ -141,6 +225,8 @@ public class HabitacionData {
     }
 
     public List listarHabitacionesXPiso(int piso) {
+
+        con = Conexion.conectar();
         
         tipoData = new TipoHabData();
         List<Habitacion> habsxPiso = new ArrayList<>();
@@ -154,7 +240,7 @@ public class HabitacionData {
                     habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                     habitacion.setPiso(rs.getInt("piso"));
                     habitacion.setFechasReservadas(fechasReservadas(habitacion));
-                    habitacion.setReserva(rs.getBoolean("reserva"));
+                    habitacion.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
                     habitacion.setEstado(rs.getBoolean("estado"));
                     habsxPiso.add(habitacion);
                 }
@@ -167,6 +253,8 @@ public class HabitacionData {
     }
 
     public List listarHabitacionesXPisoYTipo(int piso, TipoHabitacion tipo) {
+        
+        con = Conexion.conectar();
         
         tipoData = new TipoHabData();
         List<Habitacion> habsxPisoYTipo = new ArrayList<>();
@@ -181,7 +269,7 @@ public class HabitacionData {
                     habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                     habitacion.setPiso(rs.getInt("piso"));
                     habitacion.setFechasReservadas(fechasReservadas(habitacion));
-                    habitacion.setReserva(rs.getBoolean("reserva"));
+                    habitacion.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
                     habitacion.setEstado(rs.getBoolean("estado"));
                     habsxPisoYTipo.add(habitacion);
                 }
@@ -194,6 +282,9 @@ public class HabitacionData {
     }
 
     public void activarHabitacion(Habitacion habitacion) {
+        
+        con = Conexion.conectar();
+        
         String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -213,6 +304,9 @@ public class HabitacionData {
     }
 
     public void desactivarHabitacion(Habitacion habitacion) {
+        
+        con = Conexion.conectar();
+        
         String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -230,9 +324,12 @@ public class HabitacionData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
         }
     }
-    
-    public void reservarHabitacion(Habitacion habitacion) {
-        String sql = "UPDATE habitacion SET reserva = ? WHERE idHabitacion = ?";
+
+    public void idImagenrHabitacion(Habitacion habitacion) {
+        
+        con = Conexion.conectar();
+        
+        String sql = "UPDATE habitacion SET idImagen = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -250,7 +347,10 @@ public class HabitacionData {
     }
 
     public void noReservarHabitacion(Habitacion habitacion) {
-        String sql = "UPDATE habitacion SET reserva = ? WHERE idHabitacion = ?";
+        
+        con = Conexion.conectar();
+        
+        String sql = "UPDATE habitacion SET idImagen = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -268,10 +368,12 @@ public class HabitacionData {
     }
 
     public Habitacion obtenerHabitacion(int idHabitacion) {
+
+        con = Conexion.conectar();
         
         tipoData = new TipoHabData();
         Habitacion habitacion = new Habitacion();
-        String sql = " SELECT  idHabitacion,idTipoHab, piso, estado, reserva FROM habitacion WHERE idHabitacion = ? ";
+        String sql = " SELECT  idHabitacion,idTipoHab, piso, estado, idImagen FROM habitacion WHERE idHabitacion = ? ";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -282,7 +384,7 @@ public class HabitacionData {
                 habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                 habitacion.setPiso(rs.getInt("piso"));
                 habitacion.setFechasReservadas(fechasReservadas(habitacion));
-                habitacion.setReserva(rs.getBoolean("reserva"));
+                habitacion.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
                 habitacion.setEstado(rs.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe habitacion o se enuentra inactivo.");
@@ -296,6 +398,9 @@ public class HabitacionData {
     }
 
     public void cambiarTipo(Habitacion habitacion, TipoHabitacion tipo) {
+        
+        con = Conexion.conectar();
+        
         String sql = "UPDATE habitacion SET idTipoHab = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -313,13 +418,16 @@ public class HabitacionData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
         }
     }
-    
+
     public ArrayList<Integer> ObtenerPiso() {
+        
+        con = Conexion.conectar();
+        
         ArrayList<Integer> numerosDePiso = new ArrayList<>();
 
         String query = "SELECT DISTINCT piso FROM habitacion";
         try (PreparedStatement statement = con.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
+                ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 int numeroPiso = resultSet.getInt("Piso");
@@ -327,23 +435,25 @@ public class HabitacionData {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a los Pisos" + ex.getMessage());
-            
-        }   
+
+        }
 
         return numerosDePiso;
-    }   
-    
+    }
+
     public List<LocalDate> fechasReservadas(Habitacion habitacion) {
 
+        con = Conexion.conectar();
+        
         resData = new ReservaData();
         LocalDate hoy = LocalDate.now();
         LocalDate hoyMasAnio = LocalDate.now().plusYears(1);
-        List<Reserva> reservas = resData.listarReservasXHabitacion(habitacion, hoy, hoyMasAnio);
+        List<Reserva> idImagens = resData.listarReservasXHabitacion(habitacion, hoy, hoyMasAnio);
         TreeSet<LocalDate> fechas = new TreeSet<>();
         List<LocalDate> fechasFinal = new ArrayList<>();
-        for (Reserva reserva : reservas) {
-            LocalDate fechaIn = reserva.getFechaCheckIn();
-            LocalDate fechaOut = reserva.getFechaCheckOut();
+        for (Reserva idImagen : idImagens) {
+            LocalDate fechaIn = idImagen.getFechaCheckIn();
+            LocalDate fechaOut = idImagen.getFechaCheckOut();
             int dias = (int) DAYS.between(fechaIn, fechaOut);
             for (int i = 0; i <= dias; i++) {
                 LocalDate fecha = fechaIn.plusDays(i);
