@@ -16,11 +16,12 @@ public class PersonalData {
     private Connection con;
 
     public PersonalData() {
+        con = Conexion.conectar();
     }
 
     public void agregarPersonal(Personal personal) {
         
-        con = Conexion.conectar();
+        
         
         String sql = "INSERT INTO personal(nombre, apellido, dni, Domicilio, Correo, username, password, Celular, fechaNacimiento, admin, estado)"
                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
@@ -57,7 +58,7 @@ public class PersonalData {
 
     public void modificarPersonal(Personal personal) {
         
-        con = Conexion.conectar();
+        
         
         String sql = "UPDATE personal SET nombre=?, apellido=?, dni=?, Domicilio=?, Correo=?, username=?, password=?, Celular=?, fechaNacimiento=?, admin=?, estado=? " 
                 + " WHERE idPersonal=?";
@@ -90,7 +91,7 @@ public class PersonalData {
 
     public void eliminarPersonal(int id) {
 
-        con = Conexion.conectar();
+        
         
         String sql = "UPDATE personal SET estado=0 WHERE idPersonal=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -107,7 +108,7 @@ public class PersonalData {
 
     public List listarPersonales() {
         
-        con = Conexion.conectar();
+        
         
         List<Personal> personales = new ArrayList<>();
 
@@ -142,7 +143,7 @@ public class PersonalData {
 
     public Personal obtenerPersonal(int idPersonal) {
         
-        con = Conexion.conectar();
+        
         
         Personal personal = null;
         String sql = " SELECT * FROM personal Where idPersonal=?";
@@ -180,7 +181,7 @@ public class PersonalData {
 
     public Personal obtenerPersonalXDni(int dni) {
         
-        con = Conexion.conectar();
+        
         
         Personal personal = null;
         String sql = " SELECT  * FROM personal WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
@@ -216,7 +217,7 @@ public class PersonalData {
 
     public Personal obtenerPersonalXBusqueda(String busqueda) {
         
-        con = Conexion.conectar();
+        
         
         Personal personal = null;
         String sql = " SELECT  * FROM personal WHERE correo = ? OR nombre = ? OR apellido = ? OR username = ?";
@@ -254,7 +255,7 @@ public class PersonalData {
     }
     public Personal obtenerPersonalXCorreo(String correo) {
         
-        con = Conexion.conectar();
+        
         
         Personal personal = null;
         String sql = " SELECT  * FROM personal WHERE correo = ? AND estado = 1"; //aca estaba el cambio dni
@@ -289,7 +290,7 @@ public class PersonalData {
     }
     public Personal obtenerPersonalXUsuario(String username) {
         
-        con = Conexion.conectar();
+        
         
         Personal personal = null;
         String sql = " SELECT  * FROM personal WHERE username = ? AND estado = 1"; //aca estaba el cambio dni

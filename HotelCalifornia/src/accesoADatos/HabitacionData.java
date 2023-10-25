@@ -117,7 +117,7 @@ public class HabitacionData {
 
     public List<Habitacion> listarHabitacionesDisponibles() {
         
-        con = Conexion.conectar();
+        
         
         List<Habitacion> habitaciones = new ArrayList<>();
         boolean reservada;
@@ -141,7 +141,7 @@ public class HabitacionData {
 
     public List<Habitacion> listarHabitacionesNoDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
         
-        con = Conexion.conectar();
+        
         
         List<Habitacion> habitaciones = new ArrayList<>();
         boolean reservada;
@@ -170,7 +170,7 @@ public class HabitacionData {
 
     public List listarHabitacoinesNoDisponibles() {
         
-        con = Conexion.conectar();
+        
         
         List<Habitacion> habitaciones = new ArrayList<>();
         boolean reservada;
@@ -195,7 +195,7 @@ public class HabitacionData {
 
     public List<Habitacion> listarHabitacionesTodas() {
 
-        con = Conexion.conectar();
+        
         
         imgData = new ImagenData();
         tipoData = new TipoHabData();
@@ -226,7 +226,7 @@ public class HabitacionData {
 
     public List listarHabitacionesXPiso(int piso) {
 
-        con = Conexion.conectar();
+        
         
         tipoData = new TipoHabData();
         List<Habitacion> habsxPiso = new ArrayList<>();
@@ -254,7 +254,7 @@ public class HabitacionData {
 
     public List listarHabitacionesXPisoYTipo(int piso, TipoHabitacion tipo) {
         
-        con = Conexion.conectar();
+        
         
         tipoData = new TipoHabData();
         List<Habitacion> habsxPisoYTipo = new ArrayList<>();
@@ -283,7 +283,7 @@ public class HabitacionData {
 
     public void activarHabitacion(Habitacion habitacion) {
         
-        con = Conexion.conectar();
+        
         
         String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
@@ -305,7 +305,7 @@ public class HabitacionData {
 
     public void desactivarHabitacion(Habitacion habitacion) {
         
-        con = Conexion.conectar();
+        
         
         String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
@@ -327,7 +327,7 @@ public class HabitacionData {
 
     public void idImagenrHabitacion(Habitacion habitacion) {
         
-        con = Conexion.conectar();
+        
         
         String sql = "UPDATE habitacion SET idImagen = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
@@ -348,7 +348,7 @@ public class HabitacionData {
 
     public void noReservarHabitacion(Habitacion habitacion) {
         
-        con = Conexion.conectar();
+        
         
         String sql = "UPDATE habitacion SET idImagen = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
@@ -369,7 +369,7 @@ public class HabitacionData {
 
     public Habitacion obtenerHabitacion(int idHabitacion) {
 
-        con = Conexion.conectar();
+        
         
         tipoData = new TipoHabData();
         Habitacion habitacion = new Habitacion();
@@ -399,7 +399,7 @@ public class HabitacionData {
 
     public void cambiarTipo(Habitacion habitacion, TipoHabitacion tipo) {
         
-        con = Conexion.conectar();
+        
         
         String sql = "UPDATE habitacion SET idTipoHab = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
@@ -421,7 +421,7 @@ public class HabitacionData {
 
     public ArrayList<Integer> ObtenerPiso() {
         
-        con = Conexion.conectar();
+        
         
         ArrayList<Integer> numerosDePiso = new ArrayList<>();
 
@@ -443,7 +443,7 @@ public class HabitacionData {
 
     public List<LocalDate> fechasReservadas(Habitacion habitacion) {
 
-        con = Conexion.conectar();
+        
         
         resData = new ReservaData();
         LocalDate hoy = LocalDate.now();
