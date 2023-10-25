@@ -61,7 +61,7 @@ public class HuespedData {
         
         
         
-        String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, password=?, Celular=?, pais=?, fechaNacimiento=?"
+        String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, password=?, Celular=?, pais=?, fechaNacimiento=?, estado=?"
                 + " WHERE idHuesped=?";
         PreparedStatement ps = null;
         try {
@@ -75,9 +75,10 @@ public class HuespedData {
             ps.setString(7, huesped.getCorreo());
             ps.setString(8, huesped.getPassword());
             ps.setInt(9, huesped.getCelular());
-            ps.setInt(10, huesped.getIdHuesped());
-            ps.setString(11, huesped.getPais());
-            ps.setDate(12,  Date.valueOf(huesped.getFechaNac()));
+            ps.setString(10, huesped.getPais());
+            ps.setDate(11,  Date.valueOf(huesped.getFechaNac()));
+            ps.setBoolean(12, huesped.isEstado());
+            ps.setInt(13, huesped.getIdHuesped());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado exitosamente.");
