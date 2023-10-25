@@ -14,11 +14,10 @@ public class TipoHabData {
     private Connection con = null;   // atributo
 
     public TipoHabData() {     // constructor 
+        con = Conexion.conectar();
     }
 
     public void agregarTipo(TipoHabitacion tipo) {
-
-        con = Conexion.conectar();
 
         String sql = "INSERT INTO TipoHabitacion (  idTipoHab, nombre, cantPersonas,  cantCamas, tipoCamas, precioxNoche, estado)"
                 + " VALUES(?,?,?,?,?,?,?)";
@@ -26,7 +25,6 @@ public class TipoHabData {
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, tipo.getIdTipoHab());
-            // ps.setInt(2, tipo.getHabitacion().getIdHabitacion()); agregar a la base de datos idHabitacion? para que pueda buscarlo?
             ps.setString(2, tipo.getNombre());
             ps.setInt(3, tipo.getCantPersonas());
             ps.setInt(4, tipo.getCantCamas());
@@ -48,8 +46,6 @@ public class TipoHabData {
     }
 
     public void modificarTipo(TipoHabitacion tipo) { //modificar los datos
-
-        con = Conexion.conectar();
 
         String sql = "UPDATE tipohabitacion SET nombre = ?, cantPersonas=?,cantCamas=?,tipoCamas=?,precioxNoche=?, estado = ? WHERE idTipoHab= ?";
 
@@ -87,9 +83,7 @@ public class TipoHabData {
     }
 
     public void darDeBajaTipo(TipoHabitacion tipo) {
-        
-        con = Conexion.conectar();
-        
+
         String sql = " UPDATE tipohabitacion SET estado = 0 WHERE idTipoHab=?";
         PreparedStatement ps;
         try {
@@ -107,9 +101,7 @@ public class TipoHabData {
     }
 
     public void darDeAltaTipo(TipoHabitacion tipo) {//veeer no hay estado
-        
-        con = Conexion.conectar();
-        
+
         String sql = " UPDATE tipohabitacion SET estado=1 WHERE idTipoHab=?";
         PreparedStatement ps;
         try {
@@ -133,9 +125,7 @@ public class TipoHabData {
 //cantCamas	
 //tipoCamas	
 //precioxNoche
-        
-        con = Conexion.conectar();
-        
+
         ArrayList listaTipoHab = new ArrayList<>();
 
         String sql = "SELECT * FROM tipohabitacion";
@@ -163,9 +153,7 @@ public class TipoHabData {
     }
 
     public double cambiarPrecio(TipoHabitacion tipo, double precio) { // para mi tendria que ser void
-        
-        con = Conexion.conectar();
-        
+
         String sql = " UPDATE tipohabitacion SET `precioxNoche`='?' WHERE idTipoHab=?";
         PreparedStatement ps;
         try {
@@ -190,9 +178,7 @@ public class TipoHabData {
 //cantCamas	
 //tipoCamas	
 //precioxNoche 
-        
-        con = Conexion.conectar();
-        
+
         TipoHabitacion busquedaxId = null;
         Habitacion hab = null;
         String sql = "SELECT * FROM tipohabitacion WHERE idTipoHab=?";
@@ -215,7 +201,9 @@ public class TipoHabData {
                 } else {
                     JOptionPane.showMessageDialog(null, "El idTipoHabitación:" + idTipoHab + " ingresado no existe o no está activo");
                 }
+                ps.close();
             }
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "***ERROR*** al acceder a la tabla tipoHabitación " + ex);
         }
@@ -224,9 +212,7 @@ public class TipoHabData {
     }
 
     public TipoHabitacion obtenerTipoXPrecio(Double precio) { // cambio nombre x Precio
-        
-        con = Conexion.conectar();
-        
+
         TipoHabitacion busquedaxPrecio = null;
         String sql = "SELECT * FROM tipohabitacion WHERE precioxNoche=?";
 
@@ -254,9 +240,7 @@ public class TipoHabData {
     }
 
     public TipoHabitacion obtenerTipoXCantCamas(TipoHabitacion nroCamas) {
-        
-        con = Conexion.conectar();
-        
+
         TipoHabitacion busquedaxCantCamas = null;
         String sql = "SELECT * FROM tipohabitacion WHERE cantCamas=?";
 
@@ -276,6 +260,7 @@ public class TipoHabData {
                 } else {
                     JOptionPane.showMessageDialog(null, "La cantidad de camas " + nroCamas.getCantCamas() + " ingresado no existe");
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "***ERROR*** al acceder a la tabla tipoHabitación " + ex);
@@ -284,9 +269,7 @@ public class TipoHabData {
     }
 
     public TipoHabitacion obtenerTipoXtipoCamas(TipoHabitacion tipoCama) {
-        
-        con = Conexion.conectar();
-        
+
         TipoHabitacion busquedaxTipoCama = null;
         String sql = "SELECT * FROM tipohabitacion WHERE tipoCamas= '?'";
 
@@ -306,6 +289,7 @@ public class TipoHabData {
                 } else {
                     JOptionPane.showMessageDialog(null, "El tipo de cama " + tipoCama.getTipoCamas() + " ingresado no existe");
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "***ERROR*** al acceder a la tabla tipoHabitación " + ex);
@@ -316,9 +300,6 @@ public class TipoHabData {
 
     public TipoHabitacion obtenerTipoXHabitacion(Habitacion habitacion) {// NO ENTENDER!!!
 
-        
-        con = Conexion.conectar();
-        
         TipoHabitacion th = new TipoHabitacion();
         String sql = "SELECT * FROM tipohabitacion WHERE idHabitacion=?";
 
@@ -337,6 +318,7 @@ public class TipoHabData {
                 } else {
                     JOptionPane.showMessageDialog(null, "El idHabitacion" + habitacion + " ingresado no existe");
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "***ERROR*** al acceder a la tabla tipoHabitación " + ex);

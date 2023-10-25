@@ -16,11 +16,12 @@ public class HuespedData {
     private Connection con;
 
     public HuespedData() {
+        con = Conexion.conectar();
     }
 
     public void agregarHuesped(Huesped huesped) {
         
-        con = Conexion.conectar();
+        
         
         String sql = "INSERT INTO huesped(nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular, estado,fechaNacimiento,pais)"
                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -58,7 +59,7 @@ public class HuespedData {
 
     public void modificarHuesped(Huesped huesped) {
         
-        con = Conexion.conectar();
+        
         
         String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, password=?, Celular=?, pais=?, fechaNacimiento=?"
                 + " WHERE idHuesped=?";
@@ -91,7 +92,7 @@ public class HuespedData {
 
     public void eliminarHuesped(int id) {
 
-        con = Conexion.conectar();
+        
         
         String sql = "UPDATE huesped SET estado=0 WHERE idHuesped=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -108,7 +109,7 @@ public class HuespedData {
 
     public List listarHuespedes() {
         
-        con = Conexion.conectar();
+        
         
         List<Huesped> huespedes = new ArrayList<>();
 
@@ -146,7 +147,7 @@ public class HuespedData {
     
     public List listarHuespedesActivosYNoActivos() {
         
-        con = Conexion.conectar();
+        
         
         List<Huesped> huespedes = new ArrayList<>();
 
@@ -184,7 +185,7 @@ public class HuespedData {
 
     public Huesped obtenerHuesped(int idHuesped) {
         
-        con = Conexion.conectar();
+        
         
         Huesped huesped = null;
         String sql = " SELECT *  FROM huesped Where idHuesped=?";
@@ -223,7 +224,7 @@ public class HuespedData {
 
     public Huesped obtenerHuespedXDni(int dni) {
         
-        con = Conexion.conectar();
+        
         
         Huesped huesped = null;
         String sql = " SELECT  * FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
@@ -260,7 +261,7 @@ public class HuespedData {
 
     public Huesped obtenerHuespedXCorreo(String correo) {
         
-        con = Conexion.conectar();
+        
         
         Huesped huesped = null;
         String sql = " SELECT  * FROM huesped WHERE correo = ? AND estado = 1"; //aca estaba el cambio dni
@@ -299,7 +300,7 @@ public class HuespedData {
     }
     public Huesped obtenerHuespedXCorreoEstadoCero(String correo) {
         
-        con = Conexion.conectar();
+        
         
         Huesped huesped = null;
         String sql = " SELECT  * FROM huesped WHERE correo = ?"; //aca estaba el cambio dni
