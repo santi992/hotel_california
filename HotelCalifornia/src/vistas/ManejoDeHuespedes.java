@@ -31,6 +31,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         funcionesyVariablesDeInicio();
 
     }
+    Huesped huesped = new Huesped();
     HuespedData huData = new HuespedData();
 
     @SuppressWarnings("unchecked")
@@ -79,7 +80,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         jlBuscar = new javax.swing.JLabel();
         jtBuscar = new javax.swing.JTextField();
         jcbHuesped = new javax.swing.JComboBox<>();
-        jbBuscarme = new javax.swing.JButton();
+        jbCargarMisDatos = new javax.swing.JButton();
         jlBuscarme = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -149,7 +150,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(0, 0, 0)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -176,7 +177,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JdFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
+                .addGap(0, 0, 0))
         );
 
         jPanel3.setBackground(new java.awt.Color(121, 128, 129));
@@ -248,51 +249,48 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jtNombre)
-                                    .addComponent(jtDni, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jtDireccion, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jtCelular, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jtCorreo, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jpContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
-                                .addGap(66, 66, 66))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 39, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(66, 66, 66))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
                             .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 39, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jtNombre)
+                                        .addComponent(jtDni, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jtDireccion, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jtCelular, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jtCorreo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jpContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)))))
+                        .addGap(66, 66, 66))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -352,7 +350,12 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
             }
         });
 
-        jbBuscarme.setText("Buscarme");
+        jbCargarMisDatos.setText("Cargar Mis Datos");
+        jbCargarMisDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCargarMisDatosActionPerformed(evt);
+            }
+        });
 
         jlBuscarme.setFont(new java.awt.Font("Dialog", 1, 8)); // NOI18N
         jlBuscarme.setText("Busca por correo y contraseña");
@@ -361,40 +364,49 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbBuscarme)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlBuscarme)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlBuscar)
                 .addGap(17, 17, 17))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGap(17, 17, 17)
+                            .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbCargarMisDatos)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jlBuscarme)))))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlBuscar)
-                    .addComponent(jbBuscarme)
-                    .addComponent(jlBuscarme)
-                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jbCargarMisDatos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlBuscarme)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -408,19 +420,22 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))))
         );
 
         pack();
@@ -435,12 +450,15 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-       eliminarHuespedxCorreoyContraseña();// HACER UN CARTEL PARA CONFIRMA LA ELIMIMNACION DEL USUARIO
+        eliminarHuespedxCorreoyContraseña();// HACER UN CARTEL PARA CONFIRMA LA ELIMIMNACION DEL USUARIO
+        // IMPLICACION EN CASO DE QUE OLVIDE LA CONTRASEÑA NO HAY FORMA DE HACER NINGUNA OPERACION Y SU CORREO QUEDA RESTRINGIDO
+        // Y SU DNI TAMBIEN (SON DATOS UNICOS)
+        // PODRIA PONER SU DNI Y LUEGO PONER OTRO BOTON QUE SEA MODIFICAR CONTRASEÑA QUE SE GUIE POR SU DNI Y OTRO DATO EJ FECHA DE NACIMIMENTO
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        mostrar((Huesped)jcbHuesped.getSelectedItem());
-        
+        mostrar((Huesped) jcbHuesped.getSelectedItem());
+
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyReleased
@@ -452,13 +470,25 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jrEstadoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        guardar();
-        comprobarCorreo();
+        if (comprobacionDeCuentaExistente()) {
+            cambiarEstadoYModificarDatos();
+        } else {
+            guardar();
+        }
+        // EN CASO DE QUE SE HAYA ELIMINADO SE BUSCA POR CORREO O DNI Y LUEGO SE ACTIVA Y CAMBIA SUS DATOS 
+
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         modificar();
     }//GEN-LAST:event_jbModificarActionPerformed
+
+    private void jbCargarMisDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarMisDatosActionPerformed
+        // CARGAR DATOS DEL USUARIO CON USUARI Y CONTRASEÑA
+        cargarMisDatos();
+
+
+    }//GEN-LAST:event_jbCargarMisDatosActionPerformed
 
     // ----------------------------- ATENCION ------------------------------
     //Crear funcion que rellene el mail por tipeo, busca y ordena alfaveticament 5 primmeros resultados 
@@ -485,7 +515,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JButton jbBuscar;
-    private javax.swing.JButton jbBuscarme;
+    private javax.swing.JButton jbCargarMisDatos;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbModificar;
@@ -509,6 +539,21 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtPais;
     private javax.swing.JTextField jtProvincia;
     // End of variables declaration//GEN-END:variables
+
+    void cargarMisDatos() {
+        huesped = huData.obtenerHuespedXCorreo(jtCorreo.getText());
+        try {
+            huesped = huData.obtenerHuespedXCorreoEstadoCero(jtCorreo.getText());
+        } catch (NumberFormatException nf) {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado este mail");
+        }
+        comprobarCorreo();
+        if (emailValido && huesped.getPassword().equals(jpContraseña.getText())) {
+            mostrar(huesped);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese un contraseña/email válido");
+        }
+    }
 
     private void buscarHuesped() {
         jcbHuesped.removeAllItems();
@@ -556,8 +601,32 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
     }
 
+    private boolean comprobacionDeCuentaExistente() {
+        //REVISA SI LA CUENTA ESTA EN LA BASE DE DATOS Y SI ADEMMAS ESTA DESACTIVADA
+        Huesped huesped = new Huesped();
+        boolean condicion = false;
+        try {
+            huesped = huData.obtenerHuespedXCorreoEstadoCero(jtCorreo.getText());
+        } catch (NumberFormatException nf) {
+            huesped = (null);
+        }
+        if (huesped != null && huesped.isEstado() == false) {
+            condicion = true;
+        }
+
+        return condicion;
+    }
+
+    private void cambiarEstadoYModificarDatos() {
+        // SI ESTA ELIMINADA LA CUENTA SE VUELVE A ACTIVAR Y SE MODIFICA SUS DATOS 
+        Huesped huesped = new Huesped();
+        modificarYActivarEstado();
+
+    }
+
     private void guardar() {
-        if (camposCompletos()) {
+        comprobarCorreo();
+        if (camposCompletos() && emailValido) {
             HuespedData huesData = new HuespedData();
             Huesped hues = new Huesped();
             hues.setNombre(jtNombre.getText());
@@ -574,9 +643,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
             try {
                 hues.setFechaNac(JdFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             } catch (NullPointerException e) {
-
-                hues.setFechaNac(LocalDate.of(0, 0, 0));
-
+                hues.setFechaNac(LocalDate.of(2000, 1, 1));
             }
 
             huesData.agregarHuesped(hues);
@@ -698,12 +765,12 @@ public class MainFrame extends JFrame {
             jbBuscar.setVisible(false);
             jcbHuesped.setVisible(false);
             jrEstado.setVisible(false);
-            jbBuscarme.setVisible(false);
+            jbCargarMisDatos.setVisible(false);
             jlBuscarme.setVisible(false);
             jlId.setVisible(false);
             jtId.setVisible(false);
         } else {
-            jbBuscarme.setVisible(false);
+            jbCargarMisDatos.setVisible(false);
             jlBuscarme.setVisible(false);
         }
     }
@@ -753,47 +820,80 @@ public class MainFrame extends JFrame {
 
         }).start();
     }
-    
-    
-    private void eliminarHuespedxCorreoyContraseña(){
+
+    private void eliminarHuespedxCorreoyContraseña() {
         Huesped hue = new Huesped();
-       hue = huData.obtenerHuespedXCorreo(jtCorreo.getText());
+        hue = huData.obtenerHuespedXCorreo(jtCorreo.getText());
         huData.eliminarHuesped(hue.getIdHuesped());
     }
-    
-        private void modificar() {
+
+    private void modificar() {
+        Huesped huesped = new Huesped();
         if (camposCompletos()) {
-            Huesped huesped = new Huesped();
+
             try {
                 huesped = huData.obtenerHuespedXCorreoEstadoCero(jtCorreo.getText());
             } catch (NumberFormatException nf) {
                 huesped = (null);
             }
-            if (huesped != null && huesped.getPassword() == jpContraseña.getText()) {
-            huesped.setNombre(jtNombre.getText());
-            huesped.setDni(Integer.parseInt(jtDni.getText()));
-            huesped.setCelular(Integer.parseInt(jtCelular.getText()));
-            huesped.setDireccion(jtDireccion.getText());
-            huesped.setCorreo(jtCorreo.getText());
-            huesped.setPassword(jpContraseña.getText());
 
-            huesped.setApellido(jtApellido.getText());
-            huesped.setLocalidad(jtLocalidad.getText());
-            huesped.setProvincia(jtProvincia.getText());
-            huesped.setPais(jtPais.getText());
-            huesped.setEstado(jrEstado.isSelected());
-            huData.modificarHuesped(huesped);
-            
-               
+            if (huesped != null && huesped.getPassword().equals(jpContraseña.getText())) {
+                huesped.setNombre(jtNombre.getText());
+                huesped.setDni(Integer.parseInt(jtDni.getText()));
+                huesped.setCelular(Integer.parseInt(jtCelular.getText()));
+                huesped.setDireccion(jtDireccion.getText());
+                huesped.setCorreo(jtCorreo.getText());
+                huesped.setPassword(jpContraseña.getText());
+
+                huesped.setApellido(jtApellido.getText());
+                huesped.setLocalidad(jtLocalidad.getText());
+                huesped.setProvincia(jtProvincia.getText());
+                huesped.setPais(jtPais.getText());
+                huesped.setEstado(jrEstado.isSelected());
+                huData.modificarHuesped(huesped);
+                buscarHuesped();
+
             } else {
                 JOptionPane.showMessageDialog(null, "El Correo/Contraseña ingresado no corresponde\na un Huesped");
             }
-        } else if (!emailValido){
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
+        }
+    }
+
+    private void modificarYActivarEstado() {
+        Huesped huesped = new Huesped();
+        if (camposCompletos()) {
+
+            try {
+                huesped = huData.obtenerHuespedXCorreoEstadoCero(jtCorreo.getText());
+            } catch (NumberFormatException nf) {
+                huesped = (null);
+            }
+            comprobarCorreo();
+            if (emailValido) {
+                huesped.setNombre(jtNombre.getText());
+                huesped.setDni(Integer.parseInt(jtDni.getText()));
+                huesped.setCelular(Integer.parseInt(jtCelular.getText()));
+                huesped.setDireccion(jtDireccion.getText());
+                huesped.setCorreo(jtCorreo.getText());
+                huesped.setPassword(jpContraseña.getText());
+
+                huesped.setApellido(jtApellido.getText());
+                huesped.setLocalidad(jtLocalidad.getText());
+                huesped.setProvincia(jtProvincia.getText());
+                huesped.setPais(jtPais.getText());
+                huesped.setEstado(true);
+                huData.modificarHuesped(huesped);
+                buscarHuesped();
+
+            }
+        } else if (!emailValido) {
             JOptionPane.showMessageDialog(null, "Ingrese un email válido");
         } else {
             JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
         }
     }
-        
 
 }
