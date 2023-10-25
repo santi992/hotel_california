@@ -8,7 +8,6 @@ package vistas;
 import accesoADatos.HabitacionData;
 import entidades.Habitacion;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 
