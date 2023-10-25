@@ -1,6 +1,5 @@
 package entidades;
 
-import accesoADatos.HabitacionData;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,21 +12,25 @@ public class Habitacion {
     private int piso;
     
     private List<LocalDate> fechasReservadas;
+    
+    private Imagen imagen;
 
     private boolean reserva;
-
+    
     private boolean estado;
 
     public Habitacion() {
+        reserva = false;
     }
 
-    public Habitacion(int idHabitacion, TipoHabitacion tipoHabitacion, int piso, List<LocalDate> fechasReservadas, boolean reserva, boolean estado) {
+    public Habitacion(int idHabitacion, TipoHabitacion tipoHabitacion, int piso, List<LocalDate> fechasReservadas, Imagen imagen, boolean estado) {
         this.idHabitacion = idHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.piso = piso;
         this.fechasReservadas = fechasReservadas;
-        this.reserva = reserva;
+        this.imagen = imagen;
         this.estado = estado;
+        reserva = false;
     }
 
     public int getIdHabitacion() {
@@ -61,9 +64,13 @@ public class Habitacion {
     public void setFechasReservadas(List<LocalDate> fechasReservadas) {
         this.fechasReservadas = fechasReservadas;
     }
-    
-    public void actualizarFechasReservadas(){
-        fechasReservadas = new HabitacionData().fechasReservadas(this);
+
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
     }
 
     public boolean isReserva() {
@@ -81,6 +88,7 @@ public class Habitacion {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
 
     public String toStringOriginal() {
         return "Habitacion{" + "idHabitacion=" + idHabitacion + ", tipoHabitacion=" + tipoHabitacion + ", piso=" + piso + '}';

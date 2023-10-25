@@ -13,16 +13,19 @@ import entidades.Habitacion;
 import entidades.Huesped;
 import entidades.Reserva;
 import entidades.TipoHabitacion;
+import java.awt.Image;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.List;
 import java.util.TreeSet;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static vistas.VistaPrincipal.login;
 import static vistas.VistaPrincipal.huespedActivo;
+import static vistas.VistaPrincipal.login;
 import static vistas.VistaPrincipal.mostrarVista;
 import static vistas.VistaPrincipal.personal;
+import static vistas.VistaPrincipal.personalActivo;
 
 /**
  *
@@ -56,20 +59,23 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
 
         initComponents();
 
+        armarInicioSesion();
         armarComboHuesped();
         armarComboPiso();
         armarComboTipo();
         armarComboCant();
         armarComboHabitacion();
+        colocarImagen();
         setLayout(null);
-        setSize(580, 580);
+        setSize(1000, 540);
         jPanelCapas.setLayout(null);
-        jPanelCapas.setBounds(0, 0, 580, 560);
+        jPanelCapas.setBounds(0, 0, 1000, 520);
         jlTitulo.setBounds(0, 0, 580, 30);
         jPanelHuesped.setBounds(30, 30, 520, 175);
         jPanelHabitacion.setBounds(30, 210, 520, 275);
-        jPanelFinal.setBounds(30, 490, 520, 40);
-        jbSalir.setVisible(login);
+
+        jlImagen.setBounds(560, 30, 400, 400);
+        jPanelFinal.setBounds(560, 435, 400, 50);
     }
 
     /**
@@ -90,6 +96,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         jbIniciarHuesped = new javax.swing.JButton();
         jlBuscar = new javax.swing.JLabel();
         jbIniciarPersonal = new javax.swing.JButton();
+        jbCerrarSesion = new javax.swing.JButton();
         jPanelHabitacion = new javax.swing.JPanel();
         jlHabitación = new javax.swing.JLabel();
         jcbTipoHab = new javax.swing.JComboBox<>();
@@ -113,6 +120,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jbReservar = new javax.swing.JButton();
         jlPrecioTxt = new javax.swing.JLabel();
+        jlImagen = new javax.swing.JLabel();
 
         setTitle("Reservar habitación");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
@@ -163,6 +171,13 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             }
         });
 
+        jbCerrarSesion.setText("Cerrar sesión");
+        jbCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCerrarSesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelHuespedLayout = new javax.swing.GroupLayout(jPanelHuesped);
         jPanelHuesped.setLayout(jPanelHuespedLayout);
         jPanelHuespedLayout.setHorizontalGroup(
@@ -170,21 +185,26 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             .addGroup(jPanelHuespedLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanelHuespedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlHueped, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcbHuesped, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-                    .addComponent(jtHuesped, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHuespedLayout.createSequentialGroup()
-                        .addComponent(jbIniciarPersonal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbIniciarHuesped)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(30, 30, 30))
+                    .addGroup(jPanelHuespedLayout.createSequentialGroup()
+                        .addGroup(jPanelHuespedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbHuesped, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtHuesped, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlHueped, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(60, Short.MAX_VALUE))
+                    .addGroup(jPanelHuespedLayout.createSequentialGroup()
+                        .addGroup(jPanelHuespedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelHuespedLayout.createSequentialGroup()
+                                .addComponent(jbIniciarPersonal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbIniciarHuesped)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelHuespedLayout.setVerticalGroup(
             jPanelHuespedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelHuespedLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(10, Short.MAX_VALUE)
                 .addComponent(jlHueped)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -196,7 +216,9 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanelHuespedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbIniciarHuesped)
                     .addComponent(jbIniciarPersonal))
-                .addGap(7, 7, 7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbCerrarSesion)
+                .addGap(8, 8, 8))
         );
 
         jPanelHabitacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -306,7 +328,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                                 .addComponent(jlTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jlPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jlHabitación, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(39, 39, 39)
+                            .addGap(42, 42, 42)
                             .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jcbTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,7 +338,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                                     .addComponent(jlPrecioXNocheTxt)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jlPrecioXNocheN))))))
-                .addGap(42, 42, 42))
+                .addGap(30, 30, 30))
         );
         jPanelHabitacionLayout.setVerticalGroup(
             jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,37 +394,42 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jlPrecioTxt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlPrecioTxt.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jlPrecioTxt.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlPrecioTxt.setText("Precio Total: $ 0");
 
         javax.swing.GroupLayout jPanelFinalLayout = new javax.swing.GroupLayout(jPanelFinal);
         jPanelFinal.setLayout(jPanelFinalLayout);
         jPanelFinalLayout.setHorizontalGroup(
             jPanelFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFinalLayout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addComponent(jlPrecioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanelFinalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlPrecioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jbReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         jPanelFinalLayout.setVerticalGroup(
             jPanelFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFinalLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(jPanelFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(10, 10, 10)
+                .addGroup(jPanelFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlPrecioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlPrecioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jlImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanelCapas.setLayer(jlTitulo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPanelCapas.setLayer(jPanelHuesped, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPanelCapas.setLayer(jPanelHabitacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPanelCapas.setLayer(jPanelFinal, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPanelCapas.setLayer(jlImagen, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanelCapasLayout = new javax.swing.GroupLayout(jPanelCapas);
         jPanelCapas.setLayout(jPanelCapasLayout);
@@ -411,37 +438,44 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             .addGroup(jPanelCapasLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanelCapasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jlTitulo)
-                    .addComponent(jPanelHuesped, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 13, Short.MAX_VALUE))
+                    .addComponent(jPanelHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelCapasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jlImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(73, 73, 73))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCapasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlTitulo)
+                .addGap(459, 459, 459))
         );
         jPanelCapasLayout.setVerticalGroup(
             jPanelCapasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCapasLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jlTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 24, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanelCapasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelCapasLayout.createSequentialGroup()
+                        .addComponent(jPanelHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCapasLayout.createSequentialGroup()
+                        .addComponent(jlImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanelFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelCapas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanelCapas, javax.swing.GroupLayout.DEFAULT_SIZE, 1140, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelCapas, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanelCapas, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
         );
 
         pack();
@@ -493,6 +527,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
 
     private void jcbHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHabActionPerformed
         habitacionActiva = (Habitacion) jcbHab.getSelectedItem();
+        colocarImagen();
     }//GEN-LAST:event_jcbHabActionPerformed
 
     private void jbElegirInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbElegirInActionPerformed
@@ -516,6 +551,15 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         Login ingresar = new Login(personal);
         mostrarVista(ingresar);
     }//GEN-LAST:event_jbIniciarPersonalActionPerformed
+
+    private void jbCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCerrarSesionActionPerformed
+        login = false;
+        personal = false;
+        personalActivo = null;
+        huespedActivo = null;
+        dispose();
+        mostrarVista(new ReservarHabitacion());
+    }//GEN-LAST:event_jbCerrarSesionActionPerformed
 
     private void comboHuespedes() {
         List huespedes = huData.listarHuespedes();
@@ -669,6 +713,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelFinal;
     private javax.swing.JPanel jPanelHabitacion;
     private javax.swing.JPanel jPanelHuesped;
+    private javax.swing.JButton jbCerrarSesion;
     private javax.swing.JButton jbElegirIn;
     private javax.swing.JButton jbElegirOut;
     private javax.swing.JButton jbIniciarHuesped;
@@ -687,6 +732,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlHab;
     private javax.swing.JLabel jlHabitación;
     private javax.swing.JLabel jlHueped;
+    private javax.swing.JLabel jlImagen;
     public static javax.swing.JLabel jlMostrarFechaIn;
     public static javax.swing.JLabel jlMostrarFechaOut;
     private javax.swing.JLabel jlNoches;
@@ -712,6 +758,30 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe elegir una habitación");
         }
 
+    }
+
+    private void armarInicioSesion() {
+        jbCerrarSesion.setVisible(login);
+        jbIniciarPersonal.setVisible(!login);
+        jbIniciarHuesped.setVisible(!login);
+        jbSalir.setVisible(login);
+    }
+
+    private void colocarImagen() {
+        try {
+            ImageIcon imagen = habitacionActiva.getImagen().getImagen();
+            int bImagen = imagen.getIconWidth();
+            int hImagen = imagen.getIconHeight();
+            int bLabel = 400;
+            double rel = (double) bLabel / (double) bImagen;
+            int hEscalado = (int) (hImagen * rel);
+            ImageIcon imagenEscalada = new ImageIcon(imagen.getImage().getScaledInstance(bLabel, hEscalado, Image.SCALE_SMOOTH));
+            jlImagen.setIcon(imagenEscalada);
+            jlImagen.setText("");
+        } catch (NullPointerException np) {
+            jlImagen.setIcon(null);
+            jlImagen.setText("Imagen no disponible");
+        }
     }
 
 }

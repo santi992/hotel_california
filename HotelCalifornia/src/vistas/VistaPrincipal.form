@@ -169,6 +169,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jGaleriaActionPerformed"/>
           </Events>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jGaleria1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Galeria2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jGaleria1MouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jGaleria1ActionPerformed"/>
+          </Events>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuSalir">
           <Properties>
             <Property name="text" type="java.lang.String" value="Salir"/>
