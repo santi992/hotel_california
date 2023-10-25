@@ -305,8 +305,11 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
     }
 
 public void limpiarTabla(){
-    for( int i=modelo.getRowCount() ;i >0; i --){
-        modelo.removeRow(-1);
+//    for( int i=modelo.getRowCount() ;i >0; i --){
+//        modelo.removeRow(-(1));
+//    }
+for(int i = modelo.getRowCount() - 1; i >= 0; i--){
+        modelo.removeRow(i);
     }
 }
 public void llenarTabla(){
