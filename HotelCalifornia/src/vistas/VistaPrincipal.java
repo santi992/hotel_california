@@ -81,6 +81,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuResActuales = new javax.swing.JMenuItem();
         jMenuPersonal = new javax.swing.JMenu();
         jMenuManejoPersonal = new javax.swing.JMenuItem();
+        jGaleria = new javax.swing.JMenu();
         jGaleria1 = new javax.swing.JMenu();
         jMenuSalir = new javax.swing.JMenu();
 
@@ -255,7 +256,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jBarraMenu.add(jMenuPersonal);
 
-        jGaleria1.setText("Galeria");
+        jGaleria.setText("Galeria");
+        jGaleria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGaleriaActionPerformed(evt);
+            }
+        });
+        jBarraMenu.add(jGaleria);
+
+        jGaleria1.setText("Galeria2");
         jGaleria1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jGaleria1MouseClicked(evt);
@@ -393,12 +402,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mostrarVista(ra);
     }//GEN-LAST:event_jMenuResActualesActionPerformed
 
+    private void jGaleriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGaleriaActionPerformed
+        Galeria gal=new Galeria();
+        mostrarVista(gal);
+    }//GEN-LAST:event_jGaleriaActionPerformed
+
     private void jGaleria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGaleria1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jGaleria1ActionPerformed
 
     private void jGaleria1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGaleria1MouseClicked
-        mostrarVista(new Galeria());
+        mostrarVista(new Galeria2());
     }//GEN-LAST:event_jGaleria1MouseClicked
 
     /**
@@ -442,6 +456,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jBarraMenu;
     private javax.swing.JDesktopPane jEscritorio;
+    private javax.swing.JMenu jGaleria;
     private javax.swing.JMenu jGaleria1;
     private javax.swing.JMenuItem jMenuAbanonarHab;
     private javax.swing.JMenuItem jMenuAmpliarRes;

@@ -22,12 +22,11 @@ public class HabitacionData {
     private ImagenData imgData;
 
     public HabitacionData() {
+        con = Conexion.conectar();
     }
 
 // 
     public void agregarHabitacion(Habitacion habitacion) {
-        
-        con = Conexion.conectar();
 
         String sql = "INSERT INTO habitacion (idHabitacion,idTipoHab,piso,idImagen,estado)"
                 + "VALUES(?,?,?,?,?)";
@@ -51,8 +50,6 @@ public class HabitacionData {
     }
 
     public void modificarHabitacion(Habitacion habitacion) {
-        
-        con = Conexion.conectar();
 
         String sql = "UPDATE habitacion SET idTipoHab = ?,piso = ?,idImagen = ?, estado = ? WHERE idHabitacion=?";
         PreparedStatement ps = null;
@@ -77,9 +74,6 @@ public class HabitacionData {
     }
 
     public void eliminarHabitacion(int idHabitacion) {
-        
-        con = Conexion.conectar();
-        
         String sql = "UPDATE habitacion SET estado=0 WHERE idHabitacion=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idHabitacion);
@@ -95,9 +89,6 @@ public class HabitacionData {
     }
 
     public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
-        
-        con = Conexion.conectar();
-        
         List<Habitacion> habitaciones = new ArrayList<>();
         boolean reservada;
         for (Habitacion hab : listarHabitacionesTodas()) {
