@@ -7,6 +7,7 @@ package vistas;
 
 import java.awt.Color;
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 import static vistas.Calendario.seleccionarFecha;
 
 /**
@@ -17,6 +18,7 @@ public class CuadroFecha extends javax.swing.JPanel {
 
     private boolean elegida;
     private boolean disponible;
+    private boolean trancada;
     private int dia;
     private int mes;
     private int anio;
@@ -29,11 +31,11 @@ public class CuadroFecha extends javax.swing.JPanel {
      * Creates new form CuadroFecha1
      */
 //    public CuadroFecha(LocalDate f, boolean disponible, boolean elegida) {
-    public CuadroFecha(LocalDate f, boolean disponible) {
+    public CuadroFecha(LocalDate f, boolean disponible, boolean trancada) {
         setLayout(null);
         this.fecha = f;
         this.disponible = disponible;
-//        this.elegida = elegida;
+        this.trancada = trancada;
         dia = fecha.getDayOfMonth();
         mes = fecha.getMonthValue();
         anio = fecha.getYear();
@@ -97,20 +99,27 @@ public class CuadroFecha extends javax.swing.JPanel {
     private void numeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numeroMouseClicked
         if (disponible) {
             LocalDate fecha = LocalDate.of(anio, mes, dia);
-            elegida = true;
-            seleccionarFecha(fecha);
+            if (trancada) {
+                String mensaje = "Existen fechas reservadas para esta habitación"
+                        + "\nentre la fecha de ingreso seleccionada y " + fecha;
+                JOptionPane.showMessageDialog(null, mensaje);
+            } else {
+                elegida = true;
+                seleccionarFecha(fecha);
+
+            }
         }
     }//GEN-LAST:event_numeroMouseClicked
 
     private void numeroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numeroMouseEntered
         numero.setText(dia + "");
-        if (disponible && !elegida) {
+        if (disponible && !elegida && !trancada) {
             cambiarFondo(celeste);
         }
     }//GEN-LAST:event_numeroMouseEntered
 
     private void numeroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numeroMouseExited
-        if (disponible && !elegida) {
+        if (disponible && !elegida && !trancada) {
             cambiarFondo(gris);
         }
     }//GEN-LAST:event_numeroMouseExited
@@ -125,8 +134,12 @@ public class CuadroFecha extends javax.swing.JPanel {
                 cambiarFondo(azul);
             } else {
                 cambiarFondo(gris);
+                if (trancada) {
+                    numero.setForeground(Color.red);
+                } else {
+                    numero.setForeground(Color.black);
+                }
             }
-            numero.setForeground(Color.black);
         } else {
             numero.setForeground(Color.red);
             cambiarFondo(Color.LIGHT_GRAY);

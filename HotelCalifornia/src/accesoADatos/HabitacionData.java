@@ -28,7 +28,7 @@ public class HabitacionData {
 // 
     public void agregarHabitacion(Habitacion habitacion) {
 
-        String sql = "INSERT INTO habitacion (idHabitacion,idTipoHab,piso,idImagen,estado)"
+        String sql = "INSERT INTO habitacion (idHabitacion,idTipoHab,piso,idImagen,estado,reserva)"
                 + "VALUES(?,?,?,?,?)";
 
         PreparedStatement ps;
@@ -39,6 +39,7 @@ public class HabitacionData {
             ps.setInt(3, habitacion.getPiso());
             ps.setInt(4, habitacion.getImagen().getIdImagen());
             ps.setBoolean(5, habitacion.isEstado());
+            ps.setBoolean(6, true);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Habitacion agregada exitosamente");
             ps.close();
@@ -51,7 +52,7 @@ public class HabitacionData {
 
     public void modificarHabitacion(Habitacion habitacion) {
 
-        String sql = "UPDATE habitacion SET idTipoHab = ?,piso = ?,idImagen = ?, estado = ? WHERE idHabitacion=?";
+        String sql = "UPDATE habitacion SET idTipoHab = ?,piso = ?,idImagen = ?, estado = ?, reserva = ? WHERE idHabitacion=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -60,7 +61,8 @@ public class HabitacionData {
             ps.setInt(2, habitacion.getPiso());
             ps.setInt(3, habitacion.getImagen().getIdImagen());
             ps.setBoolean(4, habitacion.isEstado());
-            ps.setInt(5, habitacion.getIdHabitacion());
+            ps.setBoolean(5, habitacion.isReserva());
+            ps.setInt(6, habitacion.getIdHabitacion());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado exitosamente.");
@@ -195,8 +197,6 @@ public class HabitacionData {
 
     public List<Habitacion> listarHabitacionesTodas() {
 
-        
-        
         imgData = new ImagenData();
         tipoData = new TipoHabData();
         List<Habitacion> habitaciones = new ArrayList<>();
@@ -206,9 +206,7 @@ public class HabitacionData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Habitacion habs = new Habitacion();
-
                 habs.setIdHabitacion(rs.getInt("idHabitacion"));
-                // idImagen.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
                 habs.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
                 habs.setPiso(rs.getInt("piso"));
                 habs.setFechasReservadas(fechasReservadas(habs));
@@ -225,9 +223,8 @@ public class HabitacionData {
     }
 
     public List listarHabitacionesXPiso(int piso) {
-
         
-        
+        imgData = new ImagenData();
         tipoData = new TipoHabData();
         List<Habitacion> habsxPiso = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE piso = ?";
@@ -254,8 +251,7 @@ public class HabitacionData {
 
     public List listarHabitacionesXPisoYTipo(int piso, TipoHabitacion tipo) {
         
-        
-        
+        imgData = new ImagenData();
         tipoData = new TipoHabData();
         List<Habitacion> habsxPisoYTipo = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE piso = ? AND idTipoHab = ?";
@@ -283,8 +279,6 @@ public class HabitacionData {
 
     public void activarHabitacion(Habitacion habitacion) {
         
-        
-        
         String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -305,8 +299,6 @@ public class HabitacionData {
 
     public void desactivarHabitacion(Habitacion habitacion) {
         
-        
-        
         String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -325,11 +317,9 @@ public class HabitacionData {
         }
     }
 
-    public void idImagenrHabitacion(Habitacion habitacion) {
+    public void reservarHabitacion(Habitacion habitacion) {
         
-        
-        
-        String sql = "UPDATE habitacion SET idImagen = ? WHERE idHabitacion = ?";
+        String sql = "UPDATE habitacion SET reserva = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -348,9 +338,7 @@ public class HabitacionData {
 
     public void noReservarHabitacion(Habitacion habitacion) {
         
-        
-        
-        String sql = "UPDATE habitacion SET idImagen = ? WHERE idHabitacion = ?";
+        String sql = "UPDATE habitacion SET reserva = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -369,11 +357,10 @@ public class HabitacionData {
 
     public Habitacion obtenerHabitacion(int idHabitacion) {
 
-        
-        
+        imgData = new ImagenData();
         tipoData = new TipoHabData();
         Habitacion habitacion = new Habitacion();
-        String sql = " SELECT  idHabitacion,idTipoHab, piso, estado, idImagen FROM habitacion WHERE idHabitacion = ? ";
+        String sql = " SELECT * FROM habitacion WHERE idHabitacion = ? ";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -386,6 +373,7 @@ public class HabitacionData {
                 habitacion.setFechasReservadas(fechasReservadas(habitacion));
                 habitacion.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
                 habitacion.setEstado(rs.getBoolean("estado"));
+                habitacion.setReserva(false);
             } else {
                 JOptionPane.showMessageDialog(null, "No existe habitacion o se enuentra inactivo.");
             }
@@ -398,8 +386,6 @@ public class HabitacionData {
     }
 
     public void cambiarTipo(Habitacion habitacion, TipoHabitacion tipo) {
-        
-        
         
         String sql = "UPDATE habitacion SET idTipoHab = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
@@ -421,8 +407,6 @@ public class HabitacionData {
 
     public ArrayList<Integer> ObtenerPiso() {
         
-        
-        
         ArrayList<Integer> numerosDePiso = new ArrayList<>();
 
         String query = "SELECT DISTINCT piso FROM habitacion";
@@ -443,8 +427,6 @@ public class HabitacionData {
 
     public List<LocalDate> fechasReservadas(Habitacion habitacion) {
 
-        
-        
         resData = new ReservaData();
         LocalDate hoy = LocalDate.now();
         LocalDate hoyMasAnio = LocalDate.now().plusYears(1);

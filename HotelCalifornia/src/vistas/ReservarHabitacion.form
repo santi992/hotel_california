@@ -30,7 +30,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanelCapas" alignment="0" pref="541" max="32767" attributes="0"/>
+          <Component id="jPanelCapas" alignment="0" pref="622" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -230,44 +230,47 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jlNoches" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jlFechaIn" min="-2" pref="47" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jlMostrarFechaIn" min="-2" pref="70" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jbElegirIn" min="-2" pref="70" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="jlFechaOut" min="-2" pref="47" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jlMostrarFechaOut" min="-2" pref="70" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jbElegirOut" min="-2" pref="70" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jlHab" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="jlCant" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="jlTipoHab" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="jlPiso" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="jlHabitación" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jlHab" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                      <Component id="jlCant" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                      <Component id="jlTipoHab" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                      <Component id="jlPiso" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                      <Component id="jlHabitación" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jcbPiso" alignment="1" min="-2" pref="280" max="-2" attributes="0"/>
+                                  <Component id="jcbTipoHab" alignment="1" min="-2" pref="280" max="-2" attributes="0"/>
+                                  <Component id="jcbCant" alignment="1" min="-2" pref="280" max="-2" attributes="0"/>
+                                  <Component id="jcbHab" alignment="1" min="-2" pref="280" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jlNoches" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jlPrecioXNocheTxt" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jlPrecioXNocheN" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jcbPiso" alignment="1" min="-2" pref="280" max="-2" attributes="0"/>
-                                      <Component id="jcbTipoHab" alignment="1" min="-2" pref="280" max="-2" attributes="0"/>
-                                      <Component id="jcbCant" alignment="1" min="-2" pref="280" max="-2" attributes="0"/>
-                                      <Component id="jcbHab" alignment="1" min="-2" pref="280" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jlPrecioXNocheTxt" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jlPrecioXNocheN" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jlFechaIn" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jlMostrarFechaIn" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jbElegirIn" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                      <Component id="jlFechaOut" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jlMostrarFechaOut" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jbElegirOut" min="-2" pref="70" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -279,18 +282,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jlHabitación" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="2" attributes="0">
-                          <Component id="jbElegirIn" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jlFechaIn" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlMostrarFechaIn" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jlMostrarFechaOut" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jbElegirOut" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jlFechaOut" alignment="2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jlNoches" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jcbPiso" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlPiso" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -310,12 +302,24 @@
                           <Component id="jcbHab" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlHab" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jbElegirIn" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jlFechaIn" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlMostrarFechaIn" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jlMostrarFechaOut" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jbElegirOut" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jlFechaOut" alignment="2" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jlPrecioXNocheN" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlPrecioXNocheTxt" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlNoches" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jlPrecioXNocheN" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlPrecioXNocheTxt" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
+                      <EmptySpace pref="13" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

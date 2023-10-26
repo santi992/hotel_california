@@ -53,7 +53,7 @@ public class ImagenData {
         
         
         
-        Imagen imagen = new Imagen();
+        Imagen imagen = null;
         String sql = " SELECT * FROM imagen WHERE idImagen = ? ";
         PreparedStatement ps = null;
         try {
@@ -61,9 +61,9 @@ public class ImagenData {
             ps.setInt(1, idImagen);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                imagen.setIdImagen(rs.getInt("idImagen"));
-                imagen.setRuta(rs.getString("ruta"));
-                imagen.setImagen(new ImageIcon(getClass().getResource(imagen.getRuta())));
+                int id = rs.getInt("idImagen");
+                String ruta = rs.getString("ruta");
+                imagen = new Imagen(id, ruta);
             } else {
                 JOptionPane.showMessageDialog(null, "No existe la imagen");
             }

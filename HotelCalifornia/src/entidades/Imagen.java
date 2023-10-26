@@ -12,25 +12,25 @@ import javax.swing.ImageIcon;
  * @author SANTIAGONB
  */
 public class Imagen {
-    
+
     private int idImagen;
-    
+
     private String ruta;
-    
+
     private ImageIcon imagen;
 
     public Imagen() {
     }
 
-    public Imagen(int idImagen, String ruta, ImageIcon imagen) {
+    public Imagen(int idImagen, String ruta) {
         this.idImagen = idImagen;
         this.ruta = ruta;
-        this.imagen = imagen;
+        this.imagen = new ImageIcon(getClass().getResource(ruta));
     }
 
-    public Imagen(String ruta, ImageIcon imagen) {
+    public Imagen(String ruta) {
         this.ruta = ruta;
-        this.imagen = imagen;
+        this.imagen = new ImageIcon(getClass().getResource(ruta));
     }
 
     public int getIdImagen() {
@@ -56,5 +56,5 @@ public class Imagen {
     public void setImagen(ImageIcon imagen) {
         this.imagen = imagen;
     }
-    
+
 }
