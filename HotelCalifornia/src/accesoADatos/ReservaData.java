@@ -23,14 +23,12 @@ public class ReservaData {
     private HuespedData huData;
 
     public ReservaData() {
-        con = Conexion.conectar();
     }
 
     // CHECKEADO
     public void agregarReserva(Reserva reserva) {
 
-        
-        
+        con = Conexion.conectar();
         String sql = "INSERT INTO reserva(idHuesped, idHabitacion, fechaCheckIn, fechaCheckOut, cantPersonas, precioFinal, estado) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
@@ -55,6 +53,8 @@ public class ReservaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
         } catch (NullPointerException np) {
             JOptionPane.showMessageDialog(null, "Por favor seleccione una habitación");
+        } finally {
+            Conexion.cerrarConexion();
         }
 
     }
@@ -62,8 +62,7 @@ public class ReservaData {
     // CHECKEADO
     public void modificarReserva(Reserva reserva) {
         
-        
-        
+        con = Conexion.conectar();
         String sql = "UPDATE reserva SET idHuesped = ?, idHabitacion = ?, fechaCheckIn = ?, fechaCheckOut = ?, cantPersonas = ?, precioFinal = ?, estado = ? WHERE idReserva = ?";
         PreparedStatement ps;
         try {
@@ -85,6 +84,8 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
 
     }
@@ -92,8 +93,7 @@ public class ReservaData {
     // CHECKEADO
     public void cancelarReserva(Reserva reserva) {
 
-        
-        
+        con = Conexion.conectar();
         String sql = "UPDATE reserva SET estado = ?, WHERE idReserva = ?";
         PreparedStatement ps;
         try {
@@ -109,6 +109,8 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
 
     }
@@ -116,8 +118,7 @@ public class ReservaData {
     // CHECKEADO
     public void cancelarReserva(Reserva reserva, LocalDate fecha, double precioFinal) {
 
-        
-        
+        con = Conexion.conectar();
         String sql = "UPDATE reserva SET estado = ?, precioFinal = ?, fechaCheckOut = ? WHERE idReserva = ?";
         PreparedStatement ps;
         try {
@@ -135,6 +136,8 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
 
     }
@@ -142,8 +145,7 @@ public class ReservaData {
     // CHECKEADO
     public void extenderReserva(Reserva reserva, LocalDate fecha, double precioFinal) {
 
-        
-        
+        con = Conexion.conectar();
         String sql = "UPDATE reserva SET  fechaCheckOut = ?, precioFinal = ? WHERE idReserva = ?";
         PreparedStatement ps;
         try {
@@ -160,12 +162,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
 
     }
 
     public List listarReservas() {
         
+        con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -191,12 +196,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public List listarReservasXHuesped(Huesped huesped) {
         
+        con = Conexion.conectar();
         habData = new HabitacionData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
@@ -221,12 +229,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public List listarReservasXHabitacion(Habitacion habitacion) {
         
+        con = Conexion.conectar();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
@@ -251,12 +262,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public List listarReservasXPiso(int piso) {
         
+        con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -282,12 +296,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public List listarReservasXHuesped(Huesped huesped, LocalDate fechaInicio, LocalDate fechaFin) {
         
+        con = Conexion.conectar();
         habData = new HabitacionData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
@@ -312,20 +329,23 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public List listarReservasXHabitacion(Habitacion habitacion, LocalDate fechaInicio, LocalDate fechaFin) {
         
+        con = Conexion.conectar();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
         Reserva reserva;
 
         try {
             String sql = "SELECT * FROM reserva WHERE estado = 1 AND idHabitacion = " + habitacion.getIdHabitacion() + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckIn <= '" + fechaFin + "'";
-
             PreparedStatement ps = con.prepareStatement(sql);
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 reserva = new Reserva();
@@ -342,12 +362,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public List listarReservasXPiso(int piso, LocalDate fechaInicio, LocalDate fechaFin) {
         
+        con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -373,12 +396,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public List listarReservasXDni(int dni) {
         
+        con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -405,12 +431,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public List listarReservasXDni(int dni, LocalDate fechaInicio, LocalDate fechaFin) {
         
+        con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -437,12 +466,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public List listarReservas(LocalDate fechaInicio, LocalDate fechaFin) {
         
+        con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -468,12 +500,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reservas;
     }
 
     public Reserva obtenerReserva(int idReserva) {
         
+        con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
         Reserva reserva = new Reserva();
@@ -497,12 +532,15 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return reserva;
     }
 
     public void actualizarDisponibilidad() {
         
+        con = Conexion.conectar();
         Date hoy = Date.valueOf(LocalDate.now());
         String sql = "UPDATE reserva SET estado = ? WHERE fechaCheckOut < ?";
         PreparedStatement ps;
@@ -514,6 +552,8 @@ public class ReservaData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar, reinicie el programa." + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 }

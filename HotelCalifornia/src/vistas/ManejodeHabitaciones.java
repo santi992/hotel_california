@@ -20,6 +20,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -35,7 +37,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
      * Creates new form ManejodeHabitaciones
      */
     private Imagen imagenHab;
-    
+
     public ManejodeHabitaciones() {
         initComponents();
         armarComboBox();
@@ -250,11 +252,11 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         try {
-            
+
             HabitacionData hd = new HabitacionData();
             Habitacion hab = hd.obtenerHabitacion(Integer.parseInt(jtIdHab.getText()));
             if (hab != null) {
-           
+
                 if (hab.isEstado()) {
                     jtDispo.setVisible(false);
                 } else {
@@ -270,9 +272,9 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                 jlImagen.setIcon(imagenEscalada);
                 jlImagen.setText("");
                 jtImagen.setText(imagenHab.getRuta());
-                
+
             }
-            
+
         } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(null, "El código ingresado debe ser un número");
         }
@@ -280,14 +282,14 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jcbTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoHabitacionActionPerformed
-        
+
     }
-    
+
     private void armarComboBox() {
-        
+
         TipoHabData hd = new TipoHabData();
         List tipoHabitacion = hd.listarTipos();
-        
+
         for (Object h : tipoHabitacion) {
             TipoHabitacion habs = (TipoHabitacion) h;
             jcbTipoHabitacion.addItem(habs.toString1());
@@ -300,10 +302,10 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbPisoActionPerformed
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-        
+
         HabitacionData habd = new HabitacionData();
         String hab = (String) jcbTipoHabitacion.getSelectedItem();
-        
+
         Habitacion habit = new Habitacion();
         int id = Integer.parseInt(jtIdHab.getText());
         habit.setIdHabitacion(id);
@@ -314,7 +316,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         habit.setEstado(jrbEstado.isSelected());
         habit.setImagen(imagenHab);
         habd.agregarHabitacion(habit);
-        
+
         ImagenData imagenData = new ImagenData();
         imagenData.agregarImagen(imagenHab);
 
@@ -322,7 +324,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         HabitacionData habd = new HabitacionData();
-        
+
         Habitacion habit = new Habitacion();
         int id = Integer.parseInt(jtIdHab.getText());
         habit.getIdHabitacion();
@@ -333,7 +335,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         habd.eliminarHabitacion(id);
 
     }//GEN-LAST:event_jbEliminarActionPerformed
-    
+
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         this.dispose();
@@ -341,7 +343,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         HabitacionData habd = new HabitacionData();
-        
+
         Habitacion habit = new Habitacion();
         int id = Integer.parseInt(jtIdHab.getText());
         habit.setIdHabitacion(id);
@@ -352,14 +354,14 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         habit.setEstado(jrbEstado.isSelected());
         habit.setImagen(imagenHab);
         habd.modificarHabitacion(habit);
-        
+
 
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jbImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImagenActionPerformed
         seleccionarImagen();
     }//GEN-LAST:event_jbImagenActionPerformed
-    
+
     private void armarComboPiso() {
         HabitacionData habData = new HabitacionData();
         List habitaciones = habData.listarHabitacionesTodas();
@@ -397,49 +399,90 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void seleccionarImagen() {
-        
+
         String ruta = "";
         String rutaDestino = "src\\imagenes\\habitaciones\\";
-        
+
         JFileChooser selector = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG, JPEG & PNG", "jpg", "jpeg", "png");
         selector.setFileFilter(filtro);
-        
+
         int respuesta = selector.showOpenDialog(selector);
-        
+
         if (respuesta == JFileChooser.APPROVE_OPTION) {
             ruta = selector.getSelectedFile().getPath();
             String nombreArchivo = selector.getSelectedFile().getName();
             rutaDestino = rutaDestino + nombreArchivo;
             File origen = new File(ruta);
-            
+
             File destino = new File(rutaDestino);
-            
+
             try {
                 InputStream in = new FileInputStream(origen);
                 OutputStream out = new FileOutputStream(destino);
-                
+
                 byte[] buf = new byte[1024];
                 int len;
-                
+
                 while ((len = in.read(buf)) > 0) {
                     out.write(buf, 0, len);
                 }
-                
+
                 in.close();
                 out.close();
-                
+
                 imagenHab = new Imagen();
                 String rutaImagen = "/imagenes/habitaciones/" + nombreArchivo;
-                ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
-                imagenHab.setImagen(imagen);
-                imagenHab.setRuta(rutaImagen);
-                
+                System.out.println(nombreArchivo);
+
+                jlImagen.setIcon(null);
+                jlImagen.setText("Cargando Imagen...");
+
+                actualizarImagen(rutaImagen);
+
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
-            
+
         }
-        
+
     }
+
+    private void actualizarImagen(String rutaImagen) {
+
+        (new Thread() {
+            @Override
+            public void run() {
+
+                try {
+                    Thread.sleep(10);
+                    while (jlImagen.getIcon() == null) {
+                        try {
+                            ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
+                            imagenHab.setImagen(imagen);
+                            imagenHab.setRuta(rutaImagen);
+                            ImageIcon imagenEscalada = new ImageIcon(imagenHab.getImagen().getImage().getScaledInstance(260, 160, Image.SCALE_SMOOTH));
+                            jlImagen.setIcon(imagenEscalada);
+                            jlImagen.setText("");
+                            jtImagen.setText(rutaImagen);
+                            
+                            ImagenData imgData = new ImagenData();
+                            imgData.agregarImagen(imagenHab);
+
+                        } catch (NullPointerException np) {
+
+                        }
+
+                    }
+                    
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                }
+
+            }
+
+        }).start();
+
+    }
+
 }

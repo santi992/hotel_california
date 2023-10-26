@@ -22,12 +22,12 @@ public class HabitacionData {
     private ImagenData imgData;
 
     public HabitacionData() {
-        con = Conexion.conectar();
     }
 
 // 
     public void agregarHabitacion(Habitacion habitacion) {
 
+        con = Conexion.conectar();
         String sql = "INSERT INTO habitacion (idHabitacion,idTipoHab,piso,idImagen,estado,reserva)"
                 + "VALUES(?,?,?,?,?)";
 
@@ -47,11 +47,14 @@ public class HabitacionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla habitaciones " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public void modificarHabitacion(Habitacion habitacion) {
 
+        con = Conexion.conectar();
         String sql = "UPDATE habitacion SET idTipoHab = ?,piso = ?,idImagen = ?, estado = ?, reserva = ? WHERE idHabitacion=?";
         PreparedStatement ps = null;
         try {
@@ -72,12 +75,17 @@ public class HabitacionData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitaciones" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public void eliminarHabitacion(int idHabitacion) {
+
+        con = Conexion.conectar();
         String sql = "UPDATE habitacion SET estado=0 WHERE idHabitacion=?";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idHabitacion);
             int fila = ps.executeUpdate();
             if (fila == 1) {
@@ -86,11 +94,15 @@ public class HabitacionData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla habitacion");
+        } finally {
+            Conexion.cerrarConexion();
         }
 
     }
 
     public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
+
+        con = Conexion.conectar();
         List<Habitacion> habitaciones = new ArrayList<>();
         boolean reservada;
         for (Habitacion hab : listarHabitacionesTodas()) {
@@ -118,9 +130,8 @@ public class HabitacionData {
     }
 
     public List<Habitacion> listarHabitacionesDisponibles() {
-        
-        
-        
+
+        con = Conexion.conectar();
         List<Habitacion> habitaciones = new ArrayList<>();
         boolean reservada;
         for (Habitacion hab : listarHabitacionesTodas()) {
@@ -142,9 +153,7 @@ public class HabitacionData {
     }
 
     public List<Habitacion> listarHabitacionesNoDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
-        
-        
-        
+
         List<Habitacion> habitaciones = new ArrayList<>();
         boolean reservada;
         for (Habitacion hab : listarHabitacionesTodas()) {
@@ -171,9 +180,7 @@ public class HabitacionData {
     }
 
     public List listarHabitacoinesNoDisponibles() {
-        
-        
-        
+
         List<Habitacion> habitaciones = new ArrayList<>();
         boolean reservada;
         for (Habitacion hab : listarHabitacionesTodas()) {
@@ -197,6 +204,7 @@ public class HabitacionData {
 
     public List<Habitacion> listarHabitacionesTodas() {
 
+        con = Conexion.conectar();
         imgData = new ImagenData();
         tipoData = new TipoHabData();
         List<Habitacion> habitaciones = new ArrayList<>();
@@ -218,67 +226,78 @@ public class HabitacionData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, " Error al acceder a las Habitaciones " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return habitaciones;
     }
 
     public List listarHabitacionesXPiso(int piso) {
-        
+
+        con = Conexion.conectar();
         imgData = new ImagenData();
         tipoData = new TipoHabData();
         List<Habitacion> habsxPiso = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE piso = ?";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, piso);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Habitacion habitacion = new Habitacion();
-                    habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
-                    habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
-                    habitacion.setPiso(rs.getInt("piso"));
-                    habitacion.setFechasReservadas(fechasReservadas(habitacion));
-                    habitacion.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
-                    habitacion.setEstado(rs.getBoolean("estado"));
-                    habsxPiso.add(habitacion);
-                }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Habitacion habitacion = new Habitacion();
+                habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
+                habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
+                habitacion.setPiso(rs.getInt("piso"));
+                habitacion.setFechasReservadas(fechasReservadas(habitacion));
+                habitacion.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
+                habitacion.setEstado(rs.getBoolean("estado"));
+                habsxPiso.add(habitacion);
             }
+
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, " Error al acceder a las Habitaciones " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return habsxPiso;
     }
 
     public List listarHabitacionesXPisoYTipo(int piso, TipoHabitacion tipo) {
-        
+
+        con = Conexion.conectar();
         imgData = new ImagenData();
         tipoData = new TipoHabData();
         List<Habitacion> habsxPisoYTipo = new ArrayList<>();
         String sql = "SELECT * FROM habitacion WHERE piso = ? AND idTipoHab = ?";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, piso);
             ps.setInt(2, tipo.getIdTipoHab());
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Habitacion habitacion = new Habitacion();
-                    habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
-                    habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
-                    habitacion.setPiso(rs.getInt("piso"));
-                    habitacion.setFechasReservadas(fechasReservadas(habitacion));
-                    habitacion.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
-                    habitacion.setEstado(rs.getBoolean("estado"));
-                    habsxPisoYTipo.add(habitacion);
-                }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Habitacion habitacion = new Habitacion();
+                habitacion.setIdHabitacion(rs.getInt("IdHabitacion"));
+                habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
+                habitacion.setPiso(rs.getInt("piso"));
+                habitacion.setFechasReservadas(fechasReservadas(habitacion));
+                habitacion.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
+                habitacion.setEstado(rs.getBoolean("estado"));
+                habsxPisoYTipo.add(habitacion);
+
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, " Error al acceder a las Habitaciones " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return habsxPisoYTipo;
     }
 
     public void activarHabitacion(Habitacion habitacion) {
-        
+
+        con = Conexion.conectar();
         String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -294,11 +313,14 @@ public class HabitacionData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public void desactivarHabitacion(Habitacion habitacion) {
-        
+
+        con = Conexion.conectar();
         String sql = "UPDATE habitacion SET estado = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -314,11 +336,14 @@ public class HabitacionData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public void reservarHabitacion(Habitacion habitacion) {
-        
+
+        con = Conexion.conectar();
         String sql = "UPDATE habitacion SET reserva = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -333,11 +358,14 @@ public class HabitacionData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public void noReservarHabitacion(Habitacion habitacion) {
-        
+
+        con = Conexion.conectar();
         String sql = "UPDATE habitacion SET reserva = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -352,11 +380,14 @@ public class HabitacionData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public Habitacion obtenerHabitacion(int idHabitacion) {
 
+        con = Conexion.conectar();
         imgData = new ImagenData();
         tipoData = new TipoHabData();
         Habitacion habitacion = new Habitacion();
@@ -381,12 +412,15 @@ public class HabitacionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla habitacion " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return habitacion;
     }
 
     public void cambiarTipo(Habitacion habitacion, TipoHabitacion tipo) {
-        
+
+        con = Conexion.conectar();
         String sql = "UPDATE habitacion SET idTipoHab = ? WHERE idHabitacion = ?";
         PreparedStatement ps = null;
         try {
@@ -402,16 +436,19 @@ public class HabitacionData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la habitacion" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public ArrayList<Integer> ObtenerPiso() {
-        
-        ArrayList<Integer> numerosDePiso = new ArrayList<>();
 
+        con = Conexion.conectar();
+        ArrayList<Integer> numerosDePiso = new ArrayList<>();
         String query = "SELECT DISTINCT piso FROM habitacion";
-        try (PreparedStatement statement = con.prepareStatement(query);
-                ResultSet resultSet = statement.executeQuery()) {
+        try {
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 int numeroPiso = resultSet.getInt("Piso");
@@ -420,6 +457,8 @@ public class HabitacionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a los Pisos" + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
 
         return numerosDePiso;

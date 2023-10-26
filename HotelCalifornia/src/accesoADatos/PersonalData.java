@@ -16,13 +16,11 @@ public class PersonalData {
     private Connection con;
 
     public PersonalData() {
-        con = Conexion.conectar();
     }
 
     public void agregarPersonal(Personal personal) {
         
-        
-        
+        con = Conexion.conectar();
         String sql = "INSERT INTO personal(nombre, apellido, dni, Domicilio, Correo, username, password, Celular, fechaNacimiento, admin, estado)"
                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -53,13 +51,14 @@ public class PersonalData {
         } catch (SQLException ef) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla personal " + ef.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public void modificarPersonal(Personal personal) {
         
-        
-        
+        con = Conexion.conectar();
         String sql = "UPDATE personal SET nombre=?, apellido=?, dni=?, Domicilio=?, Correo=?, username=?, password=?, Celular=?, fechaNacimiento=?, admin=?, estado=? " 
                 + " WHERE idPersonal=?";
         PreparedStatement ps = null;
@@ -86,13 +85,14 @@ public class PersonalData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Personal" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public void eliminarPersonal(int id) {
 
-        
-        
+        con = Conexion.conectar();
         String sql = "UPDATE personal SET estado=0 WHERE idPersonal=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -103,13 +103,14 @@ public class PersonalData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla personal");
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public List listarPersonales() {
         
-        
-        
+        con = Conexion.conectar();
         List<Personal> personales = new ArrayList<>();
 
         try {
@@ -137,14 +138,15 @@ public class PersonalData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla personal" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return personales;
     }
 
     public Personal obtenerPersonal(int idPersonal) {
         
-        
-        
+        con = Conexion.conectar();
         Personal personal = null;
         String sql = " SELECT * FROM personal Where idPersonal=?";
         PreparedStatement ps = null;
@@ -174,6 +176,8 @@ public class PersonalData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Personal " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return personal;
 
@@ -181,8 +185,7 @@ public class PersonalData {
 
     public Personal obtenerPersonalXDni(int dni) {
         
-        
-        
+        con = Conexion.conectar();
         Personal personal = null;
         String sql = " SELECT  * FROM personal WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
@@ -211,14 +214,15 @@ public class PersonalData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla personal " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return personal;
     }
 
     public Personal obtenerPersonalXBusqueda(String busqueda) {
         
-        
-        
+        con = Conexion.conectar();
         Personal personal = null;
         String sql = " SELECT  * FROM personal WHERE correo = ? OR nombre = ? OR apellido = ? OR username = ?";
         PreparedStatement ps = null;
@@ -250,13 +254,14 @@ public class PersonalData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Personal " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return personal;
     }
     public Personal obtenerPersonalXCorreo(String correo) {
         
-        
-        
+        con = Conexion.conectar();
         Personal personal = null;
         String sql = " SELECT  * FROM personal WHERE correo = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
@@ -285,13 +290,14 @@ public class PersonalData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Personal " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return personal;
     }
     public Personal obtenerPersonalXUsuario(String username) {
         
-        
-        
+        con = Conexion.conectar();
         Personal personal = null;
         String sql = " SELECT  * FROM personal WHERE username = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
@@ -320,6 +326,8 @@ public class PersonalData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Personal " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return personal;
     }

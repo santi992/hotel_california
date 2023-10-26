@@ -16,13 +16,11 @@ public class HuespedData {
     private Connection con;
 
     public HuespedData() {
-        con = Conexion.conectar();
     }
 
     public void agregarHuesped(Huesped huesped) {
         
-        
-        
+        con = Conexion.conectar();
         String sql = "INSERT INTO huesped(nombre, apellido, dni, Domicilio, Provincia, Localidad, Correo, password, Celular, estado,fechaNacimiento,pais)"
                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -54,13 +52,14 @@ public class HuespedData {
         } catch (SQLException ef) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla huesped " + ef.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public void modificarHuesped(Huesped huesped) {
         
-        
-        
+        con = Conexion.conectar();
         String sql = "UPDATE huesped SET nombre=?, apellido=?, dni=?, Domicilio=?, Provincia=?, Localidad=?, Correo=?, password=?, Celular=?, pais=?, fechaNacimiento=?, estado=?"
                 + " WHERE idHuesped=?";
         PreparedStatement ps = null;
@@ -88,13 +87,14 @@ public class HuespedData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public void eliminarHuesped(int id) {
 
-        
-        
+        con = Conexion.conectar();
         String sql = "UPDATE huesped SET estado=0 WHERE idHuesped=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -105,13 +105,14 @@ public class HuespedData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped");
+        } finally {
+            Conexion.cerrarConexion();
         }
     }
 
     public List listarHuespedes() {
         
-        
-        
+        con = Conexion.conectar();
         List<Huesped> huespedes = new ArrayList<>();
 
         try {
@@ -142,14 +143,15 @@ public class HuespedData {
                     }
          catch (SQLException  ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return huespedes;
     }
     
     public List listarHuespedesActivosYNoActivos() {
         
-        
-        
+        con = Conexion.conectar();
         List<Huesped> huespedes = new ArrayList<>();
 
         try {
@@ -180,14 +182,15 @@ public class HuespedData {
                     }
          catch (SQLException  ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped" + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
         }
         return huespedes;
     }
 
     public Huesped obtenerHuesped(int idHuesped) {
         
-        
-        
+        con = Conexion.conectar();
         Huesped huesped = null;
         String sql = " SELECT *  FROM huesped Where idHuesped=?";
         PreparedStatement ps = null;
@@ -218,6 +221,8 @@ public class HuespedData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return huesped;
 
@@ -225,8 +230,7 @@ public class HuespedData {
 
     public Huesped obtenerHuespedXDni(int dni) {
         
-        
-        
+        con = Conexion.conectar();
         Huesped huesped = null;
         String sql = " SELECT  * FROM huesped WHERE dni = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
@@ -256,14 +260,15 @@ public class HuespedData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return huesped;
     }
 
     public Huesped obtenerHuespedXCorreo(String correo) {
         
-        
-        
+        con = Conexion.conectar();
         Huesped huesped = null;
         String sql = " SELECT  * FROM huesped WHERE correo = ? AND estado = 1"; //aca estaba el cambio dni
         PreparedStatement ps = null;
@@ -296,13 +301,14 @@ public class HuespedData {
          catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return huesped;
     }
     public Huesped obtenerHuespedXCorreoEstadoCero(String correo) {
         
-        
-        
+        con = Conexion.conectar();
         Huesped huesped = null;
         String sql = " SELECT  * FROM huesped WHERE correo = ?"; //aca estaba el cambio dni
         PreparedStatement ps = null;
@@ -335,6 +341,8 @@ public class HuespedData {
          catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped " + ex.getMessage());
 
+        } finally {
+            Conexion.cerrarConexion();
         }
         return huesped;
     }
