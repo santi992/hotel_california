@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import static vistas.ReservarHabitacion.elegir;
 import static vistas.ReservarHabitacion.fechaIn;
 import static vistas.ReservarHabitacion.fechaOut;
+import static vistas.ReservarHabitacion.fechaTope;
 import static vistas.ReservarHabitacion.habitacionActiva;
 import static vistas.ReservarHabitacion.jlMostrarFechaIn;
 import static vistas.ReservarHabitacion.jlMostrarFechaOut;
@@ -31,6 +32,8 @@ public class Calendario extends javax.swing.JPanel {
 
     private ReservaData resData;
     private HabitacionData habData;
+    private static LocalDate fechaCheckIn;
+    private static LocalDate fechaInAux;
     private static boolean in;
     private static int anio;
     private static int mes;
@@ -39,7 +42,7 @@ public class Calendario extends javax.swing.JPanel {
     private static HashMap<String, int[]> meses;
     private static List<LocalDate> fechasReservadas;
 
-    public LocalDate fechaActual;
+    public static LocalDate fechaActual;
 
     public static LocalDate fechaSeleccionada;
 
@@ -48,6 +51,30 @@ public class Calendario extends javax.swing.JPanel {
      */
     public Calendario(boolean in) {
         this.in = in;
+        fechaCheckIn = null;
+        fechaInAux = LocalDate.now();
+        fechaTope = null;
+        setLayout(null);
+        setLocation(0, 0);
+        setSize(460, 380);
+        initComponents();
+
+        fechaMin = LocalDate.of(2023, 1, 1);
+        fechaActual = LocalDate.now();
+        fechaSeleccionada = null;
+        resData = new ReservaData();
+        fechasReservadas = habitacionActiva.getFechasReservadas();
+
+        armarComboMeses();
+        armarComboAnio();
+
+        inicio();
+    }
+
+    public Calendario(boolean in, LocalDate fechaCheckIn) {
+        this.in = in;
+        this.fechaCheckIn = fechaCheckIn;
+        fechaInAux = fechaCheckIn;
         setLayout(null);
         setLocation(0, 0);
         setSize(460, 380);
@@ -251,7 +278,13 @@ public class Calendario extends javax.swing.JPanel {
             if (in) {
                 fechaIn = fechaSeleccionada;
                 jlMostrarFechaIn.setText(fechaSeleccionada + "");
+                for (LocalDate fechaInactiva : fechasReservadas) {
+                    if (fechaTope == null && fechaInactiva.isAfter(fechaSeleccionada)) {
+                        fechaTope = fechaInactiva;
+                    }
+                }
                 elegir.dispose();
+
             } else {
                 fechaOut = fechaSeleccionada;
                 jlMostrarFechaOut.setText(fechaSeleccionada + "");
@@ -332,7 +365,8 @@ public class Calendario extends javax.swing.JPanel {
 
                     LocalDate fechaInicio = LocalDate.of(anio, mes, 1);
                     int posicionInicial = (int) DAYS.between(fechaMin, fechaInicio) % 7;
-                    boolean disponible = true;
+                    boolean disponible;
+                    boolean trancada;
 
                     for (int i = 0; i < diasMes; i++) {
                         int posicion = i + posicionInicial;
@@ -346,35 +380,50 @@ public class Calendario extends javax.swing.JPanel {
                         LocalDate fechaAux = fechaInicio.plusDays(i);
 
                         disponible = true;
+                        trancada = false;
 
-                        if (fechaAux.isBefore(LocalDate.now()) || fechaAux.isAfter(LocalDate.now().plusYears(1))) {
+                        if (fechaAux.isBefore(fechaActual) || fechaAux.isBefore(fechaInAux) || fechaAux.isAfter(LocalDate.now().plusYears(1))) {
                             disponible = false;
                         } else {
-
+                            if (fechaTope != null) {
+                                if (!fechaAux.isBefore(fechaTope)) {
+                                    trancada = true;
+                                }
+                            }
+//
                             for (LocalDate fechaInactiva : fechasReservadas) {
+
+                                boolean coincidencia;
+
+                                int anioIn = fechaInactiva.getYear();
+                                int mesIn = fechaInactiva.getMonthValue();
+                                int diaIn = fechaInactiva.getDayOfMonth();
 
                                 int anioF = fechaAux.getYear();
                                 int mesF = fechaAux.getMonthValue();
                                 int diaF = fechaAux.getDayOfMonth();
-                                int anioIn = fechaInactiva.getYear();
-                                int mesIn = fechaInactiva.getMonthValue();
-                                int diaIn = fechaInactiva.getDayOfMonth();
-                                boolean coincidencia = (anioF == anioIn && mesF == mesIn && diaF == diaIn);
-                                
+
+                                coincidencia = (anioF == anioIn && mesF == mesIn && diaF == diaIn);
+
                                 if (coincidencia) {
                                     disponible = false;
+                                    if (fechaCheckIn != null) {
+                                        trancada = true;
+                                    }
                                     break;
                                 }
                             }
 
                         }
 
-                        panelDia.add(new CuadroFecha(fechaAux, disponible));
+                        panelDia.add(new CuadroFecha(fechaAux, disponible, trancada));
                         panelCalendario.add(panelDia);
 
                     }
                 } catch (InterruptedException ex) {
                     JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                } catch (NullPointerException np) {
+
                 }
 
             }

@@ -45,6 +45,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     public static Habitacion habitacionActiva;
     public static LocalDate fechaIn;
     public static LocalDate fechaOut;
+    public static LocalDate fechaTope;
     public static JFrame elegir;
 
     public ReservarHabitacion() {
@@ -56,26 +57,22 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         precioFinal = 0;
 
         habitacionActiva = null;
+        fechaTope = null;
 
         initComponents();
 
-        armarInicioSesion();
-        armarComboHuesped();
-        armarComboPiso();
-        armarComboTipo();
-        armarComboCant();
-        armarComboHabitacion();
-        colocarImagen();
+        limpiar();
+
         setLayout(null);
-        setSize(1000, 540);
+        setSize(1000, 510);
         jPanelCapas.setLayout(null);
-        jPanelCapas.setBounds(0, 0, 1000, 520);
+        jPanelCapas.setBounds(0, 0, 1000, 490);
         jlTitulo.setBounds(0, 0, 580, 30);
         jPanelHuesped.setBounds(30, 30, 520, 175);
-        jPanelHabitacion.setBounds(30, 210, 520, 275);
+        jPanelHabitacion.setBounds(30, 210, 520, 245);
 
-        jlImagen.setBounds(560, 30, 400, 400);
-        jPanelFinal.setBounds(560, 435, 400, 50);
+        jlImagen.setBounds(560, 30, 400, 370);
+        jPanelFinal.setBounds(560, 405, 400, 50);
     }
 
     /**
@@ -305,39 +302,41 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelHabitacionLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlNoches)
-                    .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanelHabitacionLayout.createSequentialGroup()
-                            .addComponent(jlFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jlMostrarFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jbElegirIn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(33, 33, 33)
-                            .addComponent(jlFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jlMostrarFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jbElegirOut, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(8, 8, 8))
-                        .addGroup(jPanelHabitacionLayout.createSequentialGroup()
-                            .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jlHab, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jlCant, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jlTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jlPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jlHabitación, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(42, 42, 42)
-                            .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jcbTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jcbCant, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jcbHab, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanelHabitacionLayout.createSequentialGroup()
-                                    .addComponent(jlPrecioXNocheTxt)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jlPrecioXNocheN))))))
+                .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelHabitacionLayout.createSequentialGroup()
+                        .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlHab, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlCant, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlHabitación, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbCant, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbHab, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHabitacionLayout.createSequentialGroup()
+                        .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanelHabitacionLayout.createSequentialGroup()
+                                .addComponent(jlNoches)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlPrecioXNocheTxt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jlPrecioXNocheN))
+                            .addGroup(jPanelHabitacionLayout.createSequentialGroup()
+                                .addComponent(jlFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlMostrarFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbElegirIn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(jlFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlMostrarFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbElegirOut, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(8, 8, 8)))
                 .addGap(30, 30, 30))
         );
         jPanelHabitacionLayout.setVerticalGroup(
@@ -346,16 +345,6 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jlHabitación)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jbElegirIn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlFechaIn)
-                    .addComponent(jlMostrarFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlMostrarFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbElegirOut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlFechaOut))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlNoches)
-                .addGap(22, 22, 22)
                 .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlPiso))
@@ -371,11 +360,21 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlHab))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jbElegirIn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlFechaIn)
+                    .addComponent(jlMostrarFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlMostrarFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbElegirOut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlFechaOut))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlPrecioXNocheN, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlPrecioXNocheTxt))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(jlNoches)
+                    .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jlPrecioXNocheN, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jlPrecioXNocheTxt)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jPanelFinal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -475,7 +474,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelCapas, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+            .addComponent(jPanelCapas, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
         );
 
         pack();
@@ -535,7 +534,11 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbElegirInActionPerformed
 
     private void jbElegirOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbElegirOutActionPerformed
-        elegir(false);
+        if (fechaIn != null) {
+            elegir(false, fechaIn);
+        } else {
+            JOptionPane.showMessageDialog(null, "Primero debe elegir la fecha de ingreso");
+        }
     }//GEN-LAST:event_jbElegirOutActionPerformed
 
     private void jlMostrarFechaInPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jlMostrarFechaInPropertyChange
@@ -610,10 +613,12 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             } else {
                 jcbHuesped.addItem(huespedActivo);
                 jtHuesped.setEditable(false);
+                jlBuscar.setText("");
             }
         } else {
             jtHuesped.setEditable(false);
             jcbHuesped.setEnabled(false);
+            jlBuscar.setText("");
         }
 
     }
@@ -703,6 +708,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             reserva.setCantPersonas((int) jcbCant.getSelectedItem());
             resData.agregarReserva(reserva);
             resData.actualizarDisponibilidad();
+            limpiar();
         } else {
             JOptionPane.showMessageDialog(null, "Debe iniciar sesión para reservar");
         }
@@ -760,6 +766,21 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
 
     }
 
+    private void elegir(boolean in, LocalDate fecha) {
+
+        if (jcbHab.getSelectedIndex() >= 0) {
+            elegir = new JFrame();
+            elegir.setSize(480, 400);
+            elegir.setLocationRelativeTo(this);
+            elegir.setUndecorated(true);
+            elegir.setVisible(true);
+            elegir.add(new Calendario(in, fecha));
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe elegir una habitación");
+        }
+
+    }
+
     private void armarInicioSesion() {
         jbCerrarSesion.setVisible(login);
         jbIniciarPersonal.setVisible(!login);
@@ -782,6 +803,16 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jlImagen.setIcon(null);
             jlImagen.setText("Imagen no disponible");
         }
+    }
+
+    private void limpiar() {
+        armarInicioSesion();
+        armarComboHuesped();
+        armarComboPiso();
+        armarComboTipo();
+        armarComboCant();
+        armarComboHabitacion();
+        colocarImagen();
     }
 
 }

@@ -5,13 +5,25 @@
 package vistas;
 
 import accesoADatos.HabitacionData;
+import accesoADatos.ImagenData;
 import accesoADatos.TipoHabData;
 import entidades.Habitacion;
+import entidades.Imagen;
 import entidades.TipoHabitacion;
 import static hotelcalifornia.HotelCalifornia.obtenerId;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.TreeSet;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -22,11 +34,14 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     /**
      * Creates new form ManejodeHabitaciones
      */
+    private Imagen imagenHab;
+    
     public ManejodeHabitaciones() {
         initComponents();
         armarComboBox();
         armarComboPiso();
         jtDispo.setVisible(false);
+        imagenHab = null;
     }
 
     /**
@@ -53,6 +68,9 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
         jtDispo = new javax.swing.JLabel();
+        jtImagen = new javax.swing.JTextField();
+        jbImagen = new javax.swing.JButton();
+        jlImagen = new javax.swing.JLabel();
 
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
 
@@ -118,49 +136,76 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
         jtDispo.setText("Inactiva");
 
+        jtImagen.setText("....");
+
+        jbImagen.setText("Seleccionar");
+        jbImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbImagenActionPerformed(evt);
+            }
+        });
+
+        jlImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlImagen.setText("Imagen no disponible");
+        jlImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jlImagen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcbTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(jrbReservado)
-                        .addGap(75, 75, 75)
-                        .addComponent(jrbEstado))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(34, Short.MAX_VALUE)
+                        .addComponent(jbAgregar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbModificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbEliminar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbSalir))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jtIdHab, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jtImagen)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbImagen))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(83, 83, 83)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jbBuscar)
-                                    .addComponent(jLabel1))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtDispo)))
-                .addContainerGap(45, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbAgregar)
-                .addGap(18, 18, 18)
-                .addComponent(jbModificar)
-                .addGap(18, 18, 18)
-                .addComponent(jbEliminar)
-                .addGap(18, 18, 18)
-                .addComponent(jbSalir)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jcbTipoHabitacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(71, 71, 71)
+                                        .addComponent(jrbReservado)
+                                        .addGap(75, 75, 75)
+                                        .addComponent(jrbEstado))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jtIdHab, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(83, 83, 83)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jbBuscar)
+                                                    .addComponent(jLabel1))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtDispo))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(12, 12, 12)
+                                                .addComponent(jlImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(91, 91, 91)
+                                                .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -181,17 +226,23 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbImagen))
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jrbReservado)
                     .addComponent(jrbEstado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAgregar)
                     .addComponent(jbModificar)
                     .addComponent(jbEliminar)
                     .addComponent(jbSalir))
-                .addGap(33, 33, 33))
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -203,27 +254,35 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
             HabitacionData hd = new HabitacionData();
             Habitacion hab = hd.obtenerHabitacion(Integer.parseInt(jtIdHab.getText()));
             if (hab != null) {
-                if(hab.isEstado()){
+           
+                if (hab.isEstado()) {
                     jtDispo.setVisible(false);
-                }else{
+                } else {
                     jtDispo.setVisible(true);
-                }   
+                }
                 jtIdHab.setText(String.valueOf(hab.getIdHabitacion()));
                 jcbTipoHabitacion.setSelectedItem(hab.getTipoHabitacion().toString1());
                 jcbPiso.setSelectedItem(hab.getPiso());
                 jrbReservado.setSelected(hab.isReserva());
                 jrbEstado.setSelected(hab.isEstado());
-            }                                        
-        
+                imagenHab = hab.getImagen();
+                ImageIcon imagenEscalada = new ImageIcon(imagenHab.getImagen().getImage().getScaledInstance(260, 160, Image.SCALE_SMOOTH));
+                jlImagen.setIcon(imagenEscalada);
+                jlImagen.setText("");
+                jtImagen.setText(imagenHab.getRuta());
+                
+            }
+            
         } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(null, "El código ingresado debe ser un número");
         }
-   
+
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jcbTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoHabitacionActionPerformed
         
     }
+    
     private void armarComboBox() {
         
         TipoHabData hd = new TipoHabData();
@@ -241,25 +300,29 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbPisoActionPerformed
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-    
+        
         HabitacionData habd = new HabitacionData();
-        String hab = (String)jcbTipoHabitacion.getSelectedItem();
-      
+        String hab = (String) jcbTipoHabitacion.getSelectedItem();
+        
         Habitacion habit = new Habitacion();
         int id = Integer.parseInt(jtIdHab.getText());
         habit.setIdHabitacion(id);
         TipoHabitacion th = new TipoHabData().obtenerTipoxId(obtenerId(hab));
-        habit.setTipoHabitacion(th); 
+        habit.setTipoHabitacion(th);
         habit.setPiso((int) jcbPiso.getSelectedItem());
         habit.setReserva(jrbReservado.isSelected());
         habit.setEstado(jrbEstado.isSelected());
+        habit.setImagen(imagenHab);
         habd.agregarHabitacion(habit);
+        
+        ImagenData imagenData = new ImagenData();
+        imagenData.agregarImagen(imagenHab);
 
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         HabitacionData habd = new HabitacionData();
-                
+        
         Habitacion habit = new Habitacion();
         int id = Integer.parseInt(jtIdHab.getText());
         habit.getIdHabitacion();
@@ -268,17 +331,17 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         habit.isReserva();
         habit.isEstado();
         habd.eliminarHabitacion(id);
-     
-    }//GEN-LAST:event_jbEliminarActionPerformed
 
+    }//GEN-LAST:event_jbEliminarActionPerformed
     
+
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         HabitacionData habd = new HabitacionData();
-                
+        
         Habitacion habit = new Habitacion();
         int id = Integer.parseInt(jtIdHab.getText());
         habit.setIdHabitacion(id);
@@ -287,29 +350,30 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         habit.setPiso((int) jcbPiso.getSelectedItem());
         habit.setReserva(jrbReservado.isSelected());
         habit.setEstado(jrbEstado.isSelected());
+        habit.setImagen(imagenHab);
         habd.modificarHabitacion(habit);
         
-        
-        
-        
-        
-        
+
     }//GEN-LAST:event_jbModificarActionPerformed
-           
-    private void armarComboPiso(){
+
+    private void jbImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbImagenActionPerformed
+        seleccionarImagen();
+    }//GEN-LAST:event_jbImagenActionPerformed
+    
+    private void armarComboPiso() {
         HabitacionData habData = new HabitacionData();
         List habitaciones = habData.listarHabitacionesTodas();
         TreeSet<Integer> pisos = new TreeSet<>();
-        for (Object hab: habitaciones){
+        for (Object hab : habitaciones) {
             Habitacion habitacion = (Habitacion) hab;
             int piso = habitacion.getPiso();
             pisos.add(piso);
         }
-        for (int piso: pisos) {
+        for (int piso : pisos) {
             jcbPiso.addItem(piso);
         }
-    jcbPiso.setSelectedIndex(-1);
-    }  
+        jcbPiso.setSelectedIndex(-1);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -319,14 +383,63 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbImagen;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Integer> jcbPiso;
     private javax.swing.JComboBox<String> jcbTipoHabitacion;
+    private javax.swing.JLabel jlImagen;
     private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JRadioButton jrbReservado;
     private javax.swing.JLabel jtDispo;
     private javax.swing.JTextField jtIdHab;
+    private javax.swing.JTextField jtImagen;
     // End of variables declaration//GEN-END:variables
-}
 
+    private void seleccionarImagen() {
+        
+        String ruta = "";
+        String rutaDestino = "src\\imagenes\\habitaciones\\";
+        
+        JFileChooser selector = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG, JPEG & PNG", "jpg", "jpeg", "png");
+        selector.setFileFilter(filtro);
+        
+        int respuesta = selector.showOpenDialog(selector);
+        
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            ruta = selector.getSelectedFile().getPath();
+            String nombreArchivo = selector.getSelectedFile().getName();
+            rutaDestino = rutaDestino + nombreArchivo;
+            File origen = new File(ruta);
+            
+            File destino = new File(rutaDestino);
+            
+            try {
+                InputStream in = new FileInputStream(origen);
+                OutputStream out = new FileOutputStream(destino);
+                
+                byte[] buf = new byte[1024];
+                int len;
+                
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+                
+                in.close();
+                out.close();
+                
+                imagenHab = new Imagen();
+                String rutaImagen = "/imagenes/habitaciones/" + nombreArchivo;
+                ImageIcon imagen = new ImageIcon(getClass().getResource(rutaImagen));
+                imagenHab.setImagen(imagen);
+                imagenHab.setRuta(rutaImagen);
+                
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+            
+        }
+        
+    }
+}
