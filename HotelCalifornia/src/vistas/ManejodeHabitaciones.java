@@ -40,10 +40,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
     public ManejodeHabitaciones() {
         initComponents();
-        armarComboBox();
-        armarComboPiso();
-        jtDispo.setVisible(false);
-        imagenHab = null;
+        nuevo();
     }
 
     /**
@@ -69,11 +66,13 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
-        jtDispo = new javax.swing.JLabel();
+        jlDispo = new javax.swing.JLabel();
         jtImagen = new javax.swing.JTextField();
         jbImagen = new javax.swing.JButton();
         jlImagen = new javax.swing.JLabel();
+        jbAgregar1 = new javax.swing.JButton();
 
+        setTitle("Manejo de habitaciones");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -136,7 +135,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
             }
         });
 
-        jtDispo.setText("Inactiva");
+        jlDispo.setText("Inactiva");
 
         jtImagen.setText("....");
 
@@ -152,63 +151,71 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         jlImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jlImagen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        jbAgregar1.setText("Nuevo");
+        jbAgregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAgregar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(34, Short.MAX_VALUE)
+                        .addComponent(jbAgregar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbAgregar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbModificar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbSalir))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbSalir)
+                        .addContainerGap(14, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jtImagen)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbImagen))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jcbTipoHabitacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jcbTipoHabitacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(71, 71, 71)
                                         .addComponent(jrbReservado)
-                                        .addGap(75, 75, 75)
-                                        .addComponent(jrbEstado))
+                                        .addGap(149, 149, 149)
+                                        .addComponent(jrbEstado)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jtIdHab, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(83, 83, 83)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jbBuscar)
-                                                    .addComponent(jLabel1))))
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jtIdHab, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jbBuscar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jtDispo))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(12, 12, 12)
-                                                .addComponent(jlImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(91, 91, 91)
-                                                .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(18, 18, 18))
+                                        .addComponent(jlDispo)))
+                                .addGap(9, 9, 9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(91, 91, 91)
+                                .addComponent(jcbPiso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jlImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(109, 109, 109))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,12 +226,12 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jtIdHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar)
-                    .addComponent(jtDispo))
-                .addGap(18, 18, 18)
+                    .addComponent(jlDispo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jcbTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -243,7 +250,8 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                     .addComponent(jbAgregar)
                     .addComponent(jbModificar)
                     .addComponent(jbEliminar)
-                    .addComponent(jbSalir))
+                    .addComponent(jbSalir)
+                    .addComponent(jbAgregar1))
                 .addGap(12, 12, 12))
         );
 
@@ -251,33 +259,8 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        try {
+        buscar();
 
-            HabitacionData hd = new HabitacionData();
-            Habitacion hab = hd.obtenerHabitacion(Integer.parseInt(jtIdHab.getText()));
-            if (hab != null) {
-
-                if (hab.isEstado()) {
-                    jtDispo.setVisible(false);
-                } else {
-                    jtDispo.setVisible(true);
-                }
-                jtIdHab.setText(String.valueOf(hab.getIdHabitacion()));
-                jcbTipoHabitacion.setSelectedItem(hab.getTipoHabitacion().toString1());
-                jcbPiso.setSelectedItem(hab.getPiso());
-                jrbReservado.setSelected(hab.isReserva());
-                jrbEstado.setSelected(hab.isEstado());
-                imagenHab = hab.getImagen();
-                ImageIcon imagenEscalada = new ImageIcon(imagenHab.getImagen().getImage().getScaledInstance(260, 160, Image.SCALE_SMOOTH));
-                jlImagen.setIcon(imagenEscalada);
-                jlImagen.setText("");
-                jtImagen.setText(imagenHab.getRuta());
-
-            }
-
-        } catch (NumberFormatException nf) {
-            JOptionPane.showMessageDialog(null, "El código ingresado debe ser un número");
-        }
 
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -287,6 +270,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
     private void armarComboBox() {
 
+        jcbTipoHabitacion.removeAllItems();
         TipoHabData hd = new TipoHabData();
         List tipoHabitacion = hd.listarTipos();
 
@@ -315,10 +299,10 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         habit.setReserva(jrbReservado.isSelected());
         habit.setEstado(jrbEstado.isSelected());
         habit.setImagen(imagenHab);
+        System.out.println("id: "+imagenHab.getIdImagen());
+        System.out.println(imagenHab.getRuta());
         habd.agregarHabitacion(habit);
 
-        ImagenData imagenData = new ImagenData();
-        imagenData.agregarImagen(imagenHab);
 
     }//GEN-LAST:event_jbAgregarActionPerformed
 
@@ -334,6 +318,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         habit.isEstado();
         habd.eliminarHabitacion(id);
 
+        buscar();
     }//GEN-LAST:event_jbEliminarActionPerformed
 
 
@@ -355,6 +340,8 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         habit.setImagen(imagenHab);
         habd.modificarHabitacion(habit);
 
+        buscar();
+
 
     }//GEN-LAST:event_jbModificarActionPerformed
 
@@ -362,7 +349,12 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         seleccionarImagen();
     }//GEN-LAST:event_jbImagenActionPerformed
 
+    private void jbAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregar1ActionPerformed
+        nuevo();
+    }//GEN-LAST:event_jbAgregar1ActionPerformed
+
     private void armarComboPiso() {
+        jcbPiso.removeAllItems();
         HabitacionData habData = new HabitacionData();
         List habitaciones = habData.listarHabitacionesTodas();
         TreeSet<Integer> pisos = new TreeSet<>();
@@ -383,6 +375,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jbAgregar;
+    private javax.swing.JButton jbAgregar1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbImagen;
@@ -390,10 +383,10 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Integer> jcbPiso;
     private javax.swing.JComboBox<String> jcbTipoHabitacion;
+    private javax.swing.JLabel jlDispo;
     private javax.swing.JLabel jlImagen;
     private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JRadioButton jrbReservado;
-    private javax.swing.JLabel jtDispo;
     private javax.swing.JTextField jtIdHab;
     private javax.swing.JTextField jtImagen;
     // End of variables declaration//GEN-END:variables
@@ -433,7 +426,6 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
                 imagenHab = new Imagen();
                 String rutaImagen = "/imagenes/habitaciones/" + nombreArchivo;
-                System.out.println(nombreArchivo);
 
                 jlImagen.setIcon(null);
                 jlImagen.setText("Cargando Imagen...");
@@ -465,16 +457,15 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                             jlImagen.setIcon(imagenEscalada);
                             jlImagen.setText("");
                             jtImagen.setText(rutaImagen);
-                            
-                            ImagenData imgData = new ImagenData();
-                            imgData.agregarImagen(imagenHab);
 
                         } catch (NullPointerException np) {
 
                         }
 
                     }
-                    
+
+                    guardarImagen();
+
                 } catch (InterruptedException ex) {
                     JOptionPane.showMessageDialog(null, "Error de interrupcion");
                 }
@@ -483,6 +474,57 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
         }).start();
 
+    }
+
+    private void guardarImagen() {
+
+        ImagenData imgData = new ImagenData();
+        imgData.agregarImagen(imagenHab);
+    }
+
+    private void nuevo() {
+
+        armarComboBox();
+        armarComboPiso();
+        jlDispo.setVisible(false);
+        imagenHab = null;
+
+        jtIdHab.setText("");
+        imagenHab = null;
+        jlImagen.setText("Imagen no disponible");
+        jlImagen.setIcon(null);
+        jtImagen.setText("...");
+        jrbReservado.setSelected(false);
+        jrbEstado.setSelected(false);
+    }
+
+    private void buscar() {
+        try {
+            HabitacionData hd = new HabitacionData();
+            Habitacion hab = hd.obtenerHabitacion(Integer.parseInt(jtIdHab.getText()));
+            if (hab != null) {
+
+                if (hab.isEstado()) {
+                    jlDispo.setVisible(false);
+                } else {
+                    jlDispo.setVisible(true);
+                }
+                jtIdHab.setText(String.valueOf(hab.getIdHabitacion()));
+                jcbTipoHabitacion.setSelectedItem(hab.getTipoHabitacion().toString1());
+                jcbPiso.setSelectedItem(hab.getPiso());
+                jrbReservado.setSelected(hab.isReserva());
+                jrbEstado.setSelected(hab.isEstado());
+                imagenHab = hab.getImagen();
+                ImageIcon imagenEscalada = new ImageIcon(imagenHab.getImagen().getImage().getScaledInstance(260, 160, Image.SCALE_SMOOTH));
+                jlImagen.setIcon(imagenEscalada);
+                jlImagen.setText("");
+                jtImagen.setText(imagenHab.getRuta());
+
+            }
+
+        } catch (NumberFormatException nf) {
+            JOptionPane.showMessageDialog(null, "El código ingresado debe ser un número");
+        }
     }
 
 }

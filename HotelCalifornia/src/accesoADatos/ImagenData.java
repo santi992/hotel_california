@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,6 +36,7 @@ public class ImagenData {
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
+                imagen.setIdImagen(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Imagen añadida con éxito");
             }
             ps.close();

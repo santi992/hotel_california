@@ -43,7 +43,6 @@ public class HuespedData {
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-
                 huesped.setIdHuesped(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Huesped añadido con éxito");
             }

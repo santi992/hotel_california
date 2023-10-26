@@ -31,7 +31,6 @@ import static vistas.ReservarHabitacion.jlMostrarFechaOut;
 public class Calendario extends javax.swing.JPanel {
 
     private ReservaData resData;
-    private HabitacionData habData;
     private static LocalDate fechaCheckIn;
     private static LocalDate fechaInAux;
     private static boolean in;
