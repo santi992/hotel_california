@@ -11,6 +11,7 @@ import entidades.Huesped;
 import entidades.Reserva;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +29,8 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
         initComponents();
         armarCabezera();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        llenarTabla();
+//        llenarTabla(); Si quiero que me muestre la tabla llena desde el inicio  --> descomentar 
+        
     }
 
     /**
@@ -51,6 +53,7 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
         jtfFechaSeleccionada = new javax.swing.JTextField();
         jbLimpiar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
 
@@ -107,10 +110,21 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Mostrar todas las reservas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jtfFechaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -135,16 +149,13 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbSalir))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbLimpiar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jtfFechaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +166,8 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar)
-                    .addComponent(jbLimpiar))
+                    .addComponent(jbLimpiar)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -186,6 +198,7 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
         //.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
         
         try{
+            List<Reserva> reservasFiltradas = new ArrayList<>();
                 ReservaData rd= new ReservaData();
                LocalDate fechaIngresada = jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                int anio= fechaIngresada.getYear();
@@ -200,12 +213,29 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
               
                    if(anio==aniod && mes==mesd && dia==diad ){
                        fechaEncontrada=true;
-                       break;
+                       reservasFiltradas.add(rs);
+                       System.out.println(" reservasFiltadas"+ reservasFiltradas);
+                       
+                       //break; Si quiero que solo me busque la primera opcion guardada en la lista --> descomentar
                    }
                }
               
              if(fechaEncontrada ){
-                   llenarTabla();
+//                   llenarTabla(reservasFiltradas);
+               modelo.setRowCount(0);
+//        ReservaData reservaData = new ReservaData();
+//        List<Reserva> listarReservas = reservaData.listarReservas();
+        for (Reserva res : reservasFiltradas) {
+                modelo.addRow(new Object[]{
+                    res.getIdReserva(),
+                    res.getHabitacion(),
+                    res.getHuesped().getNombre(),
+                    res.getCantPersonas(),
+                    res.getHabitacion().getTipoHabitacion(),
+                    res.getFechaCheckIn(),
+                    res.getFechaCheckOut(),
+                    
+                });}
                }else{
                    JOptionPane.showMessageDialog(this, " No existen reservas actuales  para la fecha ingresada ");
                }
@@ -223,9 +253,9 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
        if(jtfBuscar.getText().isEmpty()){
            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para iniciar la busqueda");
        }else{
-           ReservaData rd= new ReservaData();
+           List<Reserva> reservasFiltradas = new ArrayList<>();
            try{
-                
+                ReservaData rd= new ReservaData();
                int dni = Integer.parseInt(jtfBuscar.getText());
 //               
                boolean dniEncontrado = false;
@@ -234,26 +264,57 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
                    if(rs.getHuesped().getDni()== dni){
 //                   if(rs.getHuesped().getNombre().equals(nombre)){
                        dniEncontrado=true;
-                       break;
+                       reservasFiltradas.add(rs);
+                      // break; si quisiera que me muestre solo la primera opcion de la lista ---> descomentar.
                    }
                }
               
              if(dniEncontrado ){
-                   llenarTabla();
+//                   llenarTabla(reservasFiltradas);//pero solo con los datos encontrados para ese dni
+                   modelo.setRowCount(0);
+//        ReservaData reservaData = new ReservaData();
+//        List<Reserva> listarReservas = reservaData.listarReservas();
+        for (Reserva res : reservasFiltradas) {
+                modelo.addRow(new Object[]{
+                    res.getIdReserva(),
+                    res.getHabitacion(),
+                    res.getHuesped().getNombre(),
+                    res.getCantPersonas(),
+                    res.getHabitacion().getTipoHabitacion(),
+                    res.getFechaCheckIn(),
+                    res.getFechaCheckOut(),
+                    
+                });}
                }else{
                    JOptionPane.showMessageDialog(this, " El dni ingresado no posee una reserva ");
                }
            }catch(NumberFormatException nf){
-               String nombre = jtfBuscar.getText();
+               ReservaData rd= new ReservaData();
+               String nombre = jtfBuscar.getText().toLowerCase();
                boolean nombreEncontrado= false;
                List <Reserva> listaReservas= rd.listarReservas();
                for(Reserva rs: listaReservas ){
-                    if(rs.getHuesped().getNombre().equals(nombre)){
+                    if(rs.getHuesped().getNombre().toLowerCase().equals(nombre)){
                        nombreEncontrado=true;
-                       break;
+                       reservasFiltradas.add(rs);
+                       //break;
                    }}
                if(nombreEncontrado){
-                   llenarTabla();
+//                   llenarTabla(reservasFiltradas);// solo con los datos correspondientes al nombre encontrado
+                modelo.setRowCount(0);
+//        ReservaData reservaData = new ReservaData();
+//        List<Reserva> listarReservas = reservaData.listarReservas();
+        for (Reserva res : reservasFiltradas) {
+                modelo.addRow(new Object[]{
+                    res.getIdReserva(),
+                    res.getHabitacion(),
+                    res.getHuesped().getNombre(),
+                    res.getCantPersonas(),
+                    res.getHabitacion().getTipoHabitacion(),
+                    res.getFechaCheckIn(),
+                    res.getFechaCheckOut(),
+                    
+                });}
                }else{
                  JOptionPane.showMessageDialog(this, " El nombre ingresado no posee una reserva ");  
                }
@@ -270,14 +331,21 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
       jtfBuscar.setText("");
       jtfFechaSeleccionada.setText("");
       limpiarTabla();
+      jdcFecha.setDate(null);
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        limpiarTabla();
+        llenarTabla();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -305,14 +373,12 @@ public class ReservasActuales extends javax.swing.JInternalFrame {
     }
 
 public void limpiarTabla(){
-//    for( int i=modelo.getRowCount() ;i >0; i --){
-//        modelo.removeRow(-(1));
-//    }
+
 for(int i = modelo.getRowCount() - 1; i >= 0; i--){
         modelo.removeRow(i);
     }
 }
-public void llenarTabla(){
+public final void llenarTabla(){
     //idRserva- nro habitacion - ReservaNombre- cantHuested- tipoHabitacion- check in -check out
     limpiarTabla();
 //       Reserva r=new Reserva();
@@ -331,7 +397,7 @@ public void llenarTabla(){
                     
                 });
             }
-    //modelo.addRow(os);
+   
 }
 
 }
