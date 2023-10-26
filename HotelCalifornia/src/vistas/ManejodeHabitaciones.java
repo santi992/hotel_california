@@ -266,11 +266,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                 jrbReservado.setSelected(hab.isReserva());
                 jrbEstado.setSelected(hab.isEstado());
                 imagenHab = hab.getImagen();
-                int bLabel = 260;
-                int bImagen = imagenHab.getImagen().getIconWidth();
-                double rel = bLabel/bImagen;
-                int hImagen = (int)(imagenHab.getImagen().getIconHeight() * rel);
-                ImageIcon imagenEscalada = new ImageIcon(imagenHab.getImagen().getImage().getScaledInstance(bLabel, hImagen, Image.SCALE_SMOOTH));
+                ImageIcon imagenEscalada = new ImageIcon(imagenHab.getImagen().getImage().getScaledInstance(260, 160, Image.SCALE_SMOOTH));
                 jlImagen.setIcon(imagenEscalada);
                 jlImagen.setText("");
                 jtImagen.setText(imagenHab.getRuta());
@@ -354,6 +350,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         habit.setPiso((int) jcbPiso.getSelectedItem());
         habit.setReserva(jrbReservado.isSelected());
         habit.setEstado(jrbEstado.isSelected());
+        habit.setImagen(imagenHab);
         habd.modificarHabitacion(habit);
         
 
