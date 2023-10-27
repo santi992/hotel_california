@@ -20,16 +20,16 @@ import static vistas.VistaPrincipal.huespedActivo;
 import static vistas.VistaPrincipal.personalActivo;
 
 /**
- *        
+ *
  * @author chari
  */
 public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
-        
+
     private boolean emailValido;
-    
+
     public ManejoDeHuespedes() {
         funcionesyVariablesDeInicio();
-        
+
     }
     Huesped huesped = new Huesped();
     HuespedData huData = new HuespedData();
@@ -98,21 +98,35 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
         jpBackgroundRightU.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jpBackgroundRightU.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jpBackgroundRightU.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpBackgroundRightU.add(jtLocalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 189, 152, -1));
+        jpBackgroundRightU.add(jtProvincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 149, 154, -1));
+        jpBackgroundRightU.add(jtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 99, 154, -1));
+        jpBackgroundRightU.add(JdFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 289, 126, -1));
 
         jLabel14.setText("Apellido");
+        jpBackgroundRightU.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 109, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel10.setText("Informmacion Adicional");
+        jpBackgroundRightU.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 19, -1, -1));
 
         jlId.setText("Id");
+        jpBackgroundRightU.add(jlId, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 63, -1, -1));
 
         jLabel12.setText("Fecha de Nacimimento");
+        jpBackgroundRightU.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 289, -1, -1));
+        jpBackgroundRightU.add(jtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 59, 154, -1));
 
         jLabel7.setText("Pais");
+        jpBackgroundRightU.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 239, -1, -1));
 
         jLabel8.setText("Provincia");
+        jpBackgroundRightU.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 149, -1, -1));
 
         jLabel9.setText("Localidad");
+        jpBackgroundRightU.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 199, -1, -1));
+        jpBackgroundRightU.add(jtPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 239, 152, -1));
 
         jrEstado.setText("Estado");
         jrEstado.setBorder(null);
@@ -122,88 +136,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jrEstadoActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jpBackgroundRightULayout = new javax.swing.GroupLayout(jpBackgroundRightU);
-        jpBackgroundRightU.setLayout(jpBackgroundRightULayout);
-        jpBackgroundRightULayout.setHorizontalGroup(
-            jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBackgroundRightULayout.createSequentialGroup()
-                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpBackgroundRightULayout.createSequentialGroup()
-                        .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jpBackgroundRightULayout.createSequentialGroup()
-                                .addContainerGap(162, Short.MAX_VALUE)
-                                .addComponent(jLabel14))
-                            .addGroup(jpBackgroundRightULayout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jrEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jlId)))
-                        .addGap(45, 45, 45)
-                        .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpBackgroundRightULayout.createSequentialGroup()
-                            .addContainerGap(96, Short.MAX_VALUE)
-                            .addComponent(jLabel12)
-                            .addGap(41, 41, 41)
-                            .addComponent(JdFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpBackgroundRightULayout.createSequentialGroup()
-                            .addContainerGap(179, Short.MAX_VALUE)
-                            .addComponent(jLabel7)
-                            .addGap(45, 45, 45)
-                            .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBackgroundRightULayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBackgroundRightULayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(37, 37, 37)
-                                .addComponent(jtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBackgroundRightULayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(45, 45, 45)
-                                .addComponent(jtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(92, 92, 92))
-        );
-        jpBackgroundRightULayout.setVerticalGroup(
-            jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBackgroundRightULayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10)
-                .addGap(12, 12, 12)
-                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlId)
-                    .addComponent(jrEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpBackgroundRightULayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel14))
-                    .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpBackgroundRightULayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel9))
-                    .addComponent(jtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(JdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
-        );
+        jpBackgroundRightU.add(jrEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 55, 107, 32));
 
         getContentPane().add(jpBackgroundRightU, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 3, 500, 340));
 
@@ -365,7 +298,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         if (comprobacionDeCuentaExistente()) {
-            cambiarEstadoYModificarDatos();
+            modificarYActivarEstado();
         } else {
             guardar();
         }
@@ -384,8 +317,6 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jbCargarMisDatosActionPerformed
 
-    // ----------------------------- ATENCION ------------------------------
-    //Crear funcion que rellene el mail por tipeo, busca y ordena alfaveticament 5 primmeros resultados 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser JdFecha;
@@ -497,7 +428,6 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
     private boolean comprobacionDeCuentaExistente() {
         //REVISA SI LA CUENTA ESTA EN LA BASE DE DATOS Y SI ADEMMAS ESTA DESACTIVADA
-        Huesped huesped = new Huesped();
         boolean condicion = false;
         try {
             huesped = huData.obtenerHuespedXCorreoEstadoCero(jtCorreo.getText());
@@ -511,117 +441,35 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         return condicion;
     }
 
-    private void cambiarEstadoYModificarDatos() {
-        // SI ESTA ELIMINADA LA CUENTA SE VUELVE A ACTIVAR Y SE MODIFICA SUS DATOS 
-        Huesped huesped = new Huesped();
-        modificarYActivarEstado();
-
-    }
-
     private void guardar() {
-        comprobarCorreo();
-        if (camposCompletos() && emailValido) {
-            HuespedData huesData = new HuespedData();
-            Huesped hues = new Huesped();
-            hues.setNombre(jtNombre.getText());
-            hues.setDni(Integer.parseInt(jtDni.getText()));
-            hues.setCelular(Integer.parseInt(jtCelular.getText()));
-            hues.setDireccion(jtDireccion.getText());
-            hues.setCorreo(jtCorreo.getText());
-            hues.setPassword(jpContraseña.getText());
-
-            hues.setApellido(jtApellido.getText());
-            hues.setLocalidad(jtLocalidad.getText());
-            hues.setProvincia(jtProvincia.getText());
-            hues.setPais(jtPais.getText());
+        Huesped huesped = new Huesped();
+        if (camposCompletos()) {
             try {
-                hues.setFechaNac(JdFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            } catch (NullPointerException e) {
-                hues.setFechaNac(LocalDate.of(2000, 1, 1));
-            }
+                huesped.setNombre(jtNombre.getText());
+                huesped.setDni(Integer.parseInt(jtDni.getText()));
+                huesped.setCelular(Integer.parseInt(jtCelular.getText()));
+                huesped.setDireccion(jtDireccion.getText());
+                huesped.setCorreo(jtCorreo.getText());
+                huesped.setPassword(jpContraseña.getText());
 
-            huesData.agregarHuesped(hues);
-            nuevo();
-        } else if (!emailValido) {
-            JOptionPane.showMessageDialog(null, "Ingrese un email válido");
+                huesped.setApellido(jtApellido.getText());
+                huesped.setLocalidad(jtLocalidad.getText());
+                huesped.setProvincia(jtProvincia.getText());
+                huesped.setPais(jtPais.getText());
+                huesped.setEstado(jrEstado.isSelected());
+                try {
+                    huesped.setFechaNac(JdFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                } catch (NullPointerException e) {
+                    huesped.setFechaNac(LocalDate.of(2000, 1, 1));
+                }
+                nuevo();
+                huData.agregarHuesped(huesped);
+            } catch (NumberFormatException | NullPointerException ex) {
+                JOptionPane.showMessageDialog(null, "Formatos de datos incorractos, vuelva a intentarlo");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos");
         }
-    }
-
-    private void cartasLayout() {
-
-        // CardLayout
-        /*
-                import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class MainFrame extends JFrame {
-    private JPanel panel1;
-    private JPanel panel2;
-    private CardLayout cardLayout;
-
-    public MainFrame() {
-        // Configurar el JFrame
-        setTitle("Mostrar/Ocultar Secciones");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
-
-        // Crear dos paneles (secciones)
-        panel1 = new JPanel();
-        panel1.setBackground(Color.RED);
-
-        panel2 = new JPanel();
-        panel2.setBackground(Color.GREEN);
-
-        // Crear un CardLayout
-        cardLayout = new CardLayout();
-
-        // Establecer el CardLayout en el JFrame
-        setLayout(cardLayout);
-
-        // Agregar los paneles al JFrame con nombres asociados
-        add(panel1, "Panel 1");
-        add(panel2, "Panel 2");
-
-        // Crear botones para mostrar/ocultar las secciones
-        JButton button1 = new JButton("Mostrar Panel 1");
-        JButton button2 = new JButton("Mostrar Panel 2");
-
-        // Agregar ActionListener para los botones
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(getContentPane(), "Panel 1");
-            }
-        });
-
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(getContentPane(), "Panel 2");
-            }
-        });
-
-        // Agregar los botones al JFrame
-        getContentPane().add(button1, BorderLayout.NORTH);
-        getContentPane().add(button2, BorderLayout.SOUTH);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                MainFrame frame = new MainFrame();
-                frame.setVisible(true);
-            }
-        });
-    }
-}
-
-         */
     }
 
     private void nuevo() {
@@ -639,10 +487,12 @@ public class MainFrame extends JFrame {
         JdFecha.setDate(null);
         jcbHuesped.removeAllItems();
         jpContraseña.setText("");
+        jrEstado.setSelected(true);
     }
 
     void funcionesyVariablesDeInicio() {
-        initComponents();    
+        initComponents();
+        jrEstado.setSelected(true);
         jtId.setEditable(false);
         if (huespedActivo != null) {
 
