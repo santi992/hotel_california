@@ -26,7 +26,7 @@ ARREGLADO ------  Falla al agregar la imagen a base de datos
 
 -------- Tipo de habitaciones
 
-Al agregar o modificar dice no se ha encontrado habitacion (debe ser por el id 0) pero modifica exitosamente el tipo de habitacion
+ARREGLADO ------  Al agregar o modificar dice no se ha encontrado habitacion (debe ser por el id 0) pero modifica exitosamente el tipo de habitacion
 * Para mi hay que sacar el campo habitacion de esa vista
 
 
@@ -34,18 +34,18 @@ Al agregar o modificar dice no se ha encontrado habitacion (debe ser por el id 0
 
 -------- Ampliar reservas
 
-Permite ampliar la reserva en fechas ya reservadas
+ARREGLADO ------  Permite ampliar la reserva en fechas ya reservadas
 * Arreglar fecha tope
 
-El boton elegir sale fuera de la vista
+ARREGLADO ------  El boton elegir sale fuera de la vista
 * Ordenar elementos por codigo
 
-No se actualizan las fechas reservadas al cambiar de habitacion
+ARREGLADO ------  No se actualizan las fechas reservadas al cambiar de habitacion
 *Ver en vista reservar habitacion orque ahi anda bien
 
 -------- Abandonar habitación
 
-El precio final en base de datos se calcula mal
+ARREGLADO ------ El precio final en base de datos se calcula mal
 *Arreglar monto de reembolso
 
 
@@ -53,14 +53,14 @@ El precio final en base de datos se calcula mal
 
 -------- Huespedes actuales
 
-Deberia poder mostrar todos los huespedes a la vez además de cada uno por separado y no mostrar en el combo
+ARREGLADO ------ Deberia poder mostrar todos los huespedes a la vez además de cada uno por separado y no mostrar en el combo
 los huéspedes que actualmente no tienen reservas activas
 *Agregar una opcion vacia al combo
 *Agregar if en el armado de combo para incluir solo los huespedes con reservas activas en fecha actual
 
 -------- Disponibilidad de habitaciones
 
-Muestra siempre todas las habitaciones como disponibles
+ARREGLADO ------ Muestra siempre todas las habitaciones como disponibles
 *Agregar if para incluir solo los habitacriones con reservas activas en fecha actual
 
 -------- Reservas actuales

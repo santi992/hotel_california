@@ -310,9 +310,12 @@ public class ReservaData {
         Reserva reserva;
 
         try {
-            String sql = "SELECT * FROM reserva Where estado = 1 AND idHuesped = " + huesped.getIdHuesped() + " AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckIn <= '" + fechaFin + "'";
+            String sql = "SELECT * FROM reserva WHERE estado = 1 AND idHuesped = ? AND fechaCheckIn >= ? AND fechaCheckIn <= ? ";
 
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, huesped.getIdHuesped());
+            ps.setDate(2, Date.valueOf(fechaInicio));
+            ps.setDate(3, Date.valueOf(fechaFin));
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 reserva = new Reserva();
@@ -481,9 +484,11 @@ public class ReservaData {
         Reserva reserva;
 
         try {
-            String sql = "SELECT * FROM reserva Where estado = 1  AND fechaCheckIn >= '" + fechaInicio + "' AND fechaCheckIn <= '" + fechaFin + "'";
+            String sql = "SELECT * FROM reserva Where estado = 1  AND fechaCheckIn >= ? AND fechaCheckIn <= ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(fechaInicio));
+            ps.setDate(2, Date.valueOf(fechaFin));
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 reserva = new Reserva();

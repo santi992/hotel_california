@@ -263,7 +263,7 @@ public class CancelarReserva extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlNoches, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlPrecioActual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 21, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlReembolso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,7 +313,7 @@ public class CancelarReserva extends javax.swing.JInternalFrame {
 
                 Object[] opciones = new Object[]{"Confirmar", "Cancelar"};
 
-                int respuesta = JOptionPane.showOptionDialog(null, mensaje, "Ampliar reserva", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+                int respuesta = JOptionPane.showOptionDialog(null, mensaje, "Cancelar reserva", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
                 if (respuesta == JOptionPane.YES_OPTION) {
                     cancelar();
@@ -449,6 +449,7 @@ public class CancelarReserva extends javax.swing.JInternalFrame {
             precio = 0;
             precioActual = 0;
             jlPrecioActual.setText("Importe abonado: ");
+            jlReembolso.setText("Reembolso:");
         }
 
     }

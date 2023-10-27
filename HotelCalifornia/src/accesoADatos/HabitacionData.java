@@ -4,6 +4,7 @@ import entidades.Habitacion;
 import entidades.Reserva;
 import entidades.TipoHabitacion;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,28 +101,83 @@ public class HabitacionData {
 
     }
 
-    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
+    public List<Habitacion> listarHabitacionesNoDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
 
         con = Conexion.conectar();
+        imgData = new ImagenData();
+        tipoData = new TipoHabData();
         List<Habitacion> habitaciones = new ArrayList<>();
-        boolean reservada;
-        for (Habitacion hab : listarHabitacionesTodas()) {
-            reservada = false;
-            if (hab.isEstado()) {
-                for (LocalDate fecha : hab.getFechasReservadas()) {
-                    int dias = (int) DAYS.between(fechaOut, fechaIn);
-                    for (int i = 0; i <= dias; i++) {
-                        if (fecha.equals(fechaIn.plusDays(i))) {
-                            reservada = true;
-                            break;
-                        }
-                    }
-                    if (reservada) {
-                        break;
-                    }
-                }
-                if (!reservada) {
-                    habitaciones.add(hab);
+        String sql = "SELECT DISTINCT habitacion.idHabitacion, habitacion.piso, habitacion.idTipoHab, habitacion.idImagen, "
+                + "habitacion.reserva, habitacion.estado FROM habitacion JOIN reserva ON habitacion.idHabitacion = reserva.idHabitacion "
+                + "WHERE reserva.fechaCheckIn >= ? AND reserva.fechaCheckOut <= ? AND habitacion.estado = 1 ORDER BY habitacion.idHabitacion";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(fechaIn));
+            ps.setDate(2, Date.valueOf(fechaOut));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Habitacion habitacion = new Habitacion();
+                habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
+                habitacion.setTipoHabitacion(tipoData.obtenerTipoxId(rs.getInt("IdTipoHab")));
+                habitacion.setPiso(rs.getInt("piso"));
+                habitacion.setFechasReservadas(fechasReservadas(habitacion));
+                habitacion.setImagen(imgData.obtenerImagen(rs.getInt("idImagen")));
+                habitacion.setReserva(rs.getBoolean("reserva"));
+                habitacion.setEstado(rs.getBoolean("estado"));
+                habitaciones.add(habitacion);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a las Habitaciones " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
+        }
+
+        return habitaciones;
+    }
+//
+//    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
+//
+//        List<Habitacion> habitaciones = new ArrayList<>();
+//        boolean reservada;
+//        for (Habitacion hab : listarHabitacionesTodas()) {
+//            reservada = false;
+//            if (hab.isEstado()) {
+//                for (LocalDate fecha : hab.getFechasReservadas()) {
+//                    int dias = (int) DAYS.between(fechaOut, fechaIn);
+//                    for (int i = 0; i <= dias; i++) {
+//                        if (fecha.equals(fechaIn.plusDays(i))) {
+//                            reservada = true;
+//                            break;
+//                        }
+//                    }
+//                    if (reservada) {
+//                        break;
+//                    }
+//                }
+//                if (!reservada) {
+//                    habitaciones.add(hab);
+//                }
+//            }
+//        }
+//
+//        return habitaciones;
+//    }
+
+    public List<Habitacion> listarHabitacionesNoDisponibles() {
+        return listarHabitacionesNoDisponibles(LocalDate.now(), LocalDate.now());
+    }
+
+    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
+
+        List<Habitacion> habitaciones = listarHabitacionesTodas();
+        List<Habitacion> habitacionesNo = listarHabitacionesNoDisponibles(fechaIn, fechaOut);
+        for (Habitacion habitacionNo : habitacionesNo) {
+            for (Habitacion habitacion : habitaciones) {
+                if (habitacion.getIdHabitacion() == habitacionNo.getIdHabitacion()){
+                    habitaciones.remove(habitacion);
+                    break;
                 }
             }
         }
@@ -130,76 +186,7 @@ public class HabitacionData {
     }
 
     public List<Habitacion> listarHabitacionesDisponibles() {
-
-        con = Conexion.conectar();
-        List<Habitacion> habitaciones = new ArrayList<>();
-        boolean reservada;
-        for (Habitacion hab : listarHabitacionesTodas()) {
-            reservada = false;
-            if (hab.isEstado()) {
-                for (LocalDate fecha : hab.getFechasReservadas()) {
-                    if (fecha.equals(LocalDate.now())) {
-                        reservada = true;
-                        break;
-                    }
-                }
-                if (!reservada) {
-                    habitaciones.add(hab);
-                }
-            }
-        }
-
-        return habitaciones;
-    }
-
-    public List<Habitacion> listarHabitacionesNoDisponibles(LocalDate fechaIn, LocalDate fechaOut) {
-
-        List<Habitacion> habitaciones = new ArrayList<>();
-        boolean reservada;
-        for (Habitacion hab : listarHabitacionesTodas()) {
-            reservada = false;
-            if (hab.isEstado()) {
-                for (LocalDate fecha : hab.getFechasReservadas()) {
-                    int dias = (int) DAYS.between(fechaOut, fechaIn);
-                    for (int i = 0; i <= dias; i++) {
-                        if (fecha.equals(fechaIn.plusDays(i))) {
-                            reservada = true;
-                            habitaciones.add(hab);
-                            break;
-                        }
-                    }
-                    if (reservada) {
-                        break;
-                    }
-                }
-
-            }
-        }
-
-        return habitaciones;
-    }
-
-    public List listarHabitacoinesNoDisponibles() {
-
-        List<Habitacion> habitaciones = new ArrayList<>();
-        boolean reservada;
-        for (Habitacion hab : listarHabitacionesTodas()) {
-            reservada = false;
-            if (hab.isEstado()) {
-                for (LocalDate fecha : hab.getFechasReservadas()) {
-                    if (fecha.equals(LocalDate.now())) {
-                        reservada = true;
-                        habitaciones.add(hab);
-                        break;
-                    }
-                }
-                if (reservada) {
-                    break;
-                }
-            }
-        }
-
-        return habitaciones;
+        return listarHabitacionesDisponibles(LocalDate.now(), LocalDate.now());
     }
 
     public List<Habitacion> listarHabitacionesTodas() {

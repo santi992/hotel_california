@@ -7,7 +7,6 @@ package vistas;
 import accesoADatos.HabitacionData;
 import accesoADatos.TipoHabData;
 import entidades.Habitacion;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 import javax.swing.table.DefaultTableModel;
@@ -25,7 +24,9 @@ public class DispoHabitaciones extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         armarCombo();
-        
+        jrbDisponible.setSelected(true);
+        cargarDatos();
+
     }
 
     /**
@@ -101,27 +102,26 @@ public class DispoHabitaciones extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbSalir)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(93, 93, 93)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jrbDisponible))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jrbOcupada))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jbSalir)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(93, 93, 93)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jrbDisponible)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jrbOcupada))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -147,30 +147,29 @@ public class DispoHabitaciones extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-      this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jcbPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPisoActionPerformed
-        cargarDatos(jcbPiso.getSelectedItem());
+        cargarDatos();
     }//GEN-LAST:event_jcbPisoActionPerformed
 
     private void jrbDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbDisponibleActionPerformed
-       jrbOcupada.setSelected(false);
-       cargarDatos(jcbPiso.getSelectedItem());
+        jrbOcupada.setSelected(!jrbOcupada.isSelected());
+        cargarDatos();
     }//GEN-LAST:event_jrbDisponibleActionPerformed
 
     private void jrbOcupadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbOcupadaActionPerformed
-        jrbDisponible.setSelected(false);
-        cargarDatos(jcbPiso.getSelectedItem());
+        jrbDisponible.setSelected(!jrbDisponible.isSelected());
+        cargarDatos();
     }//GEN-LAST:event_jrbOcupadaActionPerformed
-private DefaultTableModel modelo = new DefaultTableModel() {
+    private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
 
         }
     };
-private HabitacionData habitacionData;
-private TipoHabData tipoHabitacionData;
+    private HabitacionData habitacionData;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -182,18 +181,20 @@ private TipoHabData tipoHabitacionData;
     private javax.swing.JTable jtTablaDispo;
     // End of variables declaration//GEN-END:variables
 
-private void armarCabecera(){
-    modelo.addColumn("Id Habitacion");
-    modelo.addColumn("Tipo Camas");
-    modelo.addColumn("Cant Personas");
-    modelo.addColumn("Precio x Noche");
-    jtTablaDispo.setModel(modelo);
-}
-private void limpiarTabla(){
-        for (int i = modelo.getRowCount(); i > 0 ; i--) {
-            modelo.removeRow(i-1);
+    private void armarCabecera() {
+        modelo.addColumn("Id Habitacion");
+        modelo.addColumn("Tipo Camas");
+        modelo.addColumn("Cant Personas");
+        modelo.addColumn("Precio x Noche");
+        jtTablaDispo.setModel(modelo);
+    }
+
+    private void limpiarTabla() {
+        for (int i = modelo.getRowCount(); i > 0; i--) {
+            modelo.removeRow(i - 1);
         }
     }
+
     private void armarCombo() {
         habitacionData = new HabitacionData();
         List habitaciones = habitacionData.listarHabitacionesTodas();
@@ -208,37 +209,29 @@ private void limpiarTabla(){
         }
     }
 
-    private void cargarDatos(Object selectedItem) {
-        boolean habitacionesDisponibles = jrbDisponible.isSelected();
-        int numeroDePiso = (int) jcbPiso.getSelectedItem();
-        List<Habitacion> habitaciones = habitacionData.listarHabitacionesXPiso(numeroDePiso);
+    private void cargarDatos() {
 
-        DefaultTableModel model = (DefaultTableModel) jtTablaDispo.getModel();
-        model.setRowCount(0);
+        limpiarTabla();
+
+        int numeroDePiso = (int) jcbPiso.getSelectedItem();
+        List<Habitacion> habitaciones;
+
+        if (jrbDisponible.isSelected()) {
+            habitaciones = habitacionData.listarHabitacionesDisponibles();
+        } else {
+            habitaciones = habitacionData.listarHabitacionesNoDisponibles();
+        }
 
         for (Habitacion habitacion : habitaciones) {
-            if (jrbDisponible.isSelected()) {
-                if (!habitacion.isReserva()) {
-                    Object[] fila = {
-                        habitacion.getIdHabitacion(),
-                        habitacion.getTipoHabitacion().getTipoCamas(),
-                        habitacion.getTipoHabitacion().getCantPersonas(),
-                        habitacion.getTipoHabitacion().getPrecioxNoche(),};
-                    model.addRow(fila);
-                }
-            } else {
-                if (habitacion.isReserva()) {
-                    Object[] fila = {
-                        habitacion.getIdHabitacion(),
-                        habitacion.getTipoHabitacion().getTipoCamas(),
-                        habitacion.getTipoHabitacion().getCantPersonas(),
-                        habitacion.getTipoHabitacion().getPrecioxNoche(),};
-                    model.addRow(fila);
-                }
-
+            if (habitacion.getPiso() == numeroDePiso) {
+                Object[] fila = {
+                    habitacion.getIdHabitacion(),
+                    habitacion.getTipoHabitacion().getTipoCamas(),
+                    habitacion.getTipoHabitacion().getCantPersonas(),
+                    habitacion.getTipoHabitacion().getPrecioxNoche()
+                };
+                modelo.addRow(fila);
             }
         }
     }
 }
-
-

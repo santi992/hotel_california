@@ -16,10 +16,10 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static vistas.Calendario.fechaSeleccionada;
 import static vistas.ReservarHabitacion.elegir;
 import static vistas.ReservarHabitacion.fechaOut;
 import static vistas.ReservarHabitacion.fechaTope;
+import static vistas.ReservarHabitacion.habitacionActiva;
 import static vistas.VistaPrincipal.huespedActivo;
 import static vistas.VistaPrincipal.login;
 import static vistas.VistaPrincipal.personal;
@@ -186,44 +186,42 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jlTitulo))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlHabitacion)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jlHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jlPrecioActual)
-                                            .addComponent(jlNoches)
-                                            .addComponent(jlDiferencia))
-                                        .addGap(104, 104, 104))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jlFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jlMostrarFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(95, 95, 95)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jlMostrarFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jlPrecioActual, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlNoches, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlDiferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jlFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jlMostrarFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jbElegirOut, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jlPrecioNuevo)
-                                    .addComponent(jlPrecioXNoche)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jlPersonas)
-                                .addGap(82, 82, 82))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jlPrecioNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlPrecioXNoche, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jbConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addComponent(jlTitulo))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jlHuesped)
@@ -231,13 +229,8 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
                             .addComponent(jlReserva)
                             .addComponent(jtHuesped)
                             .addComponent(jcbReserva, 0, 413, Short.MAX_VALUE)
-                            .addComponent(jcbHuesped, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(242, 242, 242)
-                        .addComponent(jbConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                            .addComponent(jcbHuesped, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,25 +430,26 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
         fechaTope = null;
         if (jcbReserva.getSelectedIndex() >= 0) {
             Reserva reserva = (Reserva) jcbReserva.getSelectedItem();
-            Habitacion habitacion = reserva.getHabitacion();
+            habitacionActiva = reserva.getHabitacion();
 
             fechaIn = reserva.getFechaCheckIn();
             jlMostrarFechaIn.setText(fechaIn + "");
             fechaOut = reserva.getFechaCheckOut();
             jlMostrarFechaOut.setText(fechaOut + "");
 
-            jlHabitacion.setText("Habitación N°: " + habitacion.getIdHabitacion());
+            jlHabitacion.setText("Habitación N°: " + habitacionActiva.getIdHabitacion());
             jlPersonas.setText("Cantidad de personas: " + reserva.getCantPersonas());
-            precio = habitacion.getTipoHabitacion().getPrecioxNoche();
+            precio = habitacionActiva.getTipoHabitacion().getPrecioxNoche();
             jlPrecioXNoche.setText("Precio por noche: " + precio + " USD");
             precioActual = reserva.getPrecioTotal();
             jlPrecioActual.setText("Importe abonado: " + precioActual + " USD");
             
             habData = new HabitacionData();
-            fechasReservadas = habData.fechasReservadas(habitacion);
+            fechasReservadas = habData.fechasReservadas(habitacionActiva);
             for (LocalDate fechaInactiva : fechasReservadas) {
                     if (fechaTope == null && fechaInactiva.isAfter(fechaOut)) {
                         fechaTope = fechaInactiva;
+                        break;
                     }
                 }
 

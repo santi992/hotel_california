@@ -39,10 +39,8 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jtfIdTipoHab = new javax.swing.JTextField();
-        jtfIdHabitacion = new javax.swing.JTextField();
         jtfNombre = new javax.swing.JTextField();
         jtfCantPersonas = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -63,28 +61,21 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
         jtfBuscar = new javax.swing.JTextField();
         jbSalir = new javax.swing.JButton();
 
+        setTitle("Manejo de tipos de habitación");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Tipo Habitación");
+        jLabel1.setText("Tipos de Habitación");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
         jLabel2.setText("Id Tipo Habitación:");
-
-        jLabel7.setText("Id Habitación:");
 
         jLabel8.setText("Nombre:");
 
         jtfIdTipoHab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfIdTipoHabActionPerformed(evt);
-            }
-        });
-
-        jtfIdHabitacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfIdHabitacionActionPerformed(evt);
             }
         });
 
@@ -128,12 +119,10 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfNombre)
-                            .addComponent(jtfIdHabitacion)
                             .addComponent(jtfIdTipoHab)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,18 +149,11 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jtfIdTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtfIdHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(4, 4, 4)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfIdTipoHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -302,95 +284,93 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        
-      jtfIdTipoHab.setEditable(true);
-       jtfIdHabitacion.setEditable(true);
-       jtfNombre.setEditable(true);
-       jtfCantCamas.setEditable(true);
-       jtfCantPersonas.setEditable(true);
-       jtfPrecioxNoche.setEditable(true);
-       jtfTipoCama.setEditable(true);
-       jrbEstado.setEnabled(false);
-       try{
-       TipoHabData th= new TipoHabData();  
-       TipoHabitacion hb=new TipoHabitacion();
-       int id = Integer.parseInt(jtfIdTipoHab.getText());   
-       hb.setIdTipoHab(id);
-       Habitacion hab =new HabitacionData().obtenerHabitacion(Integer.parseInt(jtfIdHabitacion.getText()));
-        
-          
-          hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
-          hb.setHabitacion(hab);
-          hb.setNombre(jtfNombre.getText());
-          hb.setCantPersonas(Integer.parseInt(jtfCantPersonas.getText()));
-          hb.setCantCamas(Integer.parseInt(jtfCantCamas.getText()));
-          hb.setTipoCamas(jtfTipoCama.getText());
-          hb.setPrecioxNoche(Double.parseDouble(jtfPrecioxNoche.getText()));
-          hb.setEstado(jrbEstado.isSelected());
-          th.modificarTipo(hb);
-          
-          
-        }catch(NumberFormatException ex) {
+
+        jtfIdTipoHab.setEditable(true);
+//        jtfIdHabitacion.setEditable(true);
+        jtfNombre.setEditable(true);
+        jtfCantCamas.setEditable(true);
+        jtfCantPersonas.setEditable(true);
+        jtfPrecioxNoche.setEditable(true);
+        jtfTipoCama.setEditable(true);
+        jrbEstado.setEnabled(false);
+        try {
+            TipoHabData th = new TipoHabData();
+            TipoHabitacion hb = new TipoHabitacion();
+            int id = Integer.parseInt(jtfIdTipoHab.getText());
+            hb.setIdTipoHab(id);
+//            Habitacion hab = new HabitacionData().obtenerHabitacion(Integer.parseInt(jtfIdHabitacion.getText()));
+
+            hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
+//            hb.setHabitacion(hab);
+            hb.setNombre(jtfNombre.getText());
+            hb.setCantPersonas(Integer.parseInt(jtfCantPersonas.getText()));
+            hb.setCantCamas(Integer.parseInt(jtfCantCamas.getText()));
+            hb.setTipoCamas(jtfTipoCama.getText());
+            hb.setPrecioxNoche(Double.parseDouble(jtfPrecioxNoche.getText()));
+            hb.setEstado(jrbEstado.isSelected());
+            th.modificarTipo(hb);
+
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "El Id ingresado debe ser un número");
-            
+
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-   
-      try{
-          TipoHabData th= new TipoHabData();
-          TipoHabitacion hb= new TipoHabitacion();
-           
-          hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
-          Habitacion hab= new HabitacionData().obtenerHabitacion(obtenerId(jtfIdHabitacion.getText()));
-          hb.setHabitacion(hab);
-          hb.setNombre(jtfNombre.getText());
-          hb.setCantPersonas(Integer.parseInt(jtfCantPersonas.getText()));
-          hb.setCantCamas(Integer.parseInt(jtfCantCamas.getText()));
-          hb.setTipoCamas(jtfTipoCama.getText());
-          hb.setPrecioxNoche(Double.parseDouble(jtfPrecioxNoche.getText()));
-          hb.setEstado(jrbEstado.isSelected());
-          th.agregarTipo(hb);
-            
-        }catch(NumberFormatException ex) {
+
+        try {
+            TipoHabData th = new TipoHabData();
+            TipoHabitacion hb = new TipoHabitacion();
+
+            hb.setIdTipoHab(Integer.parseInt(jtfIdTipoHab.getText()));
+//            Habitacion hab = new HabitacionData().obtenerHabitacion(obtenerId(jtfIdHabitacion.getText()));
+//            hb.setHabitacion(hab);
+            hb.setNombre(jtfNombre.getText());
+            hb.setCantPersonas(Integer.parseInt(jtfCantPersonas.getText()));
+            hb.setCantCamas(Integer.parseInt(jtfCantCamas.getText()));
+            hb.setTipoCamas(jtfTipoCama.getText());
+            hb.setPrecioxNoche(Double.parseDouble(jtfPrecioxNoche.getText()));
+            hb.setEstado(jrbEstado.isSelected());
+            th.agregarTipo(hb);
+
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "El Id ingresado debe ser un número");
-            
+
         }
-                                
-                                 
+
+
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-         jtfIdTipoHab.setText("");
-       jtfIdHabitacion.setText("");
-       jtfNombre.setText("");
-       jtfCantCamas.setText("");
-       jtfCantPersonas.setText("");
-       jtfPrecioxNoche.setText("");
-       jtfTipoCama.setText("");
-       jtfIdHabitacion.setText("");
-       jrbEstado.setSelected(false);
-       jtfBuscar.setText("");
-       jtfIdTipoHab.setEditable(true);
-       jtfIdHabitacion.setEditable(true);
-       jtfCantCamas.setEditable(true);
-       jtfCantPersonas.setEditable(true);
-       jtfPrecioxNoche.setEditable(true);
-       jtfTipoCama.setEditable(true);
-       jtfIdHabitacion.setEditable(true);
-       jrbEstado.setEnabled(true);
-       jtfBuscar.setEditable(true);
-        
-       
+        jtfIdTipoHab.setText("");
+//        jtfIdHabitacion.setText("");
+        jtfNombre.setText("");
+        jtfCantCamas.setText("");
+        jtfCantPersonas.setText("");
+        jtfPrecioxNoche.setText("");
+        jtfTipoCama.setText("");
+//        jtfIdHabitacion.setText("");
+        jrbEstado.setSelected(false);
+        jtfBuscar.setText("");
+        jtfIdTipoHab.setEditable(true);
+//        jtfIdHabitacion.setEditable(true);
+        jtfCantCamas.setEditable(true);
+        jtfCantPersonas.setEditable(true);
+        jtfPrecioxNoche.setEditable(true);
+        jtfTipoCama.setEditable(true);
+//        jtfIdHabitacion.setEditable(true);
+        jrbEstado.setEnabled(true);
+        jtfBuscar.setEditable(true);
+
+
     }//GEN-LAST:event_jbNuevoActionPerformed
-    
+
     private void jtfIdTipoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfIdTipoHabActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfIdTipoHabActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-   //        if(jtfIdTipoHab.getText().isEmpty() ||jtfIdHabitacion.getText().isEmpty()||jtfCantPersonas.getText().isEmpty()||jtfCantCamas.getText().isEmpty()||jtfTipoCama.getText().isEmpty()||jtfPrecioxNoche.getText().isEmpty()){
+        //        if(jtfIdTipoHab.getText().isEmpty() ||jtfIdHabitacion.getText().isEmpty()||jtfCantPersonas.getText().isEmpty()||jtfCantCamas.getText().isEmpty()||jtfTipoCama.getText().isEmpty()||jtfPrecioxNoche.getText().isEmpty()){
 //           JOptionPane.showMessageDialog(null, "*Debe ingresar un dato para iniciar la busqueda!*");
 //       } else{
 //                TipoHabData thd= new TipoHabData();
@@ -417,74 +397,61 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
 //            }else{
 //                JOptionPane.showMessageDialog(this, "Los datos ingresados no corresponden a ningún Tipo de Habitación, ingrese dato un dato válido!");
 //            }
-            
-          if (jtfBuscar.getText().isEmpty()){
-              System.out.println("Debe ingresar un dato para iniciar la busqueda");
-              JOptionPane.showMessageDialog(this, "Debe ingresar un dato para iniciar la busqueda");
-               }else{
-                 TipoHabitacion tipoHab=new TipoHabitacion();
-                 TipoHabData thd= new TipoHabData ();
-                 Habitacion hab = new Habitacion();
+
+        if (jtfBuscar.getText().isEmpty()) {
+            System.out.println("Debe ingresar un dato para iniciar la busqueda");
+            JOptionPane.showMessageDialog(this, "Debe ingresar un dato para iniciar la busqueda");
+        } else {
+            TipoHabitacion tipoHab = new TipoHabitacion();
+            TipoHabData thd = new TipoHabData();
+//            Habitacion hab = new Habitacion();
 //                  TipoHabitacion tipoHab1=new TipoHabitacion(jtfBuscar.getText());
 //                  TipoHabitacion tipoHab2=new TipoHabitacion(jtfBuscar.getText().toUpperCase());
-                 try{
-                     
+            try {
+
 //                 tipoHab= thd.obtenerTipoxId(Integer.parseInt(jtfBuscar.getText()));
-                 if(thd.obtenerTipoxId(Integer.parseInt(jtfBuscar.getText())) == null){
-                     
-                     
-                     if(thd.obtenerTipoXPrecio(Double.parseDouble(jtfBuscar.getText()))!= null){
-                         tipoHab= thd.obtenerTipoXPrecio(Double.parseDouble(jtfBuscar.getText()));
-                         JOptionPane.showMessageDialog(this,"Se ha encontrado una coincidencia en 'precio ' con su busqueda! ");
-                     }
+                if (thd.obtenerTipoxId(Integer.parseInt(jtfBuscar.getText())) == null) {
+
+                    if (thd.obtenerTipoXPrecio(Double.parseDouble(jtfBuscar.getText())) != null) {
+                        tipoHab = thd.obtenerTipoXPrecio(Double.parseDouble(jtfBuscar.getText()));
+                        JOptionPane.showMessageDialog(this, "Se ha encontrado una coincidencia en 'precio ' con su busqueda! ");
+                    }
 //                     tipoHab= thd.obtenerTipoXCantCamas(tipoHab1);// ver xq no funciona:(
 //
-                 }else {
-                     tipoHab= thd.obtenerTipoxId(Integer.parseInt(jtfBuscar.getText()));
-                     JOptionPane.showMessageDialog(this,"Se ha encontrado una coincidencia  en ' nro ID Tipo Habitación  o Cantidad de camas' con su busqueda!  ");
+                } else {
+                    tipoHab = thd.obtenerTipoxId(Integer.parseInt(jtfBuscar.getText()));
+                    JOptionPane.showMessageDialog(this, "Se ha encontrado una coincidencia  en ' nro ID Tipo Habitación  o Cantidad de camas' con su busqueda!  ");
 //                     
 //                     //mensaje asi,ya que elIdTipoHabitacion coincide con  cantCamas....
-                 }
-                 }catch(NumberFormatException nf){
+                }
+            } catch (NumberFormatException nf) {
 //                    tipoHab= thd.obtenerTipoXtipoCamas(tipoHab2); // ver xq no funca :'(
-                 }
-                 if(tipoHab != null) { // ver porque si no existe busqueda lo llena igual ..... quemadisimaaa!! :S
-            jtfIdTipoHab.setText(tipoHab.getIdTipoHab()+"");
-            jtfIdHabitacion.setText(String.valueOf(hab.getIdHabitacion()));
-            jtfNombre.setText(tipoHab.getNombre());
-            jtfCantPersonas.setText(String.valueOf(tipoHab.getCantPersonas()));
-            jtfCantCamas.setText(String.valueOf(tipoHab.getCantCamas()));
-            jtfTipoCama.setText(tipoHab.getTipoCamas());
-            jtfPrecioxNoche.setText(String.valueOf(tipoHab.getPrecioxNoche()));
-            jrbEstado.setSelected(tipoHab.isEstado()); 
-            jtfIdTipoHab.setEditable(true);
-            jtfCantPersonas.setEditable(true);
-            jtfCantCamas.setEditable(true);
-            jtfTipoCama.setEditable(true);
-            jtfPrecioxNoche.setEditable(true);
-            jtfIdHabitacion.setEditable(true);
-            jrbEstado.setEnabled(false);
-          } 
-          }  
-   
-                
-              
-                
-            
-           
+            }
+            if (tipoHab != null) { // ver porque si no existe busqueda lo llena igual ..... quemadisimaaa!! :S
+                jtfIdTipoHab.setText(tipoHab.getIdTipoHab() + "");
+//                jtfIdHabitacion.setText(String.valueOf(hab.getIdHabitacion()));
+                jtfNombre.setText(tipoHab.getNombre());
+                jtfCantPersonas.setText(String.valueOf(tipoHab.getCantPersonas()));
+                jtfCantCamas.setText(String.valueOf(tipoHab.getCantCamas()));
+                jtfTipoCama.setText(tipoHab.getTipoCamas());
+                jtfPrecioxNoche.setText(String.valueOf(tipoHab.getPrecioxNoche()));
+                jrbEstado.setSelected(tipoHab.isEstado());
+                jtfIdTipoHab.setEditable(true);
+                jtfCantPersonas.setEditable(true);
+                jtfCantCamas.setEditable(true);
+                jtfTipoCama.setEditable(true);
+                jtfPrecioxNoche.setEditable(true);
+//                jtfIdHabitacion.setEditable(true);
+                jrbEstado.setEnabled(false);
+            }
+        }
 
-            
-          
-      
+
     }//GEN-LAST:event_jbBuscarActionPerformed
-    
+
     private void jtfTipoCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTipoCamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfTipoCamaActionPerformed
-
-    private void jtfIdHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfIdHabitacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfIdHabitacionActionPerformed
 
     private void jtfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNombreActionPerformed
         // TODO add your handling code here:
@@ -495,12 +462,11 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jrbEstadoActionPerformed
 
     private void jbDarAltaBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDarAltaBajaActionPerformed
-         TipoHabData thd= new TipoHabData();
-        TipoHabitacion th= thd.obtenerTipoxId(Integer.parseInt(jtfIdTipoHab.getText()));
-        
+        TipoHabData thd = new TipoHabData();
+        TipoHabitacion th = thd.obtenerTipoxId(Integer.parseInt(jtfIdTipoHab.getText()));
+
         if (th.isEstado()) {
 
-           
             int opcion = JOptionPane.showConfirmDialog(null, "El tipo habitación con id:" + jtfIdTipoHab.getText() + " se dará de baja, está seguro? ", " confirmar alta ", JOptionPane.YES_NO_CANCEL_OPTION);
             switch (opcion) {
 
@@ -513,7 +479,7 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
                 case JOptionPane.NO_OPTION:
                     if (th.isEstado()) {
                         jrbEstado.setSelected(true);
-                    }else{
+                    } else {
                         jrbEstado.setSelected(false);
                     }
                     JOptionPane.showMessageDialog(null, "No se ha modificado su estado.");
@@ -523,7 +489,6 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
                     break;
             }
 
-            
         } else {
             int opcion = JOptionPane.showConfirmDialog(null, "El tipo habitación con id:" + jtfIdTipoHab.getText() + " se dará de alta, está seguro? ", " confirmar alta ", JOptionPane.YES_NO_CANCEL_OPTION);
             switch (opcion) {
@@ -541,9 +506,7 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Ud ha cancelado la operación.");
                     break;
             }
-            
-            
-             
+
         }
     }//GEN-LAST:event_jbDarAltaBajaActionPerformed
 
@@ -563,7 +526,6 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -578,35 +540,30 @@ public class TipoHabitaciones extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfBuscar;
     private javax.swing.JTextField jtfCantCamas;
     private javax.swing.JTextField jtfCantPersonas;
-    private javax.swing.JTextField jtfIdHabitacion;
     private javax.swing.JTextField jtfIdTipoHab;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfPrecioxNoche;
     private javax.swing.JTextField jtfTipoCama;
     // End of variables declaration//GEN-END:variables
-public static void llenarCamposTipoHabitacion(TipoHabitacion th,Habitacion hab, JTextField jtfIdTipoHab,JTextField jtfIdHabitacion,JTextField jtfNombre , JTextField jtfCantPersonas, JTextField jtfCantCamas, JTextField jtfTipoCama, JTextField jtfPrecioxNoche) {
-    
-    
-    try {
-        if(th != null) {
-            jtfIdHabitacion.setText(String.valueOf(hab.getIdHabitacion()));
-            jtfNombre.setText(th.getNombre());
-            jtfCantPersonas.setText(String.valueOf(th.getCantPersonas()));
-            jtfCantCamas.setText(String.valueOf(th.getCantCamas()));
-            jtfTipoCama.setText(th.getTipoCamas());
-            jtfPrecioxNoche.setText(String.valueOf(th.getPrecioxNoche()));
-            jtfIdTipoHab.setEditable(false);
-            jtfCantPersonas.setEditable(false);
-            jtfCantCamas.setEditable(false);
-            jtfTipoCama.setEditable(false);
-            jtfPrecioxNoche.setEditable(false);
-            jtfIdHabitacion.setEditable(false);
+public static void llenarCamposTipoHabitacion(TipoHabitacion th, Habitacion hab, JTextField jtfIdTipoHab, JTextField jtfIdHabitacion, JTextField jtfNombre, JTextField jtfCantPersonas, JTextField jtfCantCamas, JTextField jtfTipoCama, JTextField jtfPrecioxNoche) {
+
+        try {
+            if (th != null) {
+                jtfIdHabitacion.setText(String.valueOf(hab.getIdHabitacion()));
+                jtfNombre.setText(th.getNombre());
+                jtfCantPersonas.setText(String.valueOf(th.getCantPersonas()));
+                jtfCantCamas.setText(String.valueOf(th.getCantCamas()));
+                jtfTipoCama.setText(th.getTipoCamas());
+                jtfPrecioxNoche.setText(String.valueOf(th.getPrecioxNoche()));
+                jtfIdTipoHab.setEditable(false);
+                jtfCantPersonas.setEditable(false);
+                jtfCantCamas.setEditable(false);
+                jtfTipoCama.setEditable(false);
+                jtfPrecioxNoche.setEditable(false);
+                jtfIdHabitacion.setEditable(false);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "*Error dato mal ingresado!*");
         }
-    } catch(NumberFormatException ex){
-        JOptionPane.showMessageDialog(null, "*Error dato mal ingresado!*");
     }
 }
-}
-
-
-
