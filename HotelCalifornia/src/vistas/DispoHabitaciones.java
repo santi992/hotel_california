@@ -47,6 +47,7 @@ public class DispoHabitaciones extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
+        setTitle("Disponibilidad de habitaciones");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

@@ -52,7 +52,7 @@ public class ReservaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
         } catch (NullPointerException np) {
-            JOptionPane.showMessageDialog(null, "Por favor seleccione una habitación");
+            JOptionPane.showMessageDialog(null, "Por favor seleccione una habitación\ny el tiempo de estadía.");
         } finally {
             Conexion.cerrarConexion();
         }
@@ -61,7 +61,7 @@ public class ReservaData {
 
     // CHECKEADO
     public void modificarReserva(Reserva reserva) {
-        
+
         con = Conexion.conectar();
         String sql = "UPDATE reserva SET idHuesped = ?, idHabitacion = ?, fechaCheckIn = ?, fechaCheckOut = ?, cantPersonas = ?, precioFinal = ?, estado = ? WHERE idReserva = ?";
         PreparedStatement ps;
@@ -169,7 +169,7 @@ public class ReservaData {
     }
 
     public List listarReservas() {
-        
+
         con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
@@ -203,7 +203,7 @@ public class ReservaData {
     }
 
     public List listarReservasXHuesped(Huesped huesped) {
-        
+
         con = Conexion.conectar();
         habData = new HabitacionData();
         List<Reserva> reservas = new ArrayList<>();
@@ -236,7 +236,7 @@ public class ReservaData {
     }
 
     public List listarReservasXHabitacion(Habitacion habitacion) {
-        
+
         con = Conexion.conectar();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -269,7 +269,7 @@ public class ReservaData {
     }
 
     public List listarReservasXPiso(int piso) {
-        
+
         con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
@@ -303,7 +303,7 @@ public class ReservaData {
     }
 
     public List listarReservasXHuesped(Huesped huesped, LocalDate fechaInicio, LocalDate fechaFin) {
-        
+
         con = Conexion.conectar();
         habData = new HabitacionData();
         List<Reserva> reservas = new ArrayList<>();
@@ -339,7 +339,7 @@ public class ReservaData {
     }
 
     public List listarReservasXHabitacion(Habitacion habitacion, LocalDate fechaInicio, LocalDate fechaFin) {
-        
+
         con = Conexion.conectar();
         huData = new HuespedData();
         List<Reserva> reservas = new ArrayList<>();
@@ -372,7 +372,7 @@ public class ReservaData {
     }
 
     public List listarReservasXPiso(int piso, LocalDate fechaInicio, LocalDate fechaFin) {
-        
+
         con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
@@ -406,7 +406,7 @@ public class ReservaData {
     }
 
     public List listarReservasXDni(int dni) {
-        
+
         con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
@@ -441,7 +441,7 @@ public class ReservaData {
     }
 
     public List listarReservasXDni(int dni, LocalDate fechaInicio, LocalDate fechaFin) {
-        
+
         con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
@@ -476,7 +476,7 @@ public class ReservaData {
     }
 
     public List listarReservas(LocalDate fechaInicio, LocalDate fechaFin) {
-        
+
         con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
@@ -484,11 +484,125 @@ public class ReservaData {
         Reserva reserva;
 
         try {
-            String sql = "SELECT * FROM reserva Where estado = 1  AND fechaCheckIn >= ? AND fechaCheckIn <= ?";
+            String sql = "SELECT DISTINCT * FROM reserva Where estado = 1  AND fechaCheckIn >= ? AND fechaCheckIn <= ? OR fechaCheckOut >= ? AND fechaCheckOut <= ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, Date.valueOf(fechaInicio));
             ps.setDate(2, Date.valueOf(fechaFin));
+            ps.setDate(3, Date.valueOf(fechaInicio));
+            ps.setDate(4, Date.valueOf(fechaFin));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                reserva = new Reserva();
+                reserva.setIdReserva(rs.getInt("idReserva"));
+                reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
+                reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
+                reserva.setCantPersonas(rs.getInt("cantPersonas"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
+                reserva.setEstado(rs.getBoolean("estado"));
+                reservas.add(reserva);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
+        }
+        return reservas;
+    }
+
+    public List listarReservasActuales() {
+
+        con = Conexion.conectar();
+        habData = new HabitacionData();
+        huData = new HuespedData();
+        List<Reserva> reservas = new ArrayList<>();
+        Reserva reserva;
+        LocalDate hoy = LocalDate.now();
+
+        try {
+            String sql = "SELECT * FROM reserva Where estado = 1  AND fechaCheckIn <= ? AND fechaCheckOut >= ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(hoy));
+            ps.setDate(2, Date.valueOf(hoy));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                reserva = new Reserva();
+                reserva.setIdReserva(rs.getInt("idReserva"));
+                reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
+                reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
+                reserva.setCantPersonas(rs.getInt("cantPersonas"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
+                reserva.setEstado(rs.getBoolean("estado"));
+                reservas.add(reserva);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
+        }
+        return reservas;
+    }
+
+    public List listarReservasActuales(int piso, Habitacion habitacion, String huespedBusqueda) {
+
+        con = Conexion.conectar();
+        habData = new HabitacionData();
+        huData = new HuespedData();
+        List<Reserva> reservas = new ArrayList<>();
+        Reserva reserva;
+        LocalDate hoy = LocalDate.now();
+        int contador = 2;
+
+        String joinHu = "";
+        String joinHab = "";
+        String hu = "";
+        String hab = "";
+        String p = "";
+
+        if (huespedBusqueda != null) {
+            hu  = " AND ( huesped.nombre LIKE ?% OR huesped.apellido LIKE ?%)";
+            joinHu = " JOIN huesped ON reserva.idHuesped = huesped.idHuesped ";
+        }
+        
+        if (habitacion != null) {
+            hab = " AND habitacion.idHabitacion = ?";
+            joinHab = " JOIN habitacion ON reserva.idHabitacion = habitacion.idHabitacion ";
+        }
+        
+        if (piso != 0) {
+            p = " AND habitacion.piso = ?";
+            joinHab = " JOIN habitacion ON reserva.idHabitacion = habitacion.idHabitacion ";
+        }
+        
+        String sql = "SELECT reserva.idReserva, reserva.idHuesped, reserva.idHabitacion, reserva.fechaCheckIn, "
+                + "reserva.fechaCheckOut, reserva.cantPersonas, reserva.precioFinal, reserva.estado FROM reserva " + 
+                joinHu + joinHab
+                + "WHERE reserva.estado = 1  AND reserva.fechaCheckIn <= ? AND reserva.fechaCheckOut >= ?" + hu + hab + p;
+        
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(hoy));
+            ps.setDate(2, Date.valueOf(hoy));
+            if (huespedBusqueda != null){
+                contador++;
+                ps.setString(contador, huespedBusqueda);
+            }
+            if (habitacion != null){
+                contador++;
+                ps.setInt(contador, habitacion.getIdHabitacion());
+            }
+            if (piso != 0){
+                contador++;
+                ps.setInt(contador, piso);
+            }
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 reserva = new Reserva();
@@ -512,7 +626,7 @@ public class ReservaData {
     }
 
     public Reserva obtenerReserva(int idReserva) {
-        
+
         con = Conexion.conectar();
         habData = new HabitacionData();
         huData = new HuespedData();
@@ -544,7 +658,7 @@ public class ReservaData {
     }
 
     public void actualizarDisponibilidad() {
-        
+
         con = Conexion.conectar();
         Date hoy = Date.valueOf(LocalDate.now());
         String sql = "UPDATE reserva SET estado = ? WHERE fechaCheckOut < ?";

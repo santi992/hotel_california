@@ -58,6 +58,7 @@ public class Conexion {
                 con.close();
             } catch (SQLException ex) {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NullPointerException np) {
             }
         }
     }

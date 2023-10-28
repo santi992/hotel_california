@@ -151,7 +151,8 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
         jlImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jlImagen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jbAgregar1.setText("Nuevo");
+        jbAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
+        jbAgregar1.setToolTipText("Limpiar formulario");
         jbAgregar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAgregar1ActionPerformed(evt);
@@ -166,14 +167,14 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbAgregar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbAgregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(42, 42, 42)
+                        .addComponent(jbAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
                         .addComponent(jbSalir)
                         .addContainerGap(14, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -247,11 +248,11 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
                     .addComponent(jrbEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbAgregar)
-                    .addComponent(jbModificar)
-                    .addComponent(jbEliminar)
-                    .addComponent(jbSalir)
-                    .addComponent(jbAgregar1))
+                    .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
 
@@ -287,22 +288,7 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
 
-        HabitacionData habd = new HabitacionData();
-        String hab = (String) jcbTipoHabitacion.getSelectedItem();
-
-        Habitacion habit = new Habitacion();
-        int id = Integer.parseInt(jtIdHab.getText());
-        habit.setIdHabitacion(id);
-        TipoHabitacion th = new TipoHabData().obtenerTipoxId(obtenerId(hab));
-        habit.setTipoHabitacion(th);
-        habit.setPiso((int) jcbPiso.getSelectedItem());
-        habit.setReserva(jrbReservado.isSelected());
-        habit.setEstado(jrbEstado.isSelected());
-        habit.setImagen(imagenHab);
-        System.out.println("id: "+imagenHab.getIdImagen());
-        System.out.println(imagenHab.getRuta());
-        habd.agregarHabitacion(habit);
-
+        agregar();
 
     }//GEN-LAST:event_jbAgregarActionPerformed
 
@@ -524,6 +510,38 @@ public class ManejodeHabitaciones extends javax.swing.JInternalFrame {
 
         } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(null, "El código ingresado debe ser un número");
+        }
+    }
+
+    private void agregar() {
+
+        int id = Integer.parseInt(jtIdHab.getText());
+        boolean ocupada = false;
+
+        HabitacionData habd = new HabitacionData();
+        String hab = (String) jcbTipoHabitacion.getSelectedItem();
+
+        for (Habitacion habitacion : habd.listarHabitacionesTodas()) {
+            if (id == habitacion.getIdHabitacion()) {
+                ocupada = true;
+                break;
+            }
+        }
+        if (!ocupada) {
+
+            Habitacion habit = new Habitacion();
+            habit.setIdHabitacion(id);
+            TipoHabitacion th = new TipoHabData().obtenerTipoxId(obtenerId(hab));
+            habit.setTipoHabitacion(th);
+            habit.setPiso((int) jcbPiso.getSelectedItem());
+            habit.setReserva(jrbReservado.isSelected());
+            habit.setEstado(jrbEstado.isSelected());
+            habit.setImagen(imagenHab);
+            System.out.println("id: " + imagenHab.getIdImagen());
+            System.out.println(imagenHab.getRuta());
+            habd.agregarHabitacion(habit);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ya existe una habitación con el N° "+id);
         }
     }
 

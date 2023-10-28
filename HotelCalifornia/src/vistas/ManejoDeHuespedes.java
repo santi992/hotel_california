@@ -159,7 +159,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbSalirActionPerformed(evt);
             }
         });
-        jpBackgroundLeft.add(jbSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 420, -1, -1));
+        jpBackgroundLeft.add(jbSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, -1, -1));
 
         jbEliminar.setText("Eliminar");
         jbEliminar.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -177,9 +177,10 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbGuardarActionPerformed(evt);
             }
         });
-        jpBackgroundLeft.add(jbGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, -1, -1));
+        jpBackgroundLeft.add(jbGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, -1, -1));
 
-        jbNuevo.setText("Nuevo");
+        jbNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
+        jbNuevo.setToolTipText("Limpiar formulario");
         jbNuevo.setPreferredSize(new java.awt.Dimension(100, 35));
         jbNuevo.setRolloverEnabled(true);
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +188,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbNuevoActionPerformed(evt);
             }
         });
-        jpBackgroundLeft.add(jbNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, -1, -1));
+        jpBackgroundLeft.add(jbNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 40, -1));
 
         jLabel1.setText("Nombre");
         jpBackgroundLeft.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
@@ -214,7 +215,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbModificarActionPerformed(evt);
             }
         });
-        jpBackgroundLeft.add(jbModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, -1, -1));
+        jpBackgroundLeft.add(jbModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, -1, -1));
         jpBackgroundLeft.add(jtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 270, -1));
 
         jLabel15.setText("Contraseña");

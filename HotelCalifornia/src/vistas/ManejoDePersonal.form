@@ -80,13 +80,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jbNuevo" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jbGuardar" min="-2" pref="120" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jbModificar" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jbNuevo" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jtBuscar" max="32767" attributes="0"/>
+                              <Component id="jtBuscar" min="-2" pref="384" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -247,7 +247,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="jbNuevo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nuevo"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/limpiar.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Limpiar formulario"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbNuevoActionPerformed"/>
@@ -310,6 +313,9 @@
       </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jdateFechaNac">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Seleccionar fecha"/>
+      </Properties>
       <Events>
         <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jdateFechaNacPropertyChange"/>
       </Events>
@@ -415,6 +421,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/imagenes/ojo.png"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Mostrar/ocultar contrase&#xf1;a"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbVerActionPerformed"/>

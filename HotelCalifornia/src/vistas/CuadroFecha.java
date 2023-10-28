@@ -132,17 +132,21 @@ public class CuadroFecha extends javax.swing.JPanel {
         if (disponible) {
             if (elegida) {
                 cambiarFondo(azul);
+                numero.setToolTipText("Fecha elegida");
             } else {
                 cambiarFondo(gris);
                 if (trancada) {
                     numero.setForeground(Color.red);
+                    numero.setToolTipText("Fecha no disponible para reserva");
                 } else {
                     numero.setForeground(Color.black);
+                    numero.setToolTipText("Fecha disponible para reserva");
                 }
             }
         } else {
             numero.setForeground(Color.red);
             cambiarFondo(Color.LIGHT_GRAY);
+            numero.setToolTipText("Fecha no disponible para reserva");
         }
     }
 

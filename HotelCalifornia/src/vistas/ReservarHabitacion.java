@@ -40,29 +40,27 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private HabitacionData habData;
     private TipoHabData tipoData;
     private double precioFinal;
-
+    
     private static ReservaData resData;
     public static Habitacion habitacionActiva;
     public static LocalDate fechaIn;
     public static LocalDate fechaOut;
     public static LocalDate fechaTope;
     public static JFrame elegir;
-
+    
     public ReservarHabitacion() {
-
+        
         huData = new HuespedData();
         habData = new HabitacionData();
         tipoData = new TipoHabData();
         resData = new ReservaData();
         precioFinal = 0;
-
+        
         habitacionActiva = null;
         fechaTope = null;
-
+        
         initComponents();
-
-        limpiar();
-
+        
         setLayout(null);
         setSize(1000, 510);
         jPanelCapas.setLayout(null);
@@ -70,9 +68,11 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         jlTitulo.setBounds(0, 0, 580, 30);
         jPanelHuesped.setBounds(30, 30, 520, 175);
         jPanelHabitacion.setBounds(30, 210, 520, 245);
-
+        
         jlImagen.setBounds(560, 30, 400, 370);
         jPanelFinal.setBounds(560, 405, 400, 50);
+        
+        iniciar();
     }
 
     /**
@@ -117,6 +117,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jbReservar = new javax.swing.JButton();
         jlPrecioTxt = new javax.swing.JLabel();
+        jbLimpiar = new javax.swing.JButton();
         jlImagen = new javax.swing.JLabel();
 
         setTitle("Reservar habitación");
@@ -360,7 +361,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlHab))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jbElegirIn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlFechaIn)
@@ -380,6 +381,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         jPanelFinal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jbSalir.setText("Salir");
+        jbSalir.setToolTipText("");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);
@@ -397,6 +399,14 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         jlPrecioTxt.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlPrecioTxt.setText("Precio Total: $ 0");
 
+        jbLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
+        jbLimpiar.setToolTipText("Limpiar formulario");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelFinalLayout = new javax.swing.GroupLayout(jPanelFinal);
         jPanelFinal.setLayout(jPanelFinalLayout);
         jPanelFinalLayout.setHorizontalGroup(
@@ -404,21 +414,24 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             .addGroup(jPanelFinalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jlPrecioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jbReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jbReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanelFinalLayout.setVerticalGroup(
             jPanelFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFinalLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanelFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlPrecioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jlPrecioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         jlImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -463,7 +476,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                         .addComponent(jlImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanelFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -499,6 +512,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbTipoHabActionPerformed
 
     private void jcbPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPisoActionPerformed
+        armarComboTipo();
         armarComboHabitacion();
     }//GEN-LAST:event_jcbPisoActionPerformed
 
@@ -564,6 +578,10 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         mostrarVista(new ReservarHabitacion());
     }//GEN-LAST:event_jbCerrarSesionActionPerformed
 
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        iniciar();
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+    
     private void comboHuespedes() {
         List huespedes = huData.listarHuespedes();
         for (Object hu : huespedes) {
@@ -571,38 +589,38 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jcbHuesped.addItem(huesped);
         }
     }
-
+    
     private void buscarHuesped() {
-
+        
         List huespedes = huData.listarHuespedes();
-
+        
         String texto = jtHuesped.getText().toLowerCase();
-
+        
         for (Object hu : huespedes) {
-
+            
             Huesped huesped = (Huesped) hu;
-
+            
             String nombre = huesped.getNombre().toLowerCase();
             String apellido = huesped.getApellido().toLowerCase();
             String dni = huesped.getDni() + "";
             String nomAp = nombre + " " + apellido;
             String apNom = apellido + " " + nombre;
-
+            
             boolean nombreMatch = nombre.startsWith(texto);
             boolean apellidoMatch = apellido.startsWith(texto);
             boolean dniMatch = dni.startsWith(texto);
             boolean nomApMatch = nomAp.startsWith(texto);
             boolean apNomMatch = apNom.startsWith(texto);
-
+            
             if (nombreMatch || apellidoMatch || dniMatch || nomApMatch || apNomMatch) {
                 jcbHuesped.addItem(huesped);
             }
         }
     }
-
+    
     private void armarComboHuesped() {
         jcbHuesped.removeAllItems();
-
+        
         if (login) {
             if (personal) {
                 if (jtHuesped.getText().isEmpty()) {
@@ -620,10 +638,11 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jcbHuesped.setEnabled(false);
             jlBuscar.setText("");
         }
-
+        
     }
-
+    
     private void armarComboPiso() {
+        jcbPiso.removeAllItems();
         List habitaciones = habData.listarHabitacionesTodas();
         TreeSet<Integer> pisos = new TreeSet<>();
         for (Object hab : habitaciones) {
@@ -635,24 +654,35 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jcbPiso.addItem(piso);
         }
     }
-
+    
     private void armarComboCant() {
-        jcbCant.removeAllItems();
-        TipoHabitacion tipo = (TipoHabitacion) jcbTipoHab.getSelectedItem();
-        int max = tipo.getCantPersonas();
-        for (int i = 1; i <= max; i++) {
-            jcbCant.addItem(i);
+        try {
+            
+            jcbCant.removeAllItems();
+            TipoHabitacion tipo = (TipoHabitacion) jcbTipoHab.getSelectedItem();
+            int max = tipo.getCantPersonas();
+            for (int i = 1; i <= max; i++) {
+                jcbCant.addItem(i);
+            }
+        } catch (NullPointerException np) {
+            
         }
     }
-
+    
     private void armarComboTipo() {
-        List tipos = tipoData.listarTipos();
+        jcbTipoHab.removeAllItems();
+            int piso = 1;
+        try {
+            piso = (int) jcbPiso.getSelectedItem();
+        } catch (NullPointerException np) {
+        }
+        List tipos = tipoData.listarTiposXPiso(piso);
         for (Object t : tipos) {
             TipoHabitacion tipo = (TipoHabitacion) t;
             jcbTipoHab.addItem(tipo);
         }
     }
-
+    
     private void armarComboHabitacion() {
         jcbHab.removeAllItems();
         try {
@@ -665,24 +695,24 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             }
             habitacionActiva = (Habitacion) jcbHab.getSelectedItem();
         } catch (NullPointerException np) {
-
+            
         }
     }
-
+    
     private int calcularNoches() {
         int noches = 0;
         try {
-            noches = (int) DAYS.between(fechaIn, fechaOut) + 1;
+            noches = (int) DAYS.between(fechaIn, fechaOut);
             if (noches <= 0) {
                 noches = 0;
             }
         } catch (NullPointerException np) {
-
+            
         }
         jlNoches.setText("Noches: " + noches + " (Salida: " + fechaOut.plusDays(1) + " a las 10:00 am)");
         return noches;
     }
-
+    
     public double calcularPrecio() {
         try {
             TipoHabitacion tipo = (TipoHabitacion) jcbTipoHab.getSelectedItem();
@@ -691,11 +721,11 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             precioFinal = precioXNoche * calcularNoches();
             jlPrecioTxt.setText("Precio final: $" + precioFinal);
         } catch (NullPointerException np) {
-
+            
         }
         return precioFinal;
     }
-
+    
     private void reservar() {
         if (login) {
             Reserva reserva = new Reserva();
@@ -708,7 +738,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             reserva.setCantPersonas((int) jcbCant.getSelectedItem());
             resData.agregarReserva(reserva);
             resData.actualizarDisponibilidad();
-            limpiar();
+            iniciar();
         } else {
             JOptionPane.showMessageDialog(null, "Debe iniciar sesión para reservar");
         }
@@ -724,6 +754,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbElegirOut;
     private javax.swing.JButton jbIniciarHuesped;
     private javax.swing.JButton jbIniciarPersonal;
+    private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbReservar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Integer> jcbCant;
@@ -752,7 +783,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void elegir(boolean in) {
-
+        
         if (jcbHab.getSelectedIndex() >= 0) {
             elegir = new JFrame();
             elegir.setSize(480, 400);
@@ -763,11 +794,11 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Debe elegir una habitación");
         }
-
+        
     }
-
+    
     private void elegir(boolean in, LocalDate fecha) {
-
+        
         if (jcbHab.getSelectedIndex() >= 0) {
             elegir = new JFrame();
             elegir.setSize(480, 400);
@@ -778,16 +809,16 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Debe elegir una habitación");
         }
-
+        
     }
-
+    
     private void armarInicioSesion() {
         jbCerrarSesion.setVisible(login);
         jbIniciarPersonal.setVisible(!login);
         jbIniciarHuesped.setVisible(!login);
         jbSalir.setVisible(login);
     }
-
+    
     private void colocarImagen() {
         try {
             ImageIcon imagen = habitacionActiva.getImagen().getImagen();
@@ -804,8 +835,9 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jlImagen.setText("Imagen no disponible");
         }
     }
-
-    private void limpiar() {
+    
+    private void iniciar() {
+        limpiarFechas();
         armarInicioSesion();
         armarComboHuesped();
         armarComboPiso();
@@ -814,5 +846,12 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         armarComboHabitacion();
         colocarImagen();
     }
-
+    
+    private void limpiarFechas() {
+        fechaIn = null;
+        fechaOut = null;
+        jlMostrarFechaIn.setText("----");
+        jlMostrarFechaOut.setText("----");
+    }
+    
 }

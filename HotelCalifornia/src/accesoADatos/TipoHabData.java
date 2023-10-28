@@ -152,6 +152,44 @@ public class TipoHabData {
         return listaTipoHab;
     }
 
+    public ArrayList<TipoHabitacion> listarTiposXPiso(int piso) {
+//        	
+//idTipoHab	
+//cantPersonas	
+//cantCamas	
+//tipoCamas	
+//precioxNoche
+
+        ArrayList listaTipoHab = new ArrayList<>();
+
+        String sql = "SELECT DISTINCT tipohabitacion.idTipoHab, tipohabitacion.nombre, tipohabitacion.cantPersonas, "
+                + "tipohabitacion.cantCamas, tipohabitacion.tipoCamas, tipohabitacion.precioxNoche , "
+                + "tipohabitacion.estado FROM tipohabitacion "
+                + "JOIN habitacion ON tipohabitacion.idTipoHab = habitacion.idTipoHab WHERE habitacion.piso = ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, piso);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                TipoHabitacion th = new TipoHabitacion();
+                th.setIdTipoHab(rs.getInt("idTipoHab"));
+                th.setNombre(rs.getString("nombre"));
+                th.setCantPersonas(rs.getInt("cantPersonas"));
+                th.setCantCamas(rs.getInt("cantCamas"));
+                th.setTipoCamas(rs.getString("tipoCamas"));
+                th.setPrecioxNoche(rs.getDouble("precioxNoche"));
+                th.setEstado(rs.getBoolean("estado"));
+                listaTipoHab.add(th);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "***ERROR*** al acceder a la tabla tipoHabitación " + ex);
+        }
+
+        return listaTipoHab;
+    }
+
     public double cambiarPrecio(TipoHabitacion tipo, double precio) { // para mi tendria que ser void
 
         String sql = " UPDATE tipohabitacion SET `precioxNoche`='?' WHERE idTipoHab=?";

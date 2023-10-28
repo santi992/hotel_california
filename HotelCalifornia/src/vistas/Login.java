@@ -114,6 +114,7 @@ public class Login extends javax.swing.JInternalFrame {
         });
 
         jbVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ojo.png"))); // NOI18N
+        jbVer.setToolTipText("Mostrar/ocultar contraseña");
         jbVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbVerActionPerformed(evt);

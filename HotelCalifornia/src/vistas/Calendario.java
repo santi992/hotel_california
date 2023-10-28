@@ -200,6 +200,7 @@ public class Calendario extends javax.swing.JPanel {
         });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/actualizar.png"))); // NOI18N
+        jButton1.setToolTipText("Actualizar calendario");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -380,7 +381,7 @@ public class Calendario extends javax.swing.JPanel {
                         disponible = true;
                         trancada = false;
 
-                        if (fechaAux.isBefore(fechaActual) || fechaAux.isBefore(fechaInAux) || fechaAux.isAfter(LocalDate.now().plusYears(1))) {
+                        if (fechaAux.isBefore(fechaActual) || fechaAux.isBefore(fechaInAux) || fechaAux.equals(fechaInAux) || fechaAux.isAfter(LocalDate.now().plusYears(1))) {
                             disponible = false;
                         } else {
                             if (fechaTope != null) {

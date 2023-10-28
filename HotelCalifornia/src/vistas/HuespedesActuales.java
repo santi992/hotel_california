@@ -4,8 +4,10 @@
  */
 package vistas;
 
+import accesoADatos.HabitacionData;
 import accesoADatos.HuespedData;
 import accesoADatos.ReservaData;
+import entidades.Habitacion;
 import entidades.Huesped;
 import entidades.Reserva;
 import java.time.LocalDate;
@@ -21,15 +23,22 @@ import javax.swing.table.DefaultTableModel;
 public class HuespedesActuales extends javax.swing.JInternalFrame {
 
     private Huesped huesped;
+    private int pisoSel;
+    private Habitacion habSel;
+    private String huBusq;
 
     /**
      * Creates new form HuespedesActuales
      */
     public HuespedesActuales() {
         huesped = null;
+        pisoSel = 0;
+        habSel = null;
+        huBusq = null;
         initComponents();
         armarCabecera();
-        armarCombo();
+        armarComboPiso();
+        armarComboHab();
         huespedTabla();
     }
 
@@ -54,7 +63,7 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
         jlHab = new javax.swing.JLabel();
         jcbHabitacion = new javax.swing.JComboBox<>();
 
-        setClosable(true);
+        setTitle("Huespedes actuales");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -98,13 +107,21 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
 
         jlBuscarHab.setText("Buscar habitacion:");
 
-        jcbPiso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbPisoActionPerformed(evt);
+            }
+        });
 
         jlPiso.setText("Piso:");
 
         jlHab.setText("Habitación:");
 
-        jcbHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbHabitacionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,12 +147,12 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addComponent(jlPiso)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jlHab)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jcbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jcbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(16, 16, 16))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -178,7 +195,7 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
     };
 
     private void jtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyReleased
-        armarCombo();
+        armarComboPiso();
         limpiarTabla();
     }//GEN-LAST:event_jtBuscarKeyReleased
 
@@ -187,16 +204,31 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyTyped
+        try {
+            seleccionarHuesped();
+            huespedTabla();
+        } catch (NullPointerException np) {
+
+            System.out.println("catch busqueda");
+        }
 
     }//GEN-LAST:event_jtBuscarKeyTyped
+
+    private void jcbPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPisoActionPerformed
+        seleccionarPiso();
+    }//GEN-LAST:event_jcbPisoActionPerformed
+
+    private void jcbHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHabitacionActionPerformed
+        seleccionarHab();
+    }//GEN-LAST:event_jcbHabitacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JComboBox<String> jcbHabitacion;
-    private javax.swing.JComboBox<String> jcbPiso;
+    private javax.swing.JComboBox<Habitacion> jcbHabitacion;
+    private javax.swing.JComboBox<Integer> jcbPiso;
     private javax.swing.JLabel jlBuscarHab;
     private javax.swing.JLabel jlBuscarHu;
     private javax.swing.JLabel jlHab;
@@ -213,28 +245,6 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
         jtHuespedes.setModel(modelo);
     }
 
-    private void armarCombo() {
-
-        jcbHuesped.removeAllItems();
-
-        (new Thread() {
-            @Override
-            public void run() {
-
-                try {
-                    Thread.sleep(10);
-                    
-                    
-                    
-                } catch (InterruptedException ex) {
-                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
-                }
-
-            }
-
-        }).start();
-    }
-
     private void limpiarTabla() {
         modelo.setRowCount(0);
     }
@@ -242,6 +252,130 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
     private void huespedTabla() {
         limpiarTabla();
 
+        ReservaData resData = new ReservaData();
+        List<Reserva> reservasActuales = resData.listarReservasActuales(pisoSel, habSel, huBusq);
+        for (Reserva reserva : reservasActuales) {
+            Object[] fila = {
+                reserva.getHuesped().getApellido(),
+                reserva.getHuesped().getNombre(),
+                reserva.getHabitacion(),
+                reserva.getFechaCheckOut()
+            };
+            modelo.addRow(fila);
+        }
+
+    }
+
+    private void armarComboPiso() {
+
+        System.out.println("armando combo pisos");
+        jcbPiso.removeAllItems();
+        jcbPiso.addItem(null);
+        HabitacionData habData = new HabitacionData();
+        for (int piso : habData.ObtenerPiso()) {
+            jcbPiso.addItem(piso);
+        }
+        jcbPiso.setSelectedIndex(0);
+    }
+
+    private void armarComboHab() {
+
+        System.out.println("armando combo habs");
+        jcbHabitacion.removeAllItems();
+        jcbHabitacion.addItem(null);
+        HabitacionData habData = new HabitacionData();
+        List<Habitacion> habitaciones = new ArrayList<>();
+        if (pisoSel == 0) {
+            habitaciones = habData.listarHabitacionesDisponibles();
+        } else {
+            int piso = (int) jcbPiso.getSelectedItem();
+            habitaciones = habData.listarHabitacionesXPiso(piso);
+        }
+        for (Object h : habitaciones) {
+            Habitacion habitacion = (Habitacion) h;
+            jcbHabitacion.addItem(habitacion);
+        }
+        jcbHabitacion.setSelectedIndex(0);
+    }
+
+    private void seleccionarHuesped() {
+        (new Thread() {
+            @Override
+            public void run() {
+
+                try {
+                    Thread.sleep(100);
+
+                    if (jtBuscar.getText().isEmpty()) {
+                        huBusq = null;
+                    } else {
+                        huBusq = jtBuscar.getText();
+                    }
+
+                } catch (InterruptedException ex) {
+                    huBusq = null;
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                } finally {
+                    huespedTabla();
+                }
+
+            }
+
+        }).start();
+    }
+
+    private void seleccionarPiso() {
+        (new Thread() {
+            @Override
+            public void run() {
+
+                try {
+                    Thread.sleep(100);
+                    if (jcbPiso.getSelectedIndex() == 0) {
+                        pisoSel = 0;
+                    } else {
+                        pisoSel = (int) jcbPiso.getSelectedItem();
+                    }
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                } catch (NullPointerException np) {
+                    pisoSel = 0;
+                    System.out.println("catch combo piso");
+                } finally {
+                    armarComboHab();
+                    huespedTabla();
+
+                }
+
+            }
+
+        }).start();
+
+    }
+
+    private void seleccionarHab() {
+        (new Thread() {
+            @Override
+            public void run() {
+
+                try {
+                    Thread.sleep(100);
+                    if (jcbHabitacion.getSelectedIndex() == 0) {
+                        habSel = null;
+                    } else {
+                        habSel = (Habitacion) jcbHabitacion.getSelectedItem();
+                    }
+                } catch (InterruptedException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
+                } catch (NullPointerException np) {
+                    habSel = null;
+                    System.out.println("catch combo habs");
+                } finally {
+                    huespedTabla();
+                }
+            }
+
+        }).start();
     }
 
 }
