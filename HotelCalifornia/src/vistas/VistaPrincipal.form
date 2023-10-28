@@ -15,7 +15,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuLoginH">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ingreso para  hu&#xe9;spedes"/>
+                <Property name="text" type="java.lang.String" value="Ingreso para hu&#xe9;spedes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuLoginHActionPerformed"/>

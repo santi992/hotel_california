@@ -235,7 +235,7 @@ public class ReservaData {
         return reservas;
     }
 
-    public List listarReservasXHabitacion(Habitacion habitacion) {
+    public List<Reserva> listarReservasXHabitacion(Habitacion habitacion) {
 
         con = Conexion.conectar();
         huData = new HuespedData();
@@ -523,11 +523,49 @@ public class ReservaData {
         LocalDate hoy = LocalDate.now();
 
         try {
-            String sql = "SELECT * FROM reserva Where estado = 1  AND fechaCheckIn <= ? AND fechaCheckOut >= ?";
+            String sql = "SELECT * FROM reserva WHERE estado = 1 AND fechaCheckIn <= ? AND fechaCheckOut >= ? ";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, Date.valueOf(hoy));
             ps.setDate(2, Date.valueOf(hoy));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                reserva = new Reserva();
+                reserva.setIdReserva(rs.getInt("idReserva"));
+                reserva.setHuesped(huData.obtenerHuesped(rs.getInt("idHuesped")));
+                reserva.setHabitacion(habData.obtenerHabitacion(rs.getInt("idHabitacion")));
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
+                reserva.setCantPersonas(rs.getInt("cantPersonas"));
+                reserva.setPrecioTotal(rs.getDouble("preciofinal"));
+                reserva.setEstado(rs.getBoolean("estado"));
+                reservas.add(reserva);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla reserva " + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
+        }
+        return reservas;
+    }
+
+    public List listarReservasActualesXHab(Habitacion habitacion) {
+
+        con = Conexion.conectar();
+        habData = new HabitacionData();
+        huData = new HuespedData();
+        List<Reserva> reservas = new ArrayList<>();
+        Reserva reserva;
+        LocalDate hoy = LocalDate.now();
+
+        try {
+            String sql = "SELECT * FROM reserva WHERE estado = 1 AND fechaCheckIn <= ? AND fechaCheckOut >= ? AND idHabitacion = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(hoy));
+            ps.setDate(2, Date.valueOf(hoy));
+            ps.setInt(3, habitacion.getIdHabitacion());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 reserva = new Reserva();

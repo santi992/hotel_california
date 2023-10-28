@@ -10,6 +10,9 @@ import accesoADatos.HuespedData;
 import accesoADatos.ReservaData;
 import entidades.Huesped;
 import entidades.Reserva;
+import static hotelcalifornia.HotelCalifornia.espera;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.List;
@@ -35,6 +38,7 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
     private LocalDate fechaIn;
     private int noches;
     private double diferencia;
+    private double diferenciaInicial;
     private double precio;
     private double precioActual;
     private double precioFinal;
@@ -442,23 +446,25 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
             jlPrecioXNoche.setText("Precio por noche: " + precio + " USD");
             precioActual = reserva.getPrecioTotal();
             jlPrecioActual.setText("Importe abonado: " + precioActual + " USD");
-            
+
             habData = new HabitacionData();
             fechasReservadas = habData.fechasReservadas(habitacionActiva);
             for (LocalDate fechaInactiva : fechasReservadas) {
-                    if (fechaTope == null && fechaInactiva.isAfter(fechaOut)) {
-                        fechaTope = fechaInactiva;
-                        break;
-                    }
+                if (fechaTope == null && fechaInactiva.isAfter(fechaOut)) {
+                    fechaTope = fechaInactiva;
+                    break;
                 }
+            }
 
         }
 
     }
 
     private void calcularPrecio() {
+        espera(10);
         try {
-            noches = (int) DAYS.between(fechaIn, fechaOut) + 1;
+            noches = (int) DAYS.between(fechaIn, fechaOut);
+            jlMostrarFechaOut.setText(fechaOut+"");
             jlNoches.setText("Noches: " + noches);
             precioFinal = noches * precio;
             jlPrecioNuevo.setText("Nuevo importe: $" + precioFinal + " USD");
@@ -475,6 +481,7 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
 
         resData.extenderReserva(reserva, fechaOut, precioFinal);
 
+        armarComboReservas();
         datosReserva();
         calcularPrecio();
 
@@ -489,6 +496,14 @@ public class AmpliarReserva extends javax.swing.JInternalFrame {
             elegir.setUndecorated(true);
             elegir.setVisible(true);
             elegir.add(new Calendario(in, fecha));
+            elegir.addWindowListener(new WindowAdapter() {
+
+                @Override
+                public void windowClosed(WindowEvent evt) {
+                    calcularPrecio();
+
+                }
+            });
         } else {
             JOptionPane.showMessageDialog(null, "Debe elegir una habitación");
         }

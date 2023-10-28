@@ -14,6 +14,8 @@ import entidades.Huesped;
 import entidades.Reserva;
 import entidades.TipoHabitacion;
 import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.List;
@@ -40,27 +42,27 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private HabitacionData habData;
     private TipoHabData tipoData;
     private double precioFinal;
-    
+
     private static ReservaData resData;
     public static Habitacion habitacionActiva;
     public static LocalDate fechaIn;
     public static LocalDate fechaOut;
     public static LocalDate fechaTope;
     public static JFrame elegir;
-    
+
     public ReservarHabitacion() {
-        
+
         huData = new HuespedData();
         habData = new HabitacionData();
         tipoData = new TipoHabData();
         resData = new ReservaData();
         precioFinal = 0;
-        
+
         habitacionActiva = null;
         fechaTope = null;
-        
+
         initComponents();
-        
+
         setLayout(null);
         setSize(1000, 510);
         jPanelCapas.setLayout(null);
@@ -68,10 +70,10 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         jlTitulo.setBounds(0, 0, 580, 30);
         jPanelHuesped.setBounds(30, 30, 520, 175);
         jPanelHabitacion.setBounds(30, 210, 520, 245);
-        
+
         jlImagen.setBounds(560, 30, 400, 370);
         jPanelFinal.setBounds(560, 405, 400, 50);
-        
+
         iniciar();
     }
 
@@ -509,11 +511,13 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         armarComboHabitacion();
         armarComboCant();
         calcularPrecio();
+        limpiarFechas();
     }//GEN-LAST:event_jcbTipoHabActionPerformed
 
     private void jcbPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPisoActionPerformed
         armarComboTipo();
         armarComboHabitacion();
+        limpiarFechas();
     }//GEN-LAST:event_jcbPisoActionPerformed
 
     private void jcbCantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCantActionPerformed
@@ -541,6 +545,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private void jcbHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHabActionPerformed
         habitacionActiva = (Habitacion) jcbHab.getSelectedItem();
         colocarImagen();
+        limpiarFechas();
     }//GEN-LAST:event_jcbHabActionPerformed
 
     private void jbElegirInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbElegirInActionPerformed
@@ -581,7 +586,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         iniciar();
     }//GEN-LAST:event_jbLimpiarActionPerformed
-    
+
     private void comboHuespedes() {
         List huespedes = huData.listarHuespedes();
         for (Object hu : huespedes) {
@@ -589,38 +594,38 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jcbHuesped.addItem(huesped);
         }
     }
-    
+
     private void buscarHuesped() {
-        
+
         List huespedes = huData.listarHuespedes();
-        
+
         String texto = jtHuesped.getText().toLowerCase();
-        
+
         for (Object hu : huespedes) {
-            
+
             Huesped huesped = (Huesped) hu;
-            
+
             String nombre = huesped.getNombre().toLowerCase();
             String apellido = huesped.getApellido().toLowerCase();
             String dni = huesped.getDni() + "";
             String nomAp = nombre + " " + apellido;
             String apNom = apellido + " " + nombre;
-            
+
             boolean nombreMatch = nombre.startsWith(texto);
             boolean apellidoMatch = apellido.startsWith(texto);
             boolean dniMatch = dni.startsWith(texto);
             boolean nomApMatch = nomAp.startsWith(texto);
             boolean apNomMatch = apNom.startsWith(texto);
-            
+
             if (nombreMatch || apellidoMatch || dniMatch || nomApMatch || apNomMatch) {
                 jcbHuesped.addItem(huesped);
             }
         }
     }
-    
+
     private void armarComboHuesped() {
         jcbHuesped.removeAllItems();
-        
+
         if (login) {
             if (personal) {
                 if (jtHuesped.getText().isEmpty()) {
@@ -638,9 +643,9 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jcbHuesped.setEnabled(false);
             jlBuscar.setText("");
         }
-        
+
     }
-    
+
     private void armarComboPiso() {
         jcbPiso.removeAllItems();
         List habitaciones = habData.listarHabitacionesTodas();
@@ -654,10 +659,10 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jcbPiso.addItem(piso);
         }
     }
-    
+
     private void armarComboCant() {
         try {
-            
+
             jcbCant.removeAllItems();
             TipoHabitacion tipo = (TipoHabitacion) jcbTipoHab.getSelectedItem();
             int max = tipo.getCantPersonas();
@@ -665,13 +670,13 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 jcbCant.addItem(i);
             }
         } catch (NullPointerException np) {
-            
+
         }
     }
-    
+
     private void armarComboTipo() {
         jcbTipoHab.removeAllItems();
-            int piso = 1;
+        int piso = 1;
         try {
             piso = (int) jcbPiso.getSelectedItem();
         } catch (NullPointerException np) {
@@ -682,7 +687,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jcbTipoHab.addItem(tipo);
         }
     }
-    
+
     private void armarComboHabitacion() {
         jcbHab.removeAllItems();
         try {
@@ -695,10 +700,10 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             }
             habitacionActiva = (Habitacion) jcbHab.getSelectedItem();
         } catch (NullPointerException np) {
-            
+
         }
     }
-    
+
     private int calcularNoches() {
         int noches = 0;
         try {
@@ -707,12 +712,12 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
                 noches = 0;
             }
         } catch (NullPointerException np) {
-            
+
         }
-        jlNoches.setText("Noches: " + noches + " (Salida: " + fechaOut.plusDays(1) + " a las 10:00 am)");
+        jlNoches.setText("Noches: " + noches + " (Salida: " + fechaOut + " a las 10:00 am)");
         return noches;
     }
-    
+
     public double calcularPrecio() {
         try {
             TipoHabitacion tipo = (TipoHabitacion) jcbTipoHab.getSelectedItem();
@@ -721,11 +726,11 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             precioFinal = precioXNoche * calcularNoches();
             jlPrecioTxt.setText("Precio final: $" + precioFinal);
         } catch (NullPointerException np) {
-            
+
         }
         return precioFinal;
     }
-    
+
     private void reservar() {
         if (login) {
             Reserva reserva = new Reserva();
@@ -783,7 +788,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void elegir(boolean in) {
-        
+
         if (jcbHab.getSelectedIndex() >= 0) {
             elegir = new JFrame();
             elegir.setSize(480, 400);
@@ -794,11 +799,11 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Debe elegir una habitación");
         }
-        
+
     }
-    
+
     private void elegir(boolean in, LocalDate fecha) {
-        
+
         if (jcbHab.getSelectedIndex() >= 0) {
             elegir = new JFrame();
             elegir.setSize(480, 400);
@@ -806,19 +811,20 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             elegir.setUndecorated(true);
             elegir.setVisible(true);
             elegir.add(new Calendario(in, fecha));
+
         } else {
             JOptionPane.showMessageDialog(null, "Debe elegir una habitación");
         }
-        
+
     }
-    
+
     private void armarInicioSesion() {
         jbCerrarSesion.setVisible(login);
         jbIniciarPersonal.setVisible(!login);
         jbIniciarHuesped.setVisible(!login);
         jbSalir.setVisible(login);
     }
-    
+
     private void colocarImagen() {
         try {
             ImageIcon imagen = habitacionActiva.getImagen().getImagen();
@@ -835,7 +841,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             jlImagen.setText("Imagen no disponible");
         }
     }
-    
+
     private void iniciar() {
         limpiarFechas();
         armarInicioSesion();
@@ -846,12 +852,12 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
         armarComboHabitacion();
         colocarImagen();
     }
-    
+
     private void limpiarFechas() {
         fechaIn = null;
         fechaOut = null;
         jlMostrarFechaIn.setText("----");
         jlMostrarFechaOut.setText("----");
     }
-    
+
 }

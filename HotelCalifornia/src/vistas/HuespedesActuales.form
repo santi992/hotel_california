@@ -26,45 +26,48 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="452" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jlBuscarHab" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlBuscarHu" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="jtBuscar" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbLimpiar" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="jlPiso" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlPiso" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jcbPiso" min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="jcbPiso" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jlHab" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlHab" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jcbHabitacion" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Component id="jcbHabitacion" min="-2" pref="134" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jbVerTodos" alignment="0" min="-2" pref="362" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jbFiltrarHuesped" max="32767" attributes="0"/>
+                          <Component id="jbFiltrarHabitacion" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jButton1" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,23 +76,29 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlBuscarHu" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="203" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="2" attributes="0">
+                  <Component id="jbLimpiar" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jtBuscar" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jbFiltrarHuesped" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlBuscarHab" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jcbPiso" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jlPiso" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jcbHabitacion" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jlHab" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbFiltrarHabitacion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="203" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbVerTodos" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,11 +110,6 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Huespedes Actuales"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jlBuscarHu">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar huesped:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtBuscar">
@@ -171,11 +175,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jlBuscarHab">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar habitacion:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JComboBox" name="jcbPiso">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -211,6 +210,49 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Habitacion&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbVerTodos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mostrar todos los hu&#xe9;spedes"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbVerTodosActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbLimpiar">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/limpiar.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Limpiar b&#xfa;squeda"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbLimpiarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbFiltrarHuesped">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Filtrar por hu&#xe9;sped"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbFiltrarHuespedActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbFiltrarHabitacion">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Filtrar por habitaci&#xf3;n"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbFiltrarHabitacionActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="10" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Escriba abajo el nombre o apellido del huesped a buscar"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

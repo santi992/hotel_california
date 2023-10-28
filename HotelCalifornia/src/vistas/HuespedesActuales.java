@@ -5,15 +5,13 @@
 package vistas;
 
 import accesoADatos.HabitacionData;
-import accesoADatos.HuespedData;
 import accesoADatos.ReservaData;
 import entidades.Habitacion;
 import entidades.Huesped;
 import entidades.Reserva;
-import java.time.LocalDate;
+import static hotelcalifornia.HotelCalifornia.espera;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,20 +24,30 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
     private int pisoSel;
     private Habitacion habSel;
     private String huBusq;
+    private DefaultTableModel modelo;
+    private List<Reserva> reservasActuales;
+    private ReservaData resData;
 
     /**
      * Creates new form HuespedesActuales
      */
     public HuespedesActuales() {
+
+        resData = new ReservaData();
         huesped = null;
         pisoSel = 0;
         habSel = null;
         huBusq = null;
+
         initComponents();
-        armarCabecera();
         armarComboPiso();
         armarComboHab();
+        armarCabecera();
+
+        reservasActuales = resData.listarReservasActuales();
+
         huespedTabla();
+
     }
 
     /**
@@ -52,24 +60,25 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jlBuscarHu = new javax.swing.JLabel();
         jtBuscar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtHuespedes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jlBuscarHab = new javax.swing.JLabel();
         jcbPiso = new javax.swing.JComboBox<>();
         jlPiso = new javax.swing.JLabel();
         jlHab = new javax.swing.JLabel();
         jcbHabitacion = new javax.swing.JComboBox<>();
+        jbVerTodos = new javax.swing.JButton();
+        jbLimpiar = new javax.swing.JButton();
+        jbFiltrarHuesped = new javax.swing.JButton();
+        jbFiltrarHabitacion = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setTitle("Huespedes actuales");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Huespedes Actuales");
-
-        jlBuscarHu.setText("Buscar huesped:");
 
         jtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,8 +114,6 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
             }
         });
 
-        jlBuscarHab.setText("Buscar habitacion:");
-
         jcbPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbPisoActionPerformed(evt);
@@ -123,80 +130,113 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
             }
         });
 
+        jbVerTodos.setText("Mostrar todos los huéspedes");
+        jbVerTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVerTodosActionPerformed(evt);
+            }
+        });
+
+        jbLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
+        jbLimpiar.setToolTipText("Limpiar búsqueda");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
+
+        jbFiltrarHuesped.setText("Filtrar por huésped");
+        jbFiltrarHuesped.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFiltrarHuespedActionPerformed(evt);
+            }
+        });
+
+        jbFiltrarHabitacion.setText("Filtrar por habitación");
+        jbFiltrarHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFiltrarHabitacionActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jLabel2.setText("Escriba abajo el nombre o apellido del huesped a buscar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlBuscarHab)
-                            .addComponent(jlBuscarHu))
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jtBuscar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jlPiso)
+                                .addComponent(jtBuscar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlPiso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jlHab)
+                                .addComponent(jlHab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jcbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(16, 16, 16))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jcbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jbVerTodos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jbFiltrarHuesped, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbFiltrarHabitacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(1, 1, 1)))))
+                .addGap(15, 15, 15))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(192, 192, 192)
                 .addComponent(jLabel1)
-                .addGap(151, 151, 151))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbFiltrarHuesped))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlBuscarHu)
-                    .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlBuscarHab)
                     .addComponent(jcbPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlPiso)
                     .addComponent(jcbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlHab))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jlHab)
+                    .addComponent(jbFiltrarHabitacion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jbVerTodos))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtBuscarActionPerformed
-    private DefaultTableModel modelo = new DefaultTableModel() {
-        public boolean isCellEditable(int f, int c) {
-            return false;
 
-        }
-    };
+    }//GEN-LAST:event_jtBuscarActionPerformed
 
     private void jtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyReleased
-        armarComboPiso();
-        limpiarTabla();
+
     }//GEN-LAST:event_jtBuscarKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -204,33 +244,80 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyTyped
-        try {
-            seleccionarHuesped();
-            huespedTabla();
-        } catch (NullPointerException np) {
-
-            System.out.println("catch busqueda");
-        }
 
     }//GEN-LAST:event_jtBuscarKeyTyped
 
     private void jcbPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPisoActionPerformed
-        seleccionarPiso();
+        espera(10);
+        try {
+            armarComboHab();
+        } catch (NullPointerException np) {
+
+        }
     }//GEN-LAST:event_jcbPisoActionPerformed
 
     private void jcbHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHabitacionActionPerformed
-        seleccionarHab();
+        espera(10);
+        try {
+            habSel = (Habitacion) jcbHabitacion.getSelectedItem();
+        } catch (NullPointerException np) {
+//            System.out.println("error combo habitacion");
+
+        }
     }//GEN-LAST:event_jcbHabitacionActionPerformed
+
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        espera(10);
+        try {
+            limpiarBusqueda();
+            huespedTabla();
+        } catch (NullPointerException np) {
+
+        }
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jbVerTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerTodosActionPerformed
+        espera(10);
+        try {
+            limpiarBusqueda();
+            reservasActuales = resData.listarReservasActuales();
+            huespedTabla();
+        } catch (NullPointerException np) {
+        }
+    }//GEN-LAST:event_jbVerTodosActionPerformed
+
+    private void jbFiltrarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFiltrarHuespedActionPerformed
+        espera(10);
+        try {
+            buscarHuesped();
+            huespedTabla();
+        } catch (NullPointerException np) {
+
+        }
+    }//GEN-LAST:event_jbFiltrarHuespedActionPerformed
+
+    private void jbFiltrarHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFiltrarHabitacionActionPerformed
+        espera(10);
+        try {
+            reservasActuales = resData.listarReservasActualesXHab(habSel);
+            huespedTabla();
+        } catch (NullPointerException np) {
+
+        }
+    }//GEN-LAST:event_jbFiltrarHabitacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbFiltrarHabitacion;
+    private javax.swing.JButton jbFiltrarHuesped;
+    private javax.swing.JButton jbLimpiar;
+    private javax.swing.JButton jbVerTodos;
     private javax.swing.JComboBox<Habitacion> jcbHabitacion;
     private javax.swing.JComboBox<Integer> jcbPiso;
-    private javax.swing.JLabel jlBuscarHab;
-    private javax.swing.JLabel jlBuscarHu;
     private javax.swing.JLabel jlHab;
     private javax.swing.JLabel jlPiso;
     private javax.swing.JTextField jtBuscar;
@@ -238,10 +325,20 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void armarCabecera() {
+
+        modelo = new DefaultTableModel() {
+            public boolean isCellEditable(int f, int c) {
+                return false;
+            }
+        };
+
         modelo.addColumn("Apellido");
         modelo.addColumn("Nombre");
         modelo.addColumn("Id Habitacion");
-        modelo.addColumn("Fecha Check Out");
+        modelo.addColumn("Ingreso");
+        modelo.addColumn("Salida");
+        modelo.addColumn("Id Reserva");
+
         jtHuespedes.setModel(modelo);
     }
 
@@ -252,14 +349,14 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
     private void huespedTabla() {
         limpiarTabla();
 
-        ReservaData resData = new ReservaData();
-        List<Reserva> reservasActuales = resData.listarReservasActuales(pisoSel, habSel, huBusq);
         for (Reserva reserva : reservasActuales) {
             Object[] fila = {
                 reserva.getHuesped().getApellido(),
                 reserva.getHuesped().getNombre(),
                 reserva.getHabitacion(),
-                reserva.getFechaCheckOut()
+                reserva.getFechaCheckIn(),
+                reserva.getFechaCheckOut(),
+                reserva.getIdReserva()
             };
             modelo.addRow(fila);
         }
@@ -268,114 +365,52 @@ public class HuespedesActuales extends javax.swing.JInternalFrame {
 
     private void armarComboPiso() {
 
-        System.out.println("armando combo pisos");
         jcbPiso.removeAllItems();
-        jcbPiso.addItem(null);
         HabitacionData habData = new HabitacionData();
         for (int piso : habData.ObtenerPiso()) {
             jcbPiso.addItem(piso);
         }
-        jcbPiso.setSelectedIndex(0);
     }
 
     private void armarComboHab() {
 
-        System.out.println("armando combo habs");
         jcbHabitacion.removeAllItems();
-        jcbHabitacion.addItem(null);
         HabitacionData habData = new HabitacionData();
-        List<Habitacion> habitaciones = new ArrayList<>();
-        if (pisoSel == 0) {
-            habitaciones = habData.listarHabitacionesDisponibles();
-        } else {
-            int piso = (int) jcbPiso.getSelectedItem();
-            habitaciones = habData.listarHabitacionesXPiso(piso);
+
+        try {
+            pisoSel = (int) jcbPiso.getSelectedItem();
+        } catch (NullPointerException np) {
+            pisoSel = 1;
         }
-        for (Object h : habitaciones) {
+
+        for (Object h : habData.listarHabitacionesXPiso(pisoSel)) {
             Habitacion habitacion = (Habitacion) h;
             jcbHabitacion.addItem(habitacion);
         }
-        jcbHabitacion.setSelectedIndex(0);
+        habSel = (Habitacion) jcbHabitacion.getSelectedItem();
+        reservasActuales = resData.listarReservasActualesXHab(habSel);
     }
 
-    private void seleccionarHuesped() {
-        (new Thread() {
-            @Override
-            public void run() {
-
-                try {
-                    Thread.sleep(100);
-
-                    if (jtBuscar.getText().isEmpty()) {
-                        huBusq = null;
-                    } else {
-                        huBusq = jtBuscar.getText();
-                    }
-
-                } catch (InterruptedException ex) {
-                    huBusq = null;
-                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
-                } finally {
-                    huespedTabla();
+    private void buscarHuesped() {
+        if (jtBuscar.getText().isEmpty()) {
+            reservasActuales = resData.listarReservasActuales();
+        } else {
+            List<Reserva> reservasFiltradas = new ArrayList<>();
+            for (Object res : resData.listarReservasActuales()) {
+                Reserva reserva = (Reserva) res;
+                String busqueda = jtBuscar.getText().toLowerCase();
+                String nombre = reserva.getHuesped().getNombre().toLowerCase();
+                String apellido = reserva.getHuesped().getApellido().toLowerCase();
+                if (nombre.startsWith(busqueda) || apellido.startsWith(busqueda)) {
+                    reservasFiltradas.add(reserva);
                 }
-
             }
-
-        }).start();
+            reservasActuales = reservasFiltradas;
+        }
     }
 
-    private void seleccionarPiso() {
-        (new Thread() {
-            @Override
-            public void run() {
-
-                try {
-                    Thread.sleep(100);
-                    if (jcbPiso.getSelectedIndex() == 0) {
-                        pisoSel = 0;
-                    } else {
-                        pisoSel = (int) jcbPiso.getSelectedItem();
-                    }
-                } catch (InterruptedException ex) {
-                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
-                } catch (NullPointerException np) {
-                    pisoSel = 0;
-                    System.out.println("catch combo piso");
-                } finally {
-                    armarComboHab();
-                    huespedTabla();
-
-                }
-
-            }
-
-        }).start();
-
-    }
-
-    private void seleccionarHab() {
-        (new Thread() {
-            @Override
-            public void run() {
-
-                try {
-                    Thread.sleep(100);
-                    if (jcbHabitacion.getSelectedIndex() == 0) {
-                        habSel = null;
-                    } else {
-                        habSel = (Habitacion) jcbHabitacion.getSelectedItem();
-                    }
-                } catch (InterruptedException ex) {
-                    JOptionPane.showMessageDialog(null, "Error de interrupcion");
-                } catch (NullPointerException np) {
-                    habSel = null;
-                    System.out.println("catch combo habs");
-                } finally {
-                    huespedTabla();
-                }
-            }
-
-        }).start();
+    private void limpiarBusqueda() {
+        jtBuscar.setText("");
     }
 
 }

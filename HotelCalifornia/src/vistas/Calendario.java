@@ -381,7 +381,7 @@ public class Calendario extends javax.swing.JPanel {
                         disponible = true;
                         trancada = false;
 
-                        if (fechaAux.isBefore(fechaActual) || fechaAux.isBefore(fechaInAux) || fechaAux.equals(fechaInAux) || fechaAux.isAfter(LocalDate.now().plusYears(1))) {
+                        if (fechaAux.isBefore(fechaActual) || fechaAux.isBefore(fechaInAux) || (fechaAux.equals(fechaInAux) && !in) || fechaAux.isAfter(LocalDate.now().plusYears(1))) {
                             disponible = false;
                         } else {
                             if (fechaTope != null) {

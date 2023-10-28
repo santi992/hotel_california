@@ -114,7 +114,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jMenuLoginH.setText("Ingreso para  huéspedes");
+        jMenuLoginH.setText("Ingreso para huéspedes");
         jMenuLoginH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuLoginHActionPerformed(evt);
