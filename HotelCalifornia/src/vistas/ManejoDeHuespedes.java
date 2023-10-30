@@ -774,7 +774,6 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 huesped.setProvincia(jtProvincia.getText());
                 huesped.setPais(jtPais.getText());
                 huesped.setEstado(jrEstado.isSelected());
-                huesped.setFechaNac(JdFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                 huData.modificarHuesped(huesped);
                 buscarHuesped();
 
