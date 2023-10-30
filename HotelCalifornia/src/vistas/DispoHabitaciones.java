@@ -5,10 +5,8 @@
 package vistas;
 
 import accesoADatos.HabitacionData;
-import accesoADatos.TipoHabData;
 import entidades.Habitacion;
 import java.util.List;
-import java.util.TreeSet;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -191,20 +189,12 @@ public class DispoHabitaciones extends javax.swing.JInternalFrame {
     }
 
     private void limpiarTabla() {
-        for (int i = modelo.getRowCount(); i > 0; i--) {
-            modelo.removeRow(i - 1);
-        }
+        modelo.setRowCount(0);
     }
 
     private void armarCombo() {
         habitacionData = new HabitacionData();
-        List habitaciones = habitacionData.listarHabitacionesTodas();
-        TreeSet<Integer> pisos = new TreeSet<>();
-        for (Object hab : habitaciones) {
-            Habitacion habitacion = (Habitacion) hab;
-            int piso = habitacion.getPiso();
-            pisos.add(piso);
-        }
+        List<Integer> pisos = habitacionData.ObtenerPiso();
         for (int piso : pisos) {
             jcbPiso.addItem(piso);
         }

@@ -32,10 +32,12 @@ public class ReservaData {
         String sql = "INSERT INTO reserva(idHuesped, idHabitacion, fechaCheckIn, fechaCheckOut, cantPersonas, precioFinal, estado) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
+            Habitacion habitacion = reserva.getHabitacion();
+            LocalDate fechaIn = reserva.getFechaCheckIn();
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, reserva.getHuesped().getIdHuesped());
-            ps.setInt(2, reserva.getHabitacion().getIdHabitacion());
-            ps.setDate(3, Date.valueOf(reserva.getFechaCheckIn()));
+            ps.setInt(2, habitacion.getIdHabitacion());
+            ps.setDate(3, Date.valueOf(fechaIn));
             ps.setDate(4, Date.valueOf(reserva.getFechaCheckOut()));
             ps.setInt(5, reserva.getCantPersonas());
             ps.setDouble(6, reserva.getPrecioTotal());
@@ -45,6 +47,10 @@ public class ReservaData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 reserva.setIdReserva(rs.getInt(1));
+                if (fechaIn.equals(LocalDate.now())) {
+                    habData = new HabitacionData();
+                    habData.reservarHabitacion(habitacion);
+                }
                 JOptionPane.showMessageDialog(null, "Reserva añadida con éxito");
             }
             ps.close();
@@ -130,6 +136,7 @@ public class ReservaData {
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Reserva cancelada con éxito.");
+                habData.actualizarDisponibilidad();
             } else {
                 JOptionPane.showMessageDialog(null, "La reserva no existe.");
             }
@@ -605,39 +612,39 @@ public class ReservaData {
         String p = "";
 
         if (huespedBusqueda != null) {
-            hu  = " AND ( huesped.nombre LIKE ?% OR huesped.apellido LIKE ?%)";
+            hu = " AND ( huesped.nombre LIKE ?% OR huesped.apellido LIKE ?%)";
             joinHu = " JOIN huesped ON reserva.idHuesped = huesped.idHuesped ";
         }
-        
+
         if (habitacion != null) {
             hab = " AND habitacion.idHabitacion = ?";
             joinHab = " JOIN habitacion ON reserva.idHabitacion = habitacion.idHabitacion ";
         }
-        
+
         if (piso != 0) {
             p = " AND habitacion.piso = ?";
             joinHab = " JOIN habitacion ON reserva.idHabitacion = habitacion.idHabitacion ";
         }
-        
+
         String sql = "SELECT reserva.idReserva, reserva.idHuesped, reserva.idHabitacion, reserva.fechaCheckIn, "
-                + "reserva.fechaCheckOut, reserva.cantPersonas, reserva.precioFinal, reserva.estado FROM reserva " + 
-                joinHu + joinHab
+                + "reserva.fechaCheckOut, reserva.cantPersonas, reserva.precioFinal, reserva.estado FROM reserva "
+                + joinHu + joinHab
                 + "WHERE reserva.estado = 1  AND reserva.fechaCheckIn <= ? AND reserva.fechaCheckOut >= ?" + hu + hab + p;
-        
+
         try {
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, Date.valueOf(hoy));
             ps.setDate(2, Date.valueOf(hoy));
-            if (huespedBusqueda != null){
+            if (huespedBusqueda != null) {
                 contador++;
                 ps.setString(contador, huespedBusqueda);
             }
-            if (habitacion != null){
+            if (habitacion != null) {
                 contador++;
                 ps.setInt(contador, habitacion.getIdHabitacion());
             }
-            if (piso != 0){
+            if (piso != 0) {
                 contador++;
                 ps.setInt(contador, piso);
             }
@@ -695,11 +702,13 @@ public class ReservaData {
         return reserva;
     }
 
-    public void actualizarDisponibilidad() {
+    public void actualizarReservas() {
 
         con = Conexion.conectar();
         Date hoy = Date.valueOf(LocalDate.now());
-        String sql = "UPDATE reserva SET estado = ? WHERE fechaCheckOut < ?";
+        String sql = "UPDATE reserva JOIN habitacion ON reserva.idHabitacion = habitacion.idHabitacion "
+                + " SET reserva.estado = 0, habitacion.reserva = 0 WHERE reserva.fechaCheckOut <= ? "
+                + " AND reserva.estado = 1";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);

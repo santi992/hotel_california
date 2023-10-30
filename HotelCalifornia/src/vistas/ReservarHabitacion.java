@@ -742,7 +742,7 @@ public class ReservarHabitacion extends javax.swing.JInternalFrame {
             reserva.setPrecioTotal(precioFinal);
             reserva.setCantPersonas((int) jcbCant.getSelectedItem());
             resData.agregarReserva(reserva);
-            resData.actualizarDisponibilidad();
+            resData.actualizarReservas();
             iniciar();
         } else {
             JOptionPane.showMessageDialog(null, "Debe iniciar sesión para reservar");

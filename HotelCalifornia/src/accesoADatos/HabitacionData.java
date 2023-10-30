@@ -475,4 +475,25 @@ public class HabitacionData {
         fechasFinal.addAll(fechas);
         return fechasFinal;
     }
+    
+    public void actualizarDisponibilidad() {
+
+        con = Conexion.conectar();
+        Date hoy = Date.valueOf(LocalDate.now());
+        String sql = "UPDATE reserva JOIN habitacion ON reserva.idHabitacion = habitacion.idHabitacion "
+                + " SET habitacion.reserva = 1 WHERE reserva.fechaCheckIn = ? "
+                + " AND reserva.estado = 1 AND habitacion.reserva = 0";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setDate(2, hoy);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar, reinicie el programa." + ex.getMessage());
+        } finally {
+            Conexion.cerrarConexion();
+        }
+    }
 }

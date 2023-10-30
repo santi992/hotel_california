@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import accesoADatos.HabitacionData;
 import accesoADatos.ReservaData;
 import entidades.Huesped;
 import entidades.Personal;
@@ -27,20 +28,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public static boolean personal = false;
     public static Personal personalActivo = null;
     public static Huesped huespedActivo = null;
-    public static ArrayList<javax.swing.JDesktopPane> escritorios = new ArrayList<>();
     public static ArrayList<javax.swing.JFrame> vistaP = new ArrayList<>();
 
     public VistaPrincipal() {
-        
+
         initComponents();
         //this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
-        escritorios.add(jEscritorio);
         vistaP.add(this);
         repaint();
-        new ReservaData().actualizarDisponibilidad();
+        new HabitacionData().actualizarDisponibilidad();
+        new ReservaData().actualizarReservas();
         mostrarVista(new ReservarHabitacion());
-        
 
         // COMENTARIO DE PRUEBA
     }
@@ -389,7 +388,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuAmpliarResActionPerformed
 
     private void jMenuResActualesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuResActualesActionPerformed
-        ReservasActuales ra= new ReservasActuales();
+        ReservasActuales ra = new ReservasActuales();
         mostrarVista(ra);
     }//GEN-LAST:event_jMenuResActualesActionPerformed
 
@@ -441,7 +440,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jBarraMenu;
-    private javax.swing.JDesktopPane jEscritorio;
+    private static javax.swing.JDesktopPane jEscritorio;
     private javax.swing.JMenu jGaleria1;
     private javax.swing.JMenuItem jMenuAbanonarHab;
     private javax.swing.JMenuItem jMenuAmpliarRes;
@@ -466,13 +465,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public static void mostrarVista(JInternalFrame vista) {
-        escritorios.get(0).removeAll();
-        escritorios.get(0).repaint();
+        jEscritorio.removeAll();
+        jEscritorio.repaint();
         vista.setVisible(true);
-        escritorios.get(0).add(vista);
-        Dimension desktopSize = escritorios.get(0).getSize();
+        jEscritorio.add(vista);
+        Dimension desktopSize = jEscritorio.getSize();
         Dimension frameSize = vista.getSize();
-        escritorios.get(0).moveToFront(vista);
+        jEscritorio.moveToFront(vista);
         vista.setLocation((desktopSize.width - frameSize.width) / 2, (desktopSize.height - frameSize.height) / 2);
         try {
             vista.setSelected(true);
@@ -504,6 +503,5 @@ public class VistaPrincipal extends javax.swing.JFrame {
             jMenuPersonal.setVisible(true);
         }
     }
-
 
 }

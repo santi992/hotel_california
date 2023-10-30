@@ -470,6 +470,7 @@ public class CancelarReserva extends javax.swing.JInternalFrame {
         Reserva reserva = (Reserva) jcbReserva.getSelectedItem();
 
         resData.cancelarReserva(reserva,LocalDate.now(), reserva.getPrecioTotal() - reembolso);
+        
 
         armarComboReservas();
         datosReserva();
