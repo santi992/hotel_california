@@ -56,6 +56,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jtPais = new javax.swing.JTextField();
         jrEstado = new javax.swing.JRadioButton();
+        jsRightLineSep = new javax.swing.JSeparator();
         jpBackgroundLeft = new javax.swing.JPanel();
         jtDni = new javax.swing.JTextField();
         jtDireccion = new javax.swing.JTextField();
@@ -75,6 +76,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         jtNombre = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jpContraseña = new javax.swing.JPasswordField();
+        jsMiddleLineSep = new javax.swing.JSeparator();
         jpBackgroundRightD = new javax.swing.JPanel();
         jbBuscar = new javax.swing.JButton();
         jlBuscar = new javax.swing.JLabel();
@@ -98,37 +100,28 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/hc_logo.png"))); // NOI18N
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jpBackgroundRightU.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jpBackgroundRightU.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jpBackgroundRightU.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jpBackgroundRightU.add(jtLocalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 189, 152, -1));
-        jpBackgroundRightU.add(jtProvincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 149, 154, -1));
-        jpBackgroundRightU.add(jtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 99, 154, -1));
-        jpBackgroundRightU.add(JdFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 289, 126, -1));
 
         jLabel14.setText("Apellido");
-        jpBackgroundRightU.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 109, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel10.setText("Informmacion Adicional");
-        jpBackgroundRightU.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 19, -1, -1));
+        jLabel10.setText("Informacion Adicional");
 
         jlId.setText("Id");
-        jpBackgroundRightU.add(jlId, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 63, -1, -1));
 
         jLabel12.setText("Fecha de Nacimimento");
-        jpBackgroundRightU.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 289, -1, -1));
-        jpBackgroundRightU.add(jtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 59, 154, -1));
+
+        jtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtIdActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Pais");
-        jpBackgroundRightU.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 239, -1, -1));
 
         jLabel8.setText("Provincia");
-        jpBackgroundRightU.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 149, -1, -1));
 
         jLabel9.setText("Localidad");
-        jpBackgroundRightU.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 199, -1, -1));
-        jpBackgroundRightU.add(jtPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 239, 152, -1));
 
         jrEstado.setText("Estado");
         jrEstado.setBorder(null);
@@ -138,21 +131,92 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jrEstadoActionPerformed(evt);
             }
         });
-        jpBackgroundRightU.add(jrEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 55, 107, 32));
 
-        getContentPane().add(jpBackgroundRightU, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 3, 500, 340));
+        jsRightLineSep.setBackground(new java.awt.Color(153, 153, 153));
+        jsRightLineSep.setForeground(new java.awt.Color(102, 102, 102));
 
-        jpBackgroundLeft.setBackground(new java.awt.Color(121, 128, 129));
-        jpBackgroundLeft.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jpBackgroundLeft.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jpBackgroundLeft.add(jtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 270, -1));
-        jpBackgroundLeft.add(jtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 270, -1));
-        jpBackgroundLeft.add(jtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 270, -1));
-        jpBackgroundLeft.add(jtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 270, -1));
+        javax.swing.GroupLayout jpBackgroundRightULayout = new javax.swing.GroupLayout(jpBackgroundRightU);
+        jpBackgroundRightU.setLayout(jpBackgroundRightULayout);
+        jpBackgroundRightULayout.setHorizontalGroup(
+            jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpBackgroundRightULayout.createSequentialGroup()
+                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpBackgroundRightULayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jsRightLineSep, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpBackgroundRightULayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpBackgroundRightULayout.createSequentialGroup()
+                                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jpBackgroundRightULayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel12))
+                                    .addGroup(jpBackgroundRightULayout.createSequentialGroup()
+                                        .addComponent(jrEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jlId)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel14))))
+                                .addGap(28, 28, 28)
+                                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(JdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel10))))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+        jpBackgroundRightULayout.setVerticalGroup(
+            jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpBackgroundRightULayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpBackgroundRightULayout.createSequentialGroup()
+                        .addComponent(jrEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBackgroundRightULayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlId))
+                        .addGap(15, 15, 15)))
+                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(15, 15, 15)
+                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(15, 15, 15)
+                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(15, 15, 15)
+                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(15, 15, 15)
+                .addGroup(jpBackgroundRightULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(JdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jsRightLineSep, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(jpBackgroundRightU, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 500, 330));
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel11.setText("Campos Obligatorios");
-        jpBackgroundLeft.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
 
         jbSalir.setText("Salir");
         jbSalir.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -161,7 +225,6 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbSalirActionPerformed(evt);
             }
         });
-        jpBackgroundLeft.add(jbSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, -1, -1));
 
         jbEliminar.setText("Eliminar");
         jbEliminar.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -170,7 +233,6 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbEliminarActionPerformed(evt);
             }
         });
-        jpBackgroundLeft.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, -1, -1));
 
         jbGuardar.setText("Guardar");
         jbGuardar.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -179,7 +241,6 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbGuardarActionPerformed(evt);
             }
         });
-        jpBackgroundLeft.add(jbGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, -1, -1));
 
         jbNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
         jbNuevo.setToolTipText("Limpiar formulario");
@@ -190,22 +251,16 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbNuevoActionPerformed(evt);
             }
         });
-        jpBackgroundLeft.add(jbNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 40, -1));
 
         jLabel1.setText("Nombre");
-        jpBackgroundLeft.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
 
         jLabel2.setText("Dni");
-        jpBackgroundLeft.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
         jLabel3.setText("Direccion");
-        jpBackgroundLeft.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         jLabel4.setText("Celular");
-        jpBackgroundLeft.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         jLabel6.setText("Correo");
-        jpBackgroundLeft.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
 
         jbModificar.setText("Modificar");
         jbModificar.setMaximumSize(new java.awt.Dimension(32, 32));
@@ -217,17 +272,102 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbModificarActionPerformed(evt);
             }
         });
-        jpBackgroundLeft.add(jbModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, -1, -1));
-        jpBackgroundLeft.add(jtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 270, -1));
 
         jLabel15.setText("Contraseña");
-        jpBackgroundLeft.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
-        jpBackgroundLeft.add(jpContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 270, -1));
 
-        getContentPane().add(jpBackgroundLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 2, 480, 490));
+        jsMiddleLineSep.setBackground(new java.awt.Color(153, 153, 153));
+        jsMiddleLineSep.setForeground(new java.awt.Color(102, 102, 102));
+        jsMiddleLineSep.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jpBackgroundRightD.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jpBackgroundRightD.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        javax.swing.GroupLayout jpBackgroundLeftLayout = new javax.swing.GroupLayout(jpBackgroundLeft);
+        jpBackgroundLeft.setLayout(jpBackgroundLeftLayout);
+        jpBackgroundLeftLayout.setHorizontalGroup(
+            jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpBackgroundLeftLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(57, 57, 57)
+                .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jsMiddleLineSep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jpBackgroundLeftLayout.createSequentialGroup()
+                .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpBackgroundLeftLayout.createSequentialGroup()
+                        .addGap(248, 248, 248)
+                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpBackgroundLeftLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpBackgroundLeftLayout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jLabel11)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpBackgroundLeftLayout.setVerticalGroup(
+            jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpBackgroundLeftLayout.createSequentialGroup()
+                .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpBackgroundLeftLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addGap(26, 26, 26)
+                        .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(15, 15, 15)
+                        .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(17, 17, 17)
+                        .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(15, 15, 15)
+                        .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(17, 17, 17)
+                        .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(17, 17, 17)
+                        .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jpContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15))
+                        .addGap(48, 48, 48)
+                        .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(jpBackgroundLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpBackgroundLeftLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jsMiddleLineSep, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 27, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jpBackgroundLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 480, 490));
 
         jbBuscar.setText("Buscar");
         jbBuscar.setName(""); // NOI18N
@@ -238,20 +378,15 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbBuscarActionPerformed(evt);
             }
         });
-        jpBackgroundRightD.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
 
         jlBuscar.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jlBuscar.setText("Buscar por dni, nombre,apellido o correo");
-        jpBackgroundRightD.add(jlBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, 10));
 
         jtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtBuscarKeyReleased(evt);
             }
         });
-        jpBackgroundRightD.add(jtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 418, -1));
-
-        jpBackgroundRightD.add(jcbHuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 418, -1));
 
         jbCargarMisDatos.setText("Cargar Mis Datos");
         jbCargarMisDatos.setPreferredSize(new java.awt.Dimension(140, 35));
@@ -260,13 +395,54 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
                 jbCargarMisDatosActionPerformed(evt);
             }
         });
-        jpBackgroundRightD.add(jbCargarMisDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
 
         jlBuscarme.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jlBuscarme.setText("Busca por correo y contraseña");
-        jpBackgroundRightD.add(jlBuscarme, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        getContentPane().add(jpBackgroundRightD, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 341, 500, 150));
+        javax.swing.GroupLayout jpBackgroundRightDLayout = new javax.swing.GroupLayout(jpBackgroundRightD);
+        jpBackgroundRightD.setLayout(jpBackgroundRightDLayout);
+        jpBackgroundRightDLayout.setHorizontalGroup(
+            jpBackgroundRightDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpBackgroundRightDLayout.createSequentialGroup()
+                .addGap(0, 47, Short.MAX_VALUE)
+                .addGroup(jpBackgroundRightDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBackgroundRightDLayout.createSequentialGroup()
+                        .addGroup(jpBackgroundRightDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBackgroundRightDLayout.createSequentialGroup()
+                        .addGroup(jpBackgroundRightDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpBackgroundRightDLayout.createSequentialGroup()
+                                .addComponent(jlBuscarme)
+                                .addGap(29, 29, 29)
+                                .addComponent(jlBuscar))
+                            .addGroup(jpBackgroundRightDLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jbCargarMisDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(80, 80, 80)
+                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(48, 48, 48))))
+        );
+        jpBackgroundRightDLayout.setVerticalGroup(
+            jpBackgroundRightDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpBackgroundRightDLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jpBackgroundRightDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jlBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlBuscarme))
+                .addGap(6, 6, 6)
+                .addGroup(jpBackgroundRightDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jbCargarMisDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jcbHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(jpBackgroundRightD, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 500, 160));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -280,10 +456,7 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        eliminarHuespedxCorreoyContraseña();// HACER UN CARTEL PARA CONFIRMA LA ELIMIMNACION DEL USUARIO
-        // IMPLICACION EN CASO DE QUE OLVIDE LA CONTRASEÑA NO HAY FORMA DE HACER NINGUNA OPERACION Y SU CORREO QUEDA RESTRINGIDO
-        // Y SU DNI TAMBIEN (SON DATOS UNICOS)
-        // PODRIA PONER SU DNI Y LUEGO PONER OTRO BOTON QUE SEA MODIFICAR CONTRASEÑA QUE SE GUIE POR SU DNI Y OTRO DATO EJ FECHA DE NACIMIMENTO
+        eliminarHuespedxCorreoyContraseña();
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
@@ -305,8 +478,6 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
         } else {
             guardar();
         }
-        // EN CASO DE QUE SE HAYA ELIMINADO SE BUSCA POR CORREO O DNI Y LUEGO SE ACTIVA Y CAMBIA SUS DATOS 
-
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
@@ -319,6 +490,10 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_jbCargarMisDatosActionPerformed
+
+    private void jtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtIdActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -355,6 +530,8 @@ public class ManejoDeHuespedes extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jpBackgroundRightU;
     private javax.swing.JPasswordField jpContraseña;
     private javax.swing.JRadioButton jrEstado;
+    private javax.swing.JSeparator jsMiddleLineSep;
+    private javax.swing.JSeparator jsRightLineSep;
     private javax.swing.JTextField jtApellido;
     private javax.swing.JTextField jtBuscar;
     private javax.swing.JTextField jtCelular;
